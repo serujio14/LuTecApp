@@ -54,7 +54,56 @@ function ProjectCreate(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  header: {
+    height: 141,
+    backgroundColor: "rgba(3,85,73,1)"
+  },
+  image: {
+    width: 329,
+    height: 65,
+    marginTop: 53,
+    marginLeft: 23
+  },
+  title: {
+    height: 48,
+    backgroundColor: "rgba(76,76,77,1)",
+    fontFamily: "roboto-regular",
+    fontWeight: 'bold',
+    color: "rgba(251,251,251,1)",
+    fontSize: 24,
+    textAlign: "center",
+    lineHeight: 56
+  },
+  label: {
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    height: 16,
+    flexDirection: "row",
+    marginTop: 22,
+    marginLeft: 28
+  },
+  textbox: {
+    marginLeft: 28,
+    marginRight: 28
+  },
+  btnWide: {
+    width: '100%',
+    height: 54,
+    backgroundColor: "rgba(0,150,136,1)",
+    position: 'absolute',
+    bottom:0,
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  btnLabel: {
+    fontFamily: "roboto-regular",
+    color: "rgba(255,255,255,1)",
+    textAlign: "center",
+    marginTop: 19
   },
   btnCreateProject: {
     top: 0,
@@ -94,12 +143,6 @@ const styles = StyleSheet.create({
     height: 141,
     backgroundColor: "rgba(3,85,73,1)",
     marginTop: -752
-  },
-  image: {
-    width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
   },
   rect2: {
     width: 376,
