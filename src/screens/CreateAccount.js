@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, Alert} from "react-native";
+import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, ScrollView, Dimensions, SafeAreaView} from "react-native";
 import Dialog from "react-native-dialog";
 export default class CreateAccount extends Component {
+
+    state = {
+        screenHeight: height,
+    };
+
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        this.setState({ screenHeight: contentHeight });
+    };
 
     constructor(props) {
         super(props);
@@ -146,7 +154,7 @@ export default class CreateAccount extends Component {
                     {/* - - - - - - TITLE - - - - - - -*/}
                     <Text style={styles.title}>CREATE ACCOUNT</Text>
 
-                    <Text style={styles.label}>NAME</Text>
+                    <Text style={styles.label}>Name</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Name}
@@ -162,7 +170,7 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>EMAIL</Text>
+                    <Text style={styles.label}>Email</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Email}
@@ -170,7 +178,7 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>PASSWORD</Text>
+                    <Text style={styles.label}>Password</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Password}
@@ -178,7 +186,7 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>CONFIRM PASSWORD</Text>
+                    <Text style={styles.label}>Confirm password</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.PasswordConfirm}
@@ -245,6 +253,7 @@ const styles = StyleSheet.create({
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",
+        marginBottom: 15,
         lineHeight: 56
     },
     title2: {
@@ -258,26 +267,17 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: "roboto-regular",
-        color: "#121212",
-        height: 16,
+        color: "#595A5C",
         flexDirection: "row",
-        marginTop: 22,
-        marginLeft: 28
-    },
-    label2: {
-        top: 10,
-        textAlign: "center",
-        fontFamily: "roboto-regular",
-        color: "#121212",
+        textAlign: 'center'
     },
     textbox: {
-        marginTop: 16,
-        paddingVertical: 8,
-        paddingLeft:30,
-        paddingRight:30,
-        borderWidth: 1,
-        borderColor: 'gray',
-        backgroundColor: 'white',
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 25,
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
         textAlign: "center",
         color: 'gray'
     },
