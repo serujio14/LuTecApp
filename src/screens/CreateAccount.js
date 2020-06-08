@@ -53,7 +53,7 @@ export default class CreateAccount extends Component {
 
         if (this.CheckTextInput()) {
 
-            console.log('agregando')
+            console.log('adding')
 
             this.setState({isLoading: true});
 
@@ -68,7 +68,7 @@ export default class CreateAccount extends Component {
                 .then(response => response.json())
                 .then((responseJson) => {
 
-                    console.log('funciono')
+                    console.log('worked')
                     console.log(responseJson)
 
                     if (responseJson.Response == 1) {
@@ -125,12 +125,9 @@ export default class CreateAccount extends Component {
 
         if (this.state.isLoading) {
 
-            console.log('CARGANDO--------------------------------------------------------------------')
-
             return <View style={styles.containerLoader}>
                 <View style={styles.horizontal}>
                     <ActivityIndicator size="large" color="#009688" />
-
                 </View>
             </View>
 
@@ -216,9 +213,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'space-around',
-
     },
-
     horizontal: {
         backgroundColor: '#FFFFFF',
         height: 100,
@@ -267,8 +262,7 @@ const styles = StyleSheet.create({
         height: 16,
         flexDirection: "row",
         marginTop: 22,
-        marginLeft: 28,
-        marginRight: 306
+        marginLeft: 28
     },
     label2: {
         top: 10,
@@ -277,15 +271,15 @@ const styles = StyleSheet.create({
         color: "#121212",
     },
     textbox: {
-        width: '100%',
-        backgroundColor: 'red',
-        color: 'white',
-        marginLeft: 28,
-        marginBottom: 30
-    },
-    textbox2: {
-        marginLeft: 28,
-        marginRight: 28
+        marginTop: 16,
+        paddingVertical: 8,
+        paddingLeft:30,
+        paddingRight:30,
+        borderWidth: 1,
+        borderColor: 'gray',
+        backgroundColor: 'white',
+        textAlign: "center",
+        color: 'gray'
     },
     btnWide: {
         width: '100%',
