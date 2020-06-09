@@ -27,18 +27,18 @@ export default class EpilogModule extends Component {
 
     let materials = array.map((val, key) => {
 
-        if (val.Name === text){
-          console.log('eureka')
-          console.log(val)
+      if (val.Name === text){
+        console.log('eureka')
+        console.log(val)
 
-          this.setState(
-              {
-                cutPower : val.CutPower,
-                cutSpeed: val.CutSpeed,
-                tracePower : val.TracePower,
-                traceSpeed: val.TraceSpeed,
-              })
-        }
+        this.setState(
+            {
+              cutPower : val.CutPower,
+              cutSpeed: val.CutSpeed,
+              tracePower : val.TracePower,
+              traceSpeed: val.TraceSpeed,
+            })
+      }
 
     });
 
@@ -65,107 +65,95 @@ export default class EpilogModule extends Component {
 
   }
 
-    render(){
+  render(){
 
-      if (this.state.isLoading) {
+    if (this.state.isLoading) {
 
-        return <View style={styles.containerLoader}>
-          <View style={styles.horizontal}>
-            <ActivityIndicator size="large" color="#009688" />
+      return <View style={styles.containerLoader}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator size="large" color="#009688" />
 
-          </View>
         </View>
+      </View>
 
-      } else {
+    } else {
 
-        let data = [];
+      let data = [];
 
-        const array = Object.values( this.state.dataSource);
+      const array = Object.values( this.state.dataSource);
 
-        let materials = array.map((val, key) => {
+      let materials = array.map((val, key) => {
 
-          const obj = {value:val.Name, data : val};
-          data.push(obj)
-        });
-        return (
+        const obj = {value:val.Name, data : val};
+        data.push(obj)
+      });
+      return (
 
-            <View style={styles.container}>
-              <View style={styles.header}>
-                <Image
-                    source={require("../assets/images/logosLuTecAppIcon.png")}
-                    resizeMode="contain"
-                    style={styles.image}
-                />
-              </View>
-              <View style={styles.titleEpilog}>
-                <Image
-                    source={require("../assets/images/EpilogLogo1.png")}
-                    resizeMode="contain"
-                    style={styles.image2}
-                />
-              </View>
-              {/* - - - - - - BTN - - - - - - -*/}
-              <TouchableOpacity
-                  onPress={() => props.navigation.navigate("LuTecApp")}
-                  style={styles.btnWide2}
-              >
-                <Text style={styles.btnLabel}>SELECT MATERIAL</Text>
-              </TouchableOpacity>
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+            <View style={styles.titleEpilog}>
+              <Image
+                  source={require("../assets/images/EpilogLogo1.png")}
+                  resizeMode="contain"
+                  style={styles.image2}
+              />
+            </View>
 
+            <Text style={styles.title}>SELECT MATERIAL</Text>
+
+            <View style={styles.materialNameContainer}>
               <Dropdown
                   style={styles.materialName}
                   label='MATERIAL &amp; THICKNESS SELECTED'
                   data={data}
                   onChangeText={this.handleMaterialDropdown}
               />
-
-              <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
-              <View style={styles.itemContainer}>
-                <View style={styles.powerBox}>
-                  <View style={styles.parameterContainer}>
-                    <Text style={styles.labelParameterNumber}>{this.state.cutPower}</Text>
-                    <Text style={styles.labelParameter}>POWER</Text>
-                  </View>
-                </View>
-                <View style={styles.speedBox}>
-                  <View style={styles.parameterContainer}>
-                    <Text style={styles.labelParameterNumber}>{this.state.cutSpeed}</Text>
-                    <Text style={styles.labelParameter}>SPEED</Text>
-                  </View>
-                </View>
-              </View>
-
-              <Text style={styles.title2}>TRACING CONFIGURATION</Text>
-              <View style={styles.itemContainer}>
-                <View style={styles.powerBox}>
-                  <View style={styles.parameterContainer}>
-                    <Text style={styles.labelParameterNumber}>{this.state.tracePower}</Text>
-                    <Text style={styles.labelParameter}>POWER</Text>
-                  </View>
-                </View>
-                <View style={styles.speedBox}>
-                  <View style={styles.parameterContainer}>
-                    <Text style={styles.labelParameterNumber}>{this.state.traceSpeed}</Text>
-                    <Text style={styles.labelParameter}>SPEED</Text>
-                  </View>
-                </View>
-              </View>
-
-              {/* - - - - - - BTN - - - - - - -*/}
-              <TouchableOpacity
-                  onPress={() => props.navigation.navigate("LuTecApp")}
-                  style={styles.btnWide}
-              >
-                <Text style={styles.btnLabel}>GET PARAMETERS</Text>
-              </TouchableOpacity>
-
             </View>
-        );
 
-      }
+            <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
+            <View style={styles.itemContainer}>
+              <View style={styles.powerBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.cutPower}</Text>
+                  <Text style={styles.labelParameter}>POWER</Text>
+                </View>
+              </View>
+              <View style={styles.speedBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.cutSpeed}</Text>
+                  <Text style={styles.labelParameter}>SPEED</Text>
+                </View>
+              </View>
+            </View>
 
+            <Text style={styles.title2}>TRACING CONFIGURATION</Text>
+            <View style={styles.itemContainer}>
+              <View style={styles.powerBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.tracePower}</Text>
+                  <Text style={styles.labelParameter}>POWER</Text>
+                </View>
+              </View>
+              <View style={styles.speedBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.traceSpeed}</Text>
+                  <Text style={styles.labelParameter}>SPEED</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+      );
 
     }
+
+
+  }
 
 }
 
@@ -179,10 +167,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-around',
-
+    justifyContent: 'space-around'
   },
-
   horizontal: {
     backgroundColor: '#FFFFFF',
     height: 100,
@@ -209,7 +195,7 @@ const styles = StyleSheet.create({
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
+    backgroundColor: "rgba(55,55,55,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
@@ -230,67 +216,6 @@ const styles = StyleSheet.create({
   titleEpilog: {
     height: 72,
     backgroundColor: "rgba(76,76,77,1)"
-  },
-  label: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    height: 16,
-    flexDirection: "row",
-    marginTop: 22,
-    marginLeft: 28
-  },
-  label2: {
-    top: 10,
-    textAlign: "center",
-    fontFamily: "roboto-regular",
-    color: "#121212",
-  },
-  textbox: {
-    marginLeft: 28,
-    marginBottom: 30,
-    marginRight: 28
-  },
-  textbox2: {
-    marginLeft: 28,
-    marginRight: 28
-  },
-  btnWide: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom: 0,
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
-  btnWide2: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
-  btnLabel: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    textAlign: "center",
-    marginTop: 19
-  },
-  btnSelectMaterial: {
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-  },
-  selectMaterial: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 6,
-    marginLeft: 35
-  },
-  getParameters: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 19,
-    marginLeft: 130
   },
   powerBox: {
     width: '50%',
@@ -320,17 +245,25 @@ const styles = StyleSheet.create({
   itemContainer: {
     height: 109,
     flexDirection: "row",
+    marginBottom: 10,
     marginRight: -3
   },
   materialName: {
-    height: 55,
-    marginTop: 10,
-    marginBottom: 15,
-    lineHeight: 75,
+    height: 50,
+    paddingBottom: 25,
     fontFamily: "roboto-regular",
     color: "#121212",
-    textAlign: "center",
-    fontSize: 17
+    fontSize: 20
+  },
+  materialNameContainer: {
+    lineHeight: 75,
+    width: '90%',
+    marginLeft: '5%',
+    marginTop: 0,
+    marginBottom: 10,
+    borderColor: 'gray',
+    fontFamily: "roboto-regular",
+    color: "#121212"
   },
   parameterContainer: {
     height: 92,

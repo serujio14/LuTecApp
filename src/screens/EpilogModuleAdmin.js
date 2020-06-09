@@ -124,20 +124,17 @@ export default class EpilogModuleAdmin extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("LuTecApp")}
-                style={styles.btnWide2}
-            >
-              <Text style={styles.btnLabel}>SELECT MATERIAL</Text>
-            </TouchableOpacity>
 
-            <Dropdown
-                style={styles.materialName}
-                label='MATERIAL &amp; THICKNESS SELECTED'
-                data={data}
-                onChangeText={this.handleMaterialDropdown}
-            />
+            <Text style={styles.title}>SELECT MATERIAL</Text>
+
+            <View style={styles.materialNameContainer}>
+              <Dropdown
+                  style={styles.materialName}
+                  label='MATERIAL &amp; THICKNESS SELECTED'
+                  data={data}
+                  onChangeText={this.handleMaterialDropdown}
+              />
+            </View>
 
             <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
             <View style={styles.itemContainer}>
@@ -170,15 +167,6 @@ export default class EpilogModuleAdmin extends Component {
                 </View>
               </View>
             </View>
-
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("LuTecApp")}
-                style={styles.btnWide}
-            >
-              <Text style={styles.btnLabel}>GET PARAMETERS</Text>
-            </TouchableOpacity>
-
           </View>
       );
 
@@ -202,7 +190,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
 
   },
-
   horizontal: {
     backgroundColor: '#FFFFFF',
     height: 100,
@@ -349,17 +336,25 @@ const styles = StyleSheet.create({
   itemContainer: {
     height: 109,
     flexDirection: "row",
+    marginBottom: 10,
     marginRight: -3
   },
   materialName: {
-    height: 35,
-    marginTop: 10,
-    marginBottom: 10,
-    lineHeight: 45,
+    height: 50,
+    paddingBottom: 25,
     fontFamily: "roboto-regular",
     color: "#121212",
-    textAlign: "center",
-    fontSize: 17
+    fontSize: 20
+  },
+  materialNameContainer: {
+    lineHeight: 75,
+    width: '90%',
+    marginLeft: '5%',
+    marginTop: 0,
+    marginBottom: 5,
+    borderColor: 'gray',
+    fontFamily: "roboto-regular",
+    color: "#121212"
   },
   parameterContainer: {
     height: 92,

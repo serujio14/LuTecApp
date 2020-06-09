@@ -3,47 +3,112 @@ import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
 
 function ProjectsModule(props) {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate("ProjectDetail")}
-        style={styles.btnViewProject}
-      >
-        <Text style={styles.viewProject}>VIEW PROJECT</Text>
-      </TouchableOpacity>
-      <View style={styles.rect3Stack}>
-        <View style={styles.rect3}>
-          <View style={styles.loremIpsumRow}>
-            <Text style={styles.loremIpsum}></Text>
-            <Text style={styles.girasol}>Girasol</Text>
-          </View>
-          <Text style={styles.loremIpsum1}>
-            Este proyecto consiste en una flor de girasol que reacciona con la
-            exposición a la luz como la planta.
-          </Text>
+      <View style={styles.container}>
+
+        <View style={styles.header}>
+          <Image
+              source={require("../assets/images/logosLuTecAppIcon.png")}
+              resizeMode="contain"
+              style={styles.image}
+          ></Image>
         </View>
-        <Image
-          source={require("../assets/images/project_img.jpg")}
-          resizeMode="contain"
-          style={styles.image2}
-        ></Image>
+
+        <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+
+        <View style={styles.projectContainer}>
+          <View style={styles.projectImageContainer}>
+          <Image
+              source={require("../assets/images/project_img.jpg")}
+              resizeMode="contain"
+              style={styles.projectImage}
+          ></Image>
+          </View>
+          <View style={styles.projectInfoContainer}>
+            <Text style={styles.projectTitle}>Girasol</Text>
+            <Text style={styles.projectDescription}>
+              Este proyecto consiste en una flor de girasol que reacciona con la
+              exposición a la luz como la planta.
+            </Text>
+          </View>
+
+          <TouchableOpacity
+              onPress={() => props.navigation.navigate("ProjectDetail")}
+              style={styles.btnWide2}
+          >
+            <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-      <View style={styles.rect1}>
-        <Image
-          source={require("../assets/images/logosLuTecAppIcon.png")}
-          resizeMode="contain"
-          style={styles.image}
-        ></Image>
-      </View>
-      <View style={styles.rect2}>
-        <Text style={styles.developedProjects}>DEVELOPED PROJECTS</Text>
-      </View>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  btnWide2: {
+    width: '100%',
+    height: 50,
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  btnLabel2: {
+    fontFamily: "roboto-regular",
+    fontSize: 16,
+    color: "rgba(74,74,74,1)",
+    textAlign: "center",
+    marginTop: 19
+  },
+  horizontal: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  header: {
+    height: 141,
+    backgroundColor: "rgba(3,85,73,1)"
+  },
+  image: {
+    width: 329,
+    height: 65,
+    marginTop: 53,
+    paddingRight: 0,
+    marginLeft: 23
+  },
+  title: {
+    height: 48,
+    backgroundColor: "rgba(55,55,55,1)",
+    fontFamily: "roboto-regular",
+    fontWeight: 'bold',
+    color: "rgba(251,251,251,1)",
+    fontSize: 24,
+    textAlign: "center",
+    lineHeight: 56
+  },
+  title2: {
+    height: 37,
+    marginTop: 5,
+    backgroundColor: "rgba(76,76,77,1)",
+    fontFamily: "roboto-regular",
+    color: "rgba(251,251,251,1)",
+    fontSize: 19,
+    textAlign: "center",
+    lineHeight: 42
   },
   btnViewProject: {
     width: 376,
@@ -57,64 +122,55 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 140
   },
-  rect3: {
-    top: 0,
-    left: 0,
-    width: 376,
-    height: 139,
-    position: "absolute",
-    backgroundColor: "#E6E6E6"
-  },
   loremIpsum: {
     fontFamily: "roboto-regular",
     color: "#121212",
     marginTop: 1
   },
-  girasol: {
+  projectContainer: {
+    height: 140,
+    marginBottom: 10,
+    backgroundColor: 'lightgray',
+    top: 10
+  },
+  projectImageContainer: {
+    width: '30%',
+    height: 140,
+    position: 'absolute',
+    flexDirection: "row"
+  },
+  projectInfoContainer: {
+    height: 140,
+    width: '70%',
+    position: 'absolute',
+    marginLeft: '30%',
+    paddingTop: 12
+  },
+  projectTitle: {
     fontFamily: "roboto-regular",
     color: "rgba(74,74,74,1)",
-    fontSize: 35,
-    marginLeft: 2
+    paddingLeft: 20,
+    fontSize: 30
   },
-  loremIpsumRow: {
-    height: 42,
-    flexDirection: "row",
-    marginTop: 12,
-    marginLeft: 28,
-    marginRight: 235
-  },
-  loremIpsum1: {
+  projectDescription: {
+    height: 47,
+    paddingLeft: 20,
+    paddingRight: 30,
     fontFamily: "roboto-regular",
-    color: "rgba(51,45,45,1)",
-    height: 73,
-    width: 200,
+    color: 'gray',
     fontSize: 15,
-    textAlign: "justify",
-    marginLeft: 30
+    textAlign: "justify"
   },
-  image2: {
-    top: 0,
-    left: 218,
-    width: 160,
-    height: 139,
-    position: "absolute"
-  },
-  rect3Stack: {
-    width: 378,
-    height: 139,
-    marginTop: -175
+  projectImage: {
+    flex: 1,
+    height: undefined,
+    width: undefined
   },
   rect1: {
     width: 376,
     height: 141,
     backgroundColor: "rgba(3,85,73,1)",
     marginTop: -346
-  },
-  image: {
-    width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
   },
   rect2: {
     width: 376,

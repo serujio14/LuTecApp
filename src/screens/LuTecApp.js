@@ -104,29 +104,6 @@ const styles = StyleSheet.create({
     height: 141,
     backgroundColor: "rgba(3,85,73,1)"
   },
-  title: {
-    height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
-    fontFamily: "roboto-regular",
-    fontWeight: 'bold',
-    color: "rgba(251,251,251,1)",
-    fontSize: 24,
-    textAlign: "center",
-    lineHeight: 56
-  },
-  label: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    height: 16,
-    flexDirection: "row",
-    marginTop: 22,
-    marginLeft: 28
-  },
-  textbox: {
-    marginLeft: 28,
-    marginBottom: 30,
-    marginRight: 28
-  },
   btnWide: {
     width: '100%',
     height: 54,
@@ -169,20 +146,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center"
   },
-  btnLogOut: {
-    top: 181,
-    left: 0,
-    width: 376,
-    height: 54,
-    position: "absolute",
-    backgroundColor: "rgba(74,74,74,1)"
-  },
-  logOut: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 19,
-    marginLeft: 160
-  },
   imgModule: {
     top: 0,
     left: 0,
@@ -210,18 +173,6 @@ const styles = StyleSheet.create({
     marginTop: 71,
     marginLeft: 27
   },
-  btnGotoMakerBot: {
-    width: 376,
-    height: 36,
-    backgroundColor: "rgba(65,55,55,1)",
-    marginTop: 12
-  },
-  underDevelopment: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 10,
-    marginLeft: 115
-  },
   moduleContainer: {
     marginTop: 3,
   },
@@ -231,50 +182,11 @@ const styles = StyleSheet.create({
     marginTop: 53,
     marginLeft: 23
   },
-  epilogLaserCutter: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 35,
-    marginTop: 66,
-    marginLeft: 27
-  },
-  loremIpsum3: {
-    top: 0,
-    left: 0,
-    position: "absolute",
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 15
-  },
-  loremIpsum5: {
-    top: 0,
-    left: 0,
-    position: "absolute",
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    fontSize: 15
-  },
-  loremIpsum3Stack: {
-    width: 224,
-    height: 18,
-    marginLeft: 28
-  },
-  btnGotoEpilog: {
-    width: 376,
-    height: 36,
-    backgroundColor: "rgba(61,55,65,1)",
-    marginTop: 10
-  },
   open: {
     fontFamily: "roboto-regular",
     color: "rgba(255,255,255,1)",
     marginTop: 10,
     marginLeft: 170
-  },
-  image5: {
-    width: 376,
-    height: 173,
-    marginTop: -356
   },
   btnGotoProjectsModule: {
     width: 188,

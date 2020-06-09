@@ -18,17 +18,17 @@ import ForgotPassword from "./src/screens/ForgotPassword";
 import AdminEditMaterial from "./src/screens/AdminEditMaterial";
 
 const DrawerNavigation = createDrawerNavigator({
-    EpilogModule: EpilogModule,
-    CreateAccount: CreateAccount,
+    ProjectsModule: ProjectsModule,
     ProjectCreate: ProjectCreate,
+    EpilogModule: EpilogModule,
+    EpilogModuleAdmin: EpilogModuleAdmin,
     AdminAddMaterial: AdminAddMaterial,
+    CreateAccount: CreateAccount,
     LuTecApp: LuTecApp,
     Main: Main,
-    EpilogModuleAdmin: EpilogModuleAdmin,
     AdminEditMaterial: AdminEditMaterial,
     Login: Login,
     ProjectDetail: ProjectDetail,
-    ProjectsModule: ProjectsModule,
     ForgotPassword: ForgotPassword
 });
 
@@ -37,18 +37,18 @@ const StackNavigation = createStackNavigator(
         DrawerNavigation: {
             screen: DrawerNavigation
         },
-        EpilogModule: EpilogModule,
-        CreateAccount: CreateAccount,
-        ProjectCreate: ProjectCreate,
-        AdminAddMaterial: AdminAddMaterial,
-        LuTecApp: LuTecApp,
         Main: Main,
-        EpilogModuleAdmin: EpilogModuleAdmin,
-        AdminEditMaterial: AdminEditMaterial,
+        LuTecApp: LuTecApp,
+        CreateAccount: CreateAccount,
         Login: Login,
-        ProjectDetail: ProjectDetail,
+        ForgotPassword: ForgotPassword,
+        AdminAddMaterial: AdminAddMaterial,
+        EpilogModule: EpilogModule,
+        EpilogModuleAdmin: EpilogModuleAdmin,
+        ProjectCreate: ProjectCreate,
+        AdminEditMaterial: AdminEditMaterial,
         ProjectsModule: ProjectsModule,
-        ForgotPassword: ForgotPassword
+        ProjectDetail: ProjectDetail
     },
     {
         headerMode: "none"

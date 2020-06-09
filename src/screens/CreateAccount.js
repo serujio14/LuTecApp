@@ -249,15 +249,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         lineHeight: 56
     },
-    title2: {
-        height: 37,
-        backgroundColor: "rgba(76,76,77,1)",
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 19,
-        textAlign: "center",
-        lineHeight: 42
-    },
     label: {
         fontFamily: "roboto-regular",
         color: "#595A5C",
@@ -289,130 +280,11 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 19
     },
-    btnSelectMaterial: {
-        height: 54,
-        backgroundColor: "rgba(0,150,136,1)",
-    },
-    btnAddMaterial: {
-        width: 376,
-        height: 54,
-        backgroundColor: "rgba(0,150,136,1)",
-        marginTop: 692
-    },
-    addMaterial2: {
-        fontFamily: "roboto-regular",
-        color: "rgba(255,255,255,1)",
-        marginTop: 19,
-        marginLeft: 140
-    },
-    group3: {
-        width: 376,
-        height: 37,
-        marginTop: -207
-    },
-    rect5: {
-        width: 376,
-        height: 37,
-        backgroundColor: "rgba(76,76,77,1)"
-    },
-    tracingParameters: {
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 19,
-        textAlign: "center",
-        marginTop: 7,
-        marginLeft: 86
-    },
-    rect1: {
-        width: 376,
-        height: 141,
-        backgroundColor: "rgba(3,85,73,1)",
-        marginTop: -577
-    },
     image: {
         width: 329,
         height: 65,
         marginTop: 53,
         marginLeft: 23
-    },
-    rect2: {
-        width: 376,
-        height: 48,
-        backgroundColor: "rgba(76,76,77,1)"
-    },
-    addMaterial: {
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 24,
-        textAlign: "center",
-        marginTop: 11,
-        marginLeft: 106
-    },
-    loremIpsum: {
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        marginTop: 4
-    },
-    materialName: {
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        marginLeft: 2
-    },
-    loremIpsumRow: {
-        height: 17,
-        flexDirection: "row",
-        marginTop: 27,
-        marginLeft: 28
-    },
-    materialFixedLabelTextbox: {
-        height: 43,
-        width: 330,
-        marginLeft: 21
-    },
-    thickness: {
-        top: 0,
-        left: 9,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox1: {
-        height: 43,
-        width: 330,
-        position: "absolute",
-        left: 0,
-        top: 16
-    },
-    thicknessStack: {
-        width: 330,
-        height: 59,
-        marginTop: 31,
-        marginLeft: 21
-    },
-    materialFixedLabelTextbox3: {
-        height: 43,
-        width: 143,
-        position: "absolute",
-        left: 0,
-        top: 15
-    },
-    power1: {
-        top: 0,
-        left: 41,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox3Stack: {
-        width: 143,
-        height: 58
-    },
-    materialFixedLabelTextbox4: {
-        height: 43,
-        width: 151,
-        position: "absolute",
-        left: 0,
-        top: 15
     },
     speed3: {
         top: 0,

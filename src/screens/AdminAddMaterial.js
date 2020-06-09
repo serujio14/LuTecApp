@@ -46,45 +46,45 @@ export default class AdminAddMaterial extends Component {
 
         if (this.CheckTextInput()){
 
-        console.log('agregando')
+            console.log('agregando')
 
-        this.setState({ isLoading: true });
+            this.setState({ isLoading: true });
 
-        fetch("http://192.168.0.4/lutecapp.com/service.php?who=add_material&api_key=5183723902398237640&materialName=" +
-            + state.materialName +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
-            + "&traceSpeed=" + state.traceSpeed , { headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },}
-        )
-            .then(response => response.json())
-            .then((responseJson) => {
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=add_material&api_key=5183723902398237640&materialName=" +
+                + state.materialName +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
+                + "&traceSpeed=" + state.traceSpeed , { headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },}
+            )
+                .then(response => response.json())
+                .then((responseJson) => {
 
-                console.log('funciono')
-                console.log(responseJson)
+                    console.log('funciono')
+                    console.log(responseJson)
 
-                if (responseJson.Response == 1){
-                    this.setState({
-                        isLoading : false,
-                        dialogVisible: true,
-                        materialName : "",
-                        cutPower : "",
-                        cutSpeed: "",
-                        tracePower : "",
-                        traceSpeed: "",
-                    });
-                }else{
-                    this.setState({
-                        isLoading : false,
-                        dialogFailVisible: true,
-                    });
-                }
+                    if (responseJson.Response == 1){
+                        this.setState({
+                            isLoading : false,
+                            dialogVisible: true,
+                            materialName : "",
+                            cutPower : "",
+                            cutSpeed: "",
+                            tracePower : "",
+                            traceSpeed: "",
+                        });
+                    }else{
+                        this.setState({
+                            isLoading : false,
+                            dialogFailVisible: true,
+                        });
+                    }
 
-            })
-            .catch((error) => {
-                console.log('error')
-                console.error(error)
-            });
+                })
+                .catch((error) => {
+                    console.log('error')
+                    console.error(error)
+                });
         }else{
             alert('Please Fill All Spaces');
         }
@@ -135,11 +135,10 @@ export default class AdminAddMaterial extends Component {
             return (
 
                 <View style={styles.container}>
-
                     <Dialog.Container visible={this.state.dialogVisible}>
                         <Dialog.Title>Material Added</Dialog.Title>
                         <Dialog.Description>
-                           The new material has been added
+                            The new material has been added
                         </Dialog.Description>
                         <Dialog.Button label="Continue" onPress={this.handleCancel} />
                     </Dialog.Container>
@@ -152,80 +151,77 @@ export default class AdminAddMaterial extends Component {
                         <Dialog.Button label="Continue" onPress={this.handleCancel} />
                     </Dialog.Container>
 
-                    <TouchableOpacity
-
-                        onPress={() => this.addMaterial(this.state)}
-
-                        style={styles.btnAddMaterial}
-                    >
-                        <Text style={styles.addMaterial2}>ADD MATERIAL</Text>
-                    </TouchableOpacity>
-
-                    <View style={styles.group3}>
-                        <View style={styles.rect5}>
-                            <Text style={styles.tracingParameters}>TRACING PARAMETERS</Text>
-                        </View>
-                    </View>
-                    <View style={styles.rect1}>
+                    <View style={styles.header}>
                         <Image
                             source={require("../assets/images/logosLuTecAppIcon.png")}
                             resizeMode="contain"
                             style={styles.image}
                         />
                     </View>
-                    <View style={styles.rect2}>
-                        <Text style={styles.addMaterial}>ADD MATERIAL</Text>
-                    </View>
-                    <View style={styles.loremIpsumRow}>
-                        <Text style={styles.loremIpsum}></Text>
-                        <Text style={styles.materialName}>MATERIAL NAME & THICKNESS</Text>
-                    </View>
+
+                    <Text style={styles.title}>ADD MATERIAL</Text>
+
+                    <Text style={styles.label}>MATERIAL NAME & THICKNESS</Text>
                     <TextInput
                         value={this.state.materialName}
                         onChangeText={this.handleChangeTextMaterialName}
                         style={styles.textbox}
                     />
-                    <View style={styles.materialFixedLabelTextbox3StackRow}>
-                        <View style={styles.materialFixedLabelTextbox3Stack}>
-                            <TextInput
-                                value={this.state.cutPower}
-                                onChangeText={this.handleChangeTextCutPower}
-                                style={styles.textbox}
-                            />
-                            <Text style={styles.power1}>POWER</Text>
-                        </View>
-                        <View style={styles.materialFixedLabelTextbox4Stack}>
-                            <TextInput
-                                value={this.state.cutSpeed}
-                                onChangeText={this.handleChangeTextCutSpeed}
-                                style={styles.textbox}
-                            />
-                            <Text style={styles.speed3}>SPEED</Text>
-                        </View>
-                    </View>
-                    <View style={styles.power2ColumnRow}>
-                        <View style={styles.power2Column}>
-                            <Text style={styles.power2}>POWER</Text>
+
+                    <Text style={styles.title2}>CUTTING PARAMETERS</Text>
+                    <View style={styles.itemContainer}>
+                        <View style={styles.powerBox}>
+                            <View style={styles.parameterContainer}>
                             <TextInput
                                 value={this.state.tracePower}
                                 onChangeText={this.handleChangeTextTracePower}
-                                style={styles.textbox}
+                                style={styles.labelParameterNumber}
                             />
+                            <Text style={styles.labelParameter}>POWER</Text>
                         </View>
-                        <View style={styles.speed2Stack}>
-                            <Text style={styles.speed2}>SPEED</Text>
+                        </View>
+                        <View style={styles.speedBox}>
+                            <View style={styles.parameterContainer}>
                             <TextInput
                                 value={this.state.traceSpeed}
                                 onChangeText={this.handleChangeTextTraceSpeed}
-                                style={styles.textbox}
+                                style={styles.labelParameterNumber}
                             />
+                            <Text style={styles.labelParameter}>SPEED</Text>
+                        </View>
                         </View>
                     </View>
-                    <View style={styles.group4}>
-                        <View style={styles.rect4}>
-                            <Text style={styles.cuttingParameters}>CUTTING PARAMETERS</Text>
+
+                    <Text style={styles.title2}>TRACING PARAMETERS</Text>
+                    <View style={styles.itemContainer}>
+                        <View style={styles.powerBox}>
+                            <View style={styles.parameterContainer}>
+                                <TextInput
+                                    value={this.state.cutPower}
+                                    onChangeText={this.handleChangeTextCutPower}
+                                    style={styles.labelParameterNumber}
+                                />
+                                <Text style={styles.labelParameter}>POWER</Text>
+                            </View>
+                        </View>
+                        <View style={styles.speedBox}>
+                            <View style={styles.parameterContainer}>
+                                <TextInput
+                                    value={this.state.cutSpeed}
+                                    onChangeText={this.handleChangeTextCutSpeed}
+                                    style={styles.labelParameterNumber}
+                                />
+                                <Text style={styles.labelParameter}>SPEED</Text>
+                            </View>
                         </View>
                     </View>
+
+                    <TouchableOpacity
+                        onPress={() => this.addMaterial(this.state)}
+                        style={styles.btnWide}
+                    >
+                        <Text style={styles.btnLabel}>ADD MATERIAL</Text>
+                    </TouchableOpacity>
                 </View>
             );
 
@@ -245,10 +241,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'space-around',
-
+        justifyContent: 'space-around'
     },
-
     horizontal: {
         backgroundColor: '#FFFFFF',
         height: 100,
@@ -263,14 +257,49 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(3,85,73,1)"
     },
     itemContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap'
+        height: 109,
+        flexDirection: "row",
+        marginRight: -3
     },
     item :{
         flex: 0.5,
         height: 120,
         padding: 10
+    },
+    parameterContainer: {
+        height: 92,
+        marginTop: 7,
+        alignItems: 'center'
+    },
+    powerBox: {
+        width: '50%',
+        height: 109,
+        backgroundColor: "#E6E6E6"
+    },
+    speedBox: {
+        width: '50%',
+        height: 109,
+        backgroundColor: "#E6E6E6",
+        marginLeft: 2
+    },
+    labelParameterNumber: {
+        top: 10,
+        position: "absolute",
+        width: '60%',
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        textAlign: "center",
+        fontSize: 40
+    },
+    labelParameter: {
+        top: 72,
+        position: "absolute",
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 17
     },
     title: {
         height: 48,
@@ -280,6 +309,7 @@ const styles = StyleSheet.create({
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",
+        marginBottom: 15,
         lineHeight: 56
     },
     title2: {
@@ -293,12 +323,9 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: "roboto-regular",
-        color: "#121212",
-        height: 16,
+        color: "#595A5C",
         flexDirection: "row",
-        marginTop: 22,
-        marginLeft: 28,
-        marginRight: 306
+        textAlign: 'center'
     },
     label2: {
         top: 10,
@@ -307,11 +334,14 @@ const styles = StyleSheet.create({
         color: "#121212",
     },
     textbox: {
-        width: '100%',
-        backgroundColor: 'red',
-        color: 'white',
-        marginLeft: 28,
-        marginBottom: 30
+        marginLeft: 30,
+        marginRight: 30,
+        marginBottom: 25,
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        textAlign: "center",
+        color: 'gray'
     },
     textbox2: {
         marginLeft: 28,
@@ -446,7 +476,7 @@ const styles = StyleSheet.create({
         fontFamily: "roboto-regular",
         color: "#121212"
     },
-    materialFixedLabelTextbox3Stack: {
+    powerContainer: {
         width: 143,
         height: 58
     },
@@ -464,12 +494,12 @@ const styles = StyleSheet.create({
         fontFamily: "roboto-regular",
         color: "#121212"
     },
-    materialFixedLabelTextbox4Stack: {
+    speedContainer: {
         width: 151,
         height: 58,
         marginLeft: 28
     },
-    materialFixedLabelTextbox3StackRow: {
+    powerSpeedContainer: {
         height: 58,
         flexDirection: "row",
         marginTop: 235,
