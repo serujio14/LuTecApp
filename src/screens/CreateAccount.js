@@ -3,13 +3,6 @@ import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndi
 import Dialog from "react-native-dialog";
 export default class CreateAccount extends Component {
 
-    state = {
-        screenHeight: height,
-    };
-
-    onContentSizeChange = (contentWidth, contentHeight) => {
-        this.setState({ screenHeight: contentHeight });
-    };
 
     constructor(props) {
         super(props);

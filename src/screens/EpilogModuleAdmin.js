@@ -1,96 +1,192 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
+import { Dropdown } from 'react-native-material-dropdown';
 
-function EpilogModuleAdmin(props) {
-  return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Image
-              source={require("../assets/images/logosLuTecAppIcon.png")}
-              resizeMode="contain"
-              style={styles.image}
-          ></Image>
+export default class EpilogModuleAdmin extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: [],
+      cutPower : "00",
+      cutSpeed: "00",
+      tracePower : "00",
+      traceSpeed: "00",
+      selectedMaterial : []
+    }
+
+
+    this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+
+  }
+
+  handleMaterialDropdown(text){
+
+    const array = Object.values( this.state.dataSource);
+
+    let materials = array.map((val, key) => {
+
+      if (val.Name === text){
+        console.log('eureka')
+        console.log(val)
+
+        this.setState(
+            {
+              cutPower : val.CutPower,
+              cutSpeed: val.CutSpeed,
+              tracePower : val.TracePower,
+              traceSpeed: val.TraceSpeed,
+            })
+      }
+
+    });
+
+  }
+
+  componentDidMount() {
+
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+
+        .then(response => response.json())
+        .then((responseJson) => {
+
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson.Data,
+          })
+
+        })
+
+        .catch((error) => {
+          console.log(error)
+          console.log(error)
+        });
+
+  }
+
+  render(){
+
+    if (this.state.isLoading) {
+
+      return <View style={styles.containerLoader}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator size="large" color="#009688" />
+
         </View>
-        <View style={styles.titleEpilog}>
-          <Image
-              source={require("../assets/images/EpilogLogo1.png")}
-              resizeMode="contain"
-              style={styles.image2}
-          ></Image>
-        </View>
-
-        <View style={styles.btnsContainer}>
-          <View style={styles.btnItemL}>
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("AdminAddMaterial")}
-            >
-              <Text style={styles.btnLabel}>ADD NEW MATERIAL</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.btnItemR}>
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("AdminEditMaterial")}
-            >
-              <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-          {/* - - - - - - BTN - - - - - - -*/}
-          <TouchableOpacity
-              onPress={() => props.navigation.navigate("LuTecApp")}
-              style={styles.btnWide2}
-          >
-            <Text style={styles.btnLabel}>SELECT MATERIAL</Text>
-          </TouchableOpacity>
-
-        <Text style={styles.materialName}>MATERIAL &amp; THICKNESS SELECTED</Text>
-
-        <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
-        <View style={styles.itemContainer}>
-          <View style={styles.powerBox}>
-            <View style={styles.parameterContainer}>
-              <Text style={styles.labelParameterNumber}>00</Text>
-              <Text style={styles.labelParameter}>POWER</Text>
-            </View>
-          </View>
-          <View style={styles.speedBox}>
-            <View style={styles.parameterContainer}>
-              <Text style={styles.labelParameterNumber}>00</Text>
-              <Text style={styles.labelParameter}>SPEED</Text>
-            </View>
-          </View>
-        </View>
-
-        <Text style={styles.title2}>TRACING CONFIGURATION</Text>
-        <View style={styles.itemContainer}>
-          <View style={styles.powerBox}>
-            <View style={styles.parameterContainer}>
-              <Text style={styles.labelParameterNumber}>00</Text>
-              <Text style={styles.labelParameter}>POWER</Text>
-            </View>
-          </View>
-          <View style={styles.speedBox}>
-            <View style={styles.parameterContainer}>
-              <Text style={styles.labelParameterNumber}>00</Text>
-              <Text style={styles.labelParameter}>SPEED</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* - - - - - - BTN - - - - - - -*/}
-        <TouchableOpacity
-            onPress={() => props.navigation.navigate("LuTecApp")}
-            style={styles.btnWide}
-        >
-          <Text style={styles.btnLabel}>GET PARAMETERS</Text>
-        </TouchableOpacity>
-
       </View>
-  );
+
+    } else {
+
+      let data = [];
+
+      const array = Object.values( this.state.dataSource);
+
+      let materials = array.map((val, key) => {
+
+        const obj = {value:val.Name, data : val};
+        data.push(obj)
+      });
+      return (
+
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              ></Image>
+            </View>
+            <View style={styles.titleEpilog}>
+              <Image
+                  source={require("../assets/images/EpilogLogo1.png")}
+                  resizeMode="contain"
+                  style={styles.image2}
+              ></Image>
+            </View>
+
+            <View style={styles.btnsContainer}>
+              <View style={styles.btnItemL}>
+                {/* - - - - - - BTN - - - - - - -*/}
+                <TouchableOpacity
+                    onPress={() => props.navigation.navigate("AdminAddMaterial")}
+                >
+                  <Text style={styles.btnLabel}>ADD NEW MATERIAL</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.btnItemR}>
+                {/* - - - - - - BTN - - - - - - -*/}
+                <TouchableOpacity
+                    onPress={() => props.navigation.navigate("AdminEditMaterial")}
+                >
+                  <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            {/* - - - - - - BTN - - - - - - -*/}
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate("LuTecApp")}
+                style={styles.btnWide2}
+            >
+              <Text style={styles.btnLabel}>SELECT MATERIAL</Text>
+            </TouchableOpacity>
+
+            <Dropdown
+                style={styles.materialName}
+                label='MATERIAL &amp; THICKNESS SELECTED'
+                data={data}
+                onChangeText={this.handleMaterialDropdown}
+            />
+
+            <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
+            <View style={styles.itemContainer}>
+              <View style={styles.powerBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.cutPower}</Text>
+                  <Text style={styles.labelParameter}>POWER</Text>
+                </View>
+              </View>
+              <View style={styles.speedBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.cutSpeed}</Text>
+                  <Text style={styles.labelParameter}>SPEED</Text>
+                </View>
+              </View>
+            </View>
+
+            <Text style={styles.title2}>TRACING CONFIGURATION</Text>
+            <View style={styles.itemContainer}>
+              <View style={styles.powerBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.tracePower}</Text>
+                  <Text style={styles.labelParameter}>POWER</Text>
+                </View>
+              </View>
+              <View style={styles.speedBox}>
+                <View style={styles.parameterContainer}>
+                  <Text style={styles.labelParameterNumber}>{this.state.traceSpeed}</Text>
+                  <Text style={styles.labelParameter}>SPEED</Text>
+                </View>
+              </View>
+            </View>
+
+            {/* - - - - - - BTN - - - - - - -*/}
+            <TouchableOpacity
+                onPress={() => props.navigation.navigate("LuTecApp")}
+                style={styles.btnWide}
+            >
+              <Text style={styles.btnLabel}>GET PARAMETERS</Text>
+            </TouchableOpacity>
+
+          </View>
+      );
+
+    }
+
+
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -98,6 +194,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     textAlign: 'center'
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+
+  },
+
+  horizontal: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   header: {
     height: 141,
@@ -255,4 +368,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EpilogModuleAdmin;

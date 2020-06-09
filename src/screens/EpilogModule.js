@@ -7,28 +7,59 @@ export default class EpilogModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       dataSource: [],
       cutPower : "00",
       cutSpeed: "00",
       tracePower : "00",
       traceSpeed: "00",
+      selectedMaterial : []
     }
+
+
+    this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+
+  }
+
+  handleMaterialDropdown(text){
+
+    const array = Object.values( this.state.dataSource);
+
+    let materials = array.map((val, key) => {
+
+        if (val.Name === text){
+          console.log('eureka')
+          console.log(val)
+
+          this.setState(
+              {
+                cutPower : val.CutPower,
+                cutSpeed: val.CutSpeed,
+                tracePower : val.TracePower,
+                traceSpeed: val.TraceSpeed,
+              })
+        }
+
+    });
+
   }
 
   componentDidMount() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=get_materials&api_key=5183723902398237640')
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {
+
           this.setState({
             isLoading: false,
-            dataSource: responseJson.movies,
+            dataSource: responseJson.Data,
           })
+
         })
 
         .catch((error) => {
+          console.log(error)
           console.log(error)
         });
 
@@ -49,16 +80,13 @@ export default class EpilogModule extends Component {
 
         let data = [];
 
-        let materials = this.state.dataSource
+        const array = Object.values( this.state.dataSource);
 
-        let materialsArray = materials.map((val, key) => {
-          const obj = {value:val.title, data : val};
+        let materials = array.map((val, key) => {
+
+          const obj = {value:val.Name, data : val};
           data.push(obj)
         });
-
-        console.log('data')
-        console.log(data)
-
         return (
 
             <View style={styles.container}>
@@ -88,7 +116,7 @@ export default class EpilogModule extends Component {
                   style={styles.materialName}
                   label='MATERIAL &amp; THICKNESS SELECTED'
                   data={data}
-
+                  onChangeText={this.handleMaterialDropdown}
               />
 
               <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
@@ -146,6 +174,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     textAlign: 'center'
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+
+  },
+
+  horizontal: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   header: {
     height: 141,
