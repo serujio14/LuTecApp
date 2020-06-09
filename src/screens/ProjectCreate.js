@@ -47,7 +47,7 @@ export default class ProjectCreate extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName=" +
+      fetch("http://192.168.0.8/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName=" +
           + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.projectDate , { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
