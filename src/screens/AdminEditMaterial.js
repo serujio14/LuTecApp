@@ -1,91 +1,321 @@
 import React, {Component} from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
+import Dialog from "react-native-dialog";
 import EditMaterialTextboxName from "../components/EditMaterialTextboxName";
 import EditMaterialTextboxCutPower from "../components/EditMaterialTextboxCutPower";
 import EditMaterialTextboxCutSpeed from "../components/EditMaterialTextboxCutSpeed";
 import EditMaterialTextboxTracePower from "../components/EditMaterialTextboxTracePower";
 import EditMaterialTextboxTraceSpeed from "../components/EditMaterialTextboxTraceSpeed";
+import {Dropdown} from "react-native-material-dropdown";
+import TextInput from "react-native-web/src/exports/TextInput";
 
-function AdminEditMaterial(props) {
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    source={require("../assets/images/logosLuTecAppIcon.png")}
-                    resizeMode="contain"
-                    style={styles.image}
-                ></Image>
+export default class AdminEditMaterial extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: false,
+            dataSource: null,
+            materialName : "",
+            cutPower : "00",
+            cutSpeed: "00",
+            tracePower : "00",
+            traceSpeed: "00",
+            visible : false,
+            dialogVisible: false,
+            dialogFailVisible: false,
+            selectedMaterial : []
+        }
+
+        this.handleChangeTextMaterialName = this.handleChangeTextMaterialName.bind(this)
+        this.handleChangeTextCutPower = this.handleChangeTextCutPower.bind(this)
+        this.handleChangeTextCutSpeed = this.handleChangeTextCutSpeed.bind(this)
+        this.handleChangeTextTracePower = this.handleChangeTextTracePower.bind(this)
+        this.handleChangeTextTraceSpeed = this.handleChangeTextTraceSpeed.bind(this)
+        this.handleCancel = this.handleCancel.bind(this)
+        this.editMaterial = this.editMaterial.bind(this)
+        this.CheckTextInput = this.CheckTextInput.bind(this)
+        this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+
+    }
+
+    CheckTextInput = () => {
+
+        if (this.state.materialName != '' && this.state.cutPower != '' && this.state.cutSpeed != '' &&
+            this.state.tracePower != '' && this.state.traceSpeed != '') {
+
+            return true;
+
+        } else {
+            return false
+        }
+    };
+
+    editMaterial(state){
+
+        if (this.CheckTextInput()){
+
+            console.log('agregando')
+
+            this.setState({ isLoading: true });
+
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=edit_material&api_key=5183723902398237640&materialName=" +
+                + state.materialName +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
+                + "&traceSpeed=" + state.traceSpeed , { headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },}
+            )
+                .then(response => response.json())
+                .then((responseJson) => {
+
+                    console.log('funciono')
+                    console.log(responseJson)
+
+                    if (responseJson.Response == 1){
+                        this.setState({
+                            isLoading : false,
+                            dialogVisible: true,
+                            materialName : "",
+                            cutPower : "00",
+                            cutSpeed: "00",
+                            tracePower : "00",
+                            traceSpeed: "00",
+                        });
+                    }else{
+                        this.setState({
+                            isLoading : false,
+                            dialogFailVisible: true,
+                        });
+                    }
+
+                })
+                .catch((error) => {
+                    console.log('error')
+                    console.error(error)
+                });
+        }else{
+            alert('Please Fill All Spaces');
+        }
+    }
+    handleCancel = () => {
+        this.setState({ dialogVisible: false });
+    };
+
+    handleChangeTextMaterialName(text){
+        this.setState({materialName : text})
+    }
+    handleChangeTextCutPower(text){
+        this.setState({cutPower : text})
+    }
+
+    handleChangeTextCutSpeed(text){
+        this.setState({cutSpeed : text})
+    }
+
+    handleChangeTextTracePower(text){
+        this.setState({tracePower : text})
+    }
+    handleChangeTextTraceSpeed(text){
+        this.setState({traceSpeed : text})
+    }
+
+    handleMaterialDropdown(text){
+
+        const array = Object.values( this.state.dataSource);
+
+        let materials = array.map((val, key) => {
+
+            if (val.Name === text){
+                console.log('eureka')
+                console.log(val)
+
+                this.setState(
+                    {
+                        cutPower : val.CutPower,
+                        cutSpeed: val.CutSpeed,
+                        tracePower : val.TracePower,
+                        traceSpeed: val.TraceSpeed,
+                    })
+            }
+
+        });
+
+    }
+
+    componentDidMount() {
+
+
+        return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+
+            .then(response => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    isLoading: false,
+                    dataSource: responseJson.Data,
+                })
+
+            })
+
+            .catch((error) => {
+                console.log(error)
+                console.log(error)
+            });
+
+    }
+
+    render() {
+
+
+        if (this.state.isLoading) {
+
+            return <View style={styles.containerLoader}>
+                <View style={styles.horizontal}>
+                    <ActivityIndicator size="large" color="#009688" />
+
+                </View>
             </View>
-            {/* - - - - - - TITLE - - - - - - -*/}
-            <Text style={styles.title}>EDIT MATERIAL</Text>
 
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("EpilogModuleAdmin")}
-                style={styles.btnSelectMaterial}
-            >
-                <Text style={styles.btnLabel}>SELECT MATERIAL TO EDIT</Text>
-            </TouchableOpacity>
+        } else {
 
-            <Text style={styles.label}>MATERIAL NAME</Text>
-            {/* - - - - - - TEXTBOX - - - - - - -*/}
-            <EditMaterialTextboxName
-                style={styles.textbox}
-            ></EditMaterialTextboxName>
+            let data = [];
 
-            {/* - - - - - - TITLE2 - - - - - - -*/}
-            <Text style={styles.title2}>CUTTING PARAMETERS</Text>
-            <View style={styles.itemContainer}>
-                <View style={styles.item}>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <EditMaterialTextboxCutPower
-                        style={styles.textbox2}
-                    ></EditMaterialTextboxCutPower>
-                    <Text style={styles.label2}>POWER</Text>
-                </View>
-                <View style={styles.item}>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <EditMaterialTextboxCutSpeed
-                        style={styles.textbox2}
-                    ></EditMaterialTextboxCutSpeed>
-                    <Text style={styles.label2}>SPEED</Text>
-                </View>
-            </View>
-            {/* - - - - - - TITLE2 - - - - - - -*/}
-            <Text style={styles.title2}>TRACING PARAMETERS</Text>
-            <View style={styles.itemContainer}>
-                <View style={styles.item}>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <EditMaterialTextboxTracePower
-                        style={styles.textbox2}
-                    ></EditMaterialTextboxTracePower>
-                    <Text style={styles.label2}>POWER</Text>
-                </View>
-                <View style={styles.item}>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <EditMaterialTextboxTraceSpeed
-                        style={styles.textbox2}
-                    ></EditMaterialTextboxTraceSpeed>
-                    <Text style={styles.label2}>SPEED</Text>
-                </View>
-            </View>
+            const array = Object.values( this.state.dataSource);
 
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("LuTecApp")}
-                style={styles.btnWide}
-            >
-                <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
-            </TouchableOpacity>
-        </View>
-    );
+            let materials = array.map((val, key) => {
+
+                const obj = {value:val.Name, data : val};
+                data.push(obj)
+            });
+
+            return (
+                <View style={styles.container}>
+                    <Dialog.Container visible={this.state.dialogVisible}>
+                        <Dialog.Title>Material Added</Dialog.Title>
+                        <Dialog.Description>
+                            The new material has been edited
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+
+                    <Dialog.Container visible={this.state.dialogFailVisible}>
+                        <Dialog.Title>Material Not Added</Dialog.Title>
+                        <Dialog.Description>
+                            There has been an error editing the material. Please try again
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+                    <View style={styles.header}>
+                        <Image
+                            source={require("../assets/images/logosLuTecAppIcon.png")}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
+                    {/* - - - - - - TITLE - - - - - - -*/}
+                    <Text style={styles.title}>EDIT MATERIAL</Text>
+
+                    {/* - - - - - - BTN - - - - - - -*/}
+                    <TouchableOpacity
+
+                        style={styles.btnSelectMaterial}
+                    >
+                        <Text style={styles.btnLabel}>SELECT MATERIAL TO EDIT</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.label}>MATERIAL NAME</Text>
+                    {/* - - - - - - TEXTBOX - - - - - - -*/}
+                    <Dropdown
+                        style={styles.materialName}
+                        label='MATERIAL &amp; THICKNESS SELECTED'
+                        data={data}
+                        onChangeText={this.handleMaterialDropdown}
+                    />
+
+                    {/* - - - - - - TITLE2 - - - - - - -*/}
+                    <Text style={styles.title2}>CUTTING PARAMETERS</Text>
+                    <View style={styles.itemContainer}>
+                        <View style={styles.item}>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value = {this.state.cutPower}
+                                onChangeText={this.handleChangeTextCutPower}
+                                style={styles.textbox2}
+                            />
+                            <Text style={styles.label2}>POWER</Text>
+                        </View>
+                        <View style={styles.item}>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value = {this.state.cutSpeed}
+                                onChangeText={this.handleChangeTextCutSpeed}
+                                style={styles.textbox2}
+                            />
+                            <Text style={styles.label2}>SPEED</Text>
+                        </View>
+                    </View>
+                    {/* - - - - - - TITLE2 - - - - - - -*/}
+                    <Text style={styles.title2}>TRACING PARAMETERS</Text>
+                    <View style={styles.itemContainer}>
+                        <View style={styles.item}>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value = {this.state.tracePower}
+                                onChangeText={this.handleChangeTextTracePower}
+                                style={styles.textbox2}
+                            />
+                            <Text style={styles.label2}>POWER</Text>
+                        </View>
+                        <View style={styles.item}>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value = {this.state.traceSpeed}
+                                onChangeText={this.handleChangeTextTraceSpeed}
+                                style={styles.textbox2}
+                            />
+                            <Text style={styles.label2}>SPEED</Text>
+                        </View>
+                    </View>
+
+                    {/* - - - - - - BTN - - - - - - -*/}
+                    <TouchableOpacity
+                        onPress={() => this.editMaterial(this.state)}
+                        style={styles.btnWide}
+                    >
+                        <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
+    }
+
+
 }
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignSelf: 'stretch',
         textAlign: 'center'
+    },
+    containerLoader: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+
+    },
+
+    horizontal: {
+        backgroundColor: '#FFFFFF',
+        height: 100,
+        width: 100,
+        borderRadius: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around'
     },
     header: {
         height: 141,
@@ -170,5 +400,3 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,150,136,1)",
     },
 });
-
-export default AdminEditMaterial;
