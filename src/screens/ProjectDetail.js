@@ -20,8 +20,7 @@ export default class ProjectDetail extends Component {
         "https://source.unsplash.com/1024x768/?nature",
         "https://source.unsplash.com/1024x768/?water",
         "https://source.unsplash.com/1024x768/?girl",
-        "https://source.unsplash.com/1024x768/?tree", // Network image
-        require('./assets/images/girl.jpg'),          // Local image
+        "https://source.unsplash.com/1024x768/?tree"
       ]
     }
 
@@ -220,4 +219,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProjectDetail;

@@ -3,6 +3,7 @@ import {StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ActivityIndi
 import LoginTextboxTecID from "../components/LoginTextboxTecID";
 import LoginTextboxPassword from "../components/LoginTextboxPassword";
 import LoginTextboxConfirmPassword from "../components/LoginTextboxConfirmPassword";
+import Dialog from "react-native-dialog";
 
 
 export default class ForgotPassword extends Component {
@@ -31,9 +32,10 @@ export default class ForgotPassword extends Component {
 
   CheckTextInput = () => {
 
-    if(this.state.Password === this.state.PasswordConfirm){
-      if (this.state.TecID != ''  &&this.state.Password != ''
-          && this.state.PasswordConfirm != '') {
+    if((this.state.Password === this.state.PasswordConfirm) && (this.state.Password !== ''
+        && this.state.PasswordConfirm !== '')){
+      if (this.state.TecID !== ''  &&this.state.Password !== ''
+          && this.state.PasswordConfirm !== '') {
         return true;
 
       } else {
@@ -41,7 +43,7 @@ export default class ForgotPassword extends Component {
       }
     }else{
 
-      return true;
+      return false;
 
     }
   };
@@ -54,7 +56,7 @@ export default class ForgotPassword extends Component {
 
       this.setState({isLoading: true});
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=forgot_password&api_key=5183723902398237640&TecID=" +
+      fetch("http://192.168.0.4/lutecapp.com/service.php?who=forgot_password&api_key=5183723902398237640&TecID="
           +state.TecID + "&Password=" + state.Password, {
             headers: {
               'Accept': 'application/json',
@@ -122,6 +124,23 @@ export default class ForgotPassword extends Component {
 
       return (
           <View style={styles.container}>
+
+            <Dialog.Container visible={this.state.dialogVisible}>
+              <Dialog.Title>Password Updated</Dialog.Title>
+              <Dialog.Description>
+                The password has been updated
+              </Dialog.Description>
+              <Dialog.Button label="Continue" onPress={this.handleCancel} />
+            </Dialog.Container>
+
+            <Dialog.Container visible={this.state.dialogFailVisible}>
+              <Dialog.Title>Password not updated</Dialog.Title>
+              <Dialog.Description>
+                There has been an error updating the password. Please try again
+              </Dialog.Description>
+              <Dialog.Button label="Continue" onPress={this.handleCancel} />
+            </Dialog.Container>
+
             <View style={styles.header}>
               <Image
                   source={require("../assets/images/logosLuTecAppIcon.png")}

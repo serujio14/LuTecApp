@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, ScrollView, Dimensions, SafeAreaView} from "react-native";
+import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, Alert, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 import Dialog from "react-native-dialog";
+
+const { height } = Dimensions.get('window');
+
 export default class CreateAccount extends Component {
 
+    state = {
+        screenHeight: height,
+    };
+
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        this.setState({ screenHeight: contentHeight });
+    };
 
     constructor(props) {
         super(props);
@@ -35,18 +45,12 @@ export default class CreateAccount extends Component {
         if(this.state.Password === this.state.PasswordConfirm){
             if (this.state.Name != '' && this.state.TecID != '' && this.state.Email != '' &&
                 this.state.Password != '' && this.state.PasswordConfirm != '') {
-
-
-
                 return true;
-
             } else {
                 return false
             }
         }else{
-
-            return true;
-
+            return false;
         }
     };
 
@@ -54,11 +58,11 @@ export default class CreateAccount extends Component {
 
         if (this.CheckTextInput()) {
 
-            console.log('adding')
+            //console.log('adding')
 
             this.setState({isLoading: true});
 
-            fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name=" +
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name="
                 +state.Name + "&TecID=" + state.TecID + "&Email=" + state.Email + "&Password=" + state.Password, {
                     headers: {
                         'Accept': 'application/json',
@@ -69,8 +73,8 @@ export default class CreateAccount extends Component {
                 .then(response => response.json())
                 .then((responseJson) => {
 
-                    console.log('worked')
-                    console.log(responseJson)
+                    //console.log('worked')
+                    //console.log(responseJson)
 
                     if (responseJson.Response == 1) {
                         this.setState({
@@ -88,14 +92,13 @@ export default class CreateAccount extends Component {
                             dialogFailVisible: true,
                         });
                     }
-
                 })
                 .catch((error) => {
                     console.log('error')
                     console.error(error)
                 });
         } else {
-            alert('Please Fill All Spaces and Passwords must match');
+            Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
         }
     }
 
@@ -124,6 +127,8 @@ export default class CreateAccount extends Component {
 
     render() {
 
+        const scrollEnabled = this.state.screenHeight > height;
+
         if (this.state.isLoading) {
 
             return <View style={styles.containerLoader}>
@@ -135,7 +140,32 @@ export default class CreateAccount extends Component {
         } else{
 
             return (
+                <SafeAreaView style={styles.container}>
+                    <StatusBar barStyle="light-content" backgroundColor="#468189" />
+                    <ScrollView
+                        style={{ flex: 1 }}
+                        contentContainerStyle={styles.scrollview}
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
+                    >
+
                 <View style={styles.container}>
+                    <Dialog.Container visible={this.state.dialogVisible}>
+                        <Dialog.Title>Account Created</Dialog.Title>
+                        <Dialog.Description>
+                            The new account has been created
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+
+                    <Dialog.Container visible={this.state.dialogFailVisible}>
+                        <Dialog.Title>Account Not Created</Dialog.Title>
+                        <Dialog.Description>
+                            There has been an error creating the account. Please try again
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+
                     <View style={styles.header}>
                         <Image
                             source={require("../assets/images/logosLuTecAppIcon.png")}
@@ -147,7 +177,7 @@ export default class CreateAccount extends Component {
                     {/* - - - - - - TITLE - - - - - - -*/}
                     <Text style={styles.title}>CREATE ACCOUNT</Text>
 
-                    <Text style={styles.label}>Name</Text>
+                    <Text style={styles.label}>NAME</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Name}
@@ -163,7 +193,7 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>Email</Text>
+                    <Text style={styles.label}>EMAIL</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Email}
@@ -171,7 +201,7 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>Password</Text>
+                    <Text style={styles.label}>PASSWORD</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.Password}
@@ -179,13 +209,16 @@ export default class CreateAccount extends Component {
                         style={styles.textbox}
                     ></TextInput>
 
-                    <Text style={styles.label}>Confirm password</Text>
+                    <Text style={styles.label}>CONFIRM PASSWORD</Text>
                     {/* - - - - - - TEXTBOX - - - - - - -*/}
                     <TextInput
                         value={this.state.PasswordConfirm}
                         onChangeText={this.handleChangeTextPasswordConfirm}
                         style={styles.textbox}
                     ></TextInput>
+
+                </View>
+                    </ScrollView>
 
                     {/* - - - - - - BTN - - - - - - -*/}
                     <TouchableOpacity
@@ -194,10 +227,8 @@ export default class CreateAccount extends Component {
                     >
                         <Text style={styles.btnLabel}>CREATE ACCOUNT</Text>
                     </TouchableOpacity>
-                </View>
+                </SafeAreaView>
             );
-
-
         }
     }
 
@@ -208,6 +239,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'stretch',
         textAlign: 'center'
+    },
+    scrollview: {
+        flexGrow: 1,
+    },
+    content: {
+        flexGrow: 1,
+        justifyContent: "space-between",
+        padding: 10,
     },
     containerLoader: {
         flex: 1,
@@ -228,16 +267,6 @@ const styles = StyleSheet.create({
         height: 141,
         backgroundColor: "rgba(3,85,73,1)"
     },
-    itemContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
-    item :{
-        flex: 0.5,
-        height: 120,
-        padding: 10
-    },
     title: {
         height: 48,
         backgroundColor: "rgba(76,76,77,1)",
@@ -246,18 +275,19 @@ const styles = StyleSheet.create({
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",
-        marginBottom: 15,
+        marginBottom: 20,
         lineHeight: 56
     },
     label: {
         fontFamily: "roboto-regular",
         color: "#595A5C",
         flexDirection: "row",
+        marginTop: 15,
         textAlign: 'center'
     },
     textbox: {
-        marginLeft: 30,
-        marginRight: 30,
+        marginLeft: '20%',
+        marginRight: '20%',
         marginBottom: 25,
         paddingBottom: 2,
         borderBottomWidth: 1,
@@ -286,81 +316,4 @@ const styles = StyleSheet.create({
         marginTop: 53,
         marginLeft: 23
     },
-    speed3: {
-        top: 0,
-        left: 49,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox4Stack: {
-        width: 151,
-        height: 58,
-        marginLeft: 28
-    },
-    materialFixedLabelTextbox3StackRow: {
-        height: 58,
-        flexDirection: "row",
-        marginTop: 235,
-        marginLeft: 27,
-        marginRight: 26
-    },
-    power2: {
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        marginLeft: 43
-    },
-    materialFixedLabelTextbox2: {
-        height: 43,
-        width: 150,
-        marginTop: 1
-    },
-    power2Column: {
-        width: 150
-    },
-    speed2: {
-        top: 0,
-        left: 49,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox5: {
-        height: 43,
-        width: 150,
-        position: "absolute",
-        left: 0,
-        top: 16
-    },
-    speed2Stack: {
-        width: 150,
-        height: 59,
-        marginLeft: 28,
-        marginTop: 2
-    },
-    power2ColumnRow: {
-        height: 61,
-        flexDirection: "row",
-        marginTop: -209,
-        marginLeft: 24,
-        marginRight: 23
-    },
-    group4: {
-        width: 376,
-        height: 37,
-        marginTop: -119
-    },
-    rect4: {
-        width: 376,
-        height: 37,
-        backgroundColor: "rgba(76,76,77,1)"
-    },
-    cuttingParameters: {
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 19,
-        textAlign: "center",
-        marginTop: 7,
-        marginLeft: 86
-    }
 });
