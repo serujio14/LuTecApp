@@ -1,47 +1,103 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
 import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
 
-function ProjectDetail(props) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.rect1}>
-        <Image
-          source={require("../assets/images/logosLuTecAppIcon.png")}
-          resizeMode="contain"
-          style={styles.image}
-        ></Image>
-      </View>
-      <View style={styles.rect2}>
-        <Text style={styles.text}>PROJECT DETAIL</Text>
-      </View>
-      <View style={styles.loremIpsumRow}>
-        <Text style={styles.loremIpsum}></Text>
-        <Text style={styles.girasol1}>Girasol</Text>
-      </View>
-      <View style={styles.createdByRow}>
-        <Text style={styles.createdBy}>CREATED BY:</Text>
-        <Text style={styles.christopher}>Christopher Ramírez Vega</Text>
-      </View>
-      <View style={styles.materialButtonSuccess9Stack}>
-        <MaterialButtonSuccess8
-          style={styles.materialButtonSuccess9}
-        ></MaterialButtonSuccess8>
-        <MaterialButtonSuccess8
-          style={styles.materialButtonSuccess10}
-        ></MaterialButtonSuccess8>
-      </View>
-      <Text style={styles.loremIpsum1}>
-        Este proyecto consiste en una flor de girasol que reacciona con la
-        exposición a la luz como la planta.
-      </Text>
-      <View style={styles.dateCreatedRow}>
-        <Text style={styles.dateCreated}>DATE CREATED:</Text>
-        <Text style={styles.christopher1}>01/01/01</Text>
-      </View>
-      <View style={styles.rect3}></View>
-    </View>
-  );
+export default class ProjectDetail extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: [],
+      projectId: "",
+      projectName: "",
+      projectDescription: "",
+      Image: "",
+      Date: new Date(),
+      selectedMaterial: [],
+      images: [
+        "https://source.unsplash.com/1024x768/?nature",
+        "https://source.unsplash.com/1024x768/?water",
+        "https://source.unsplash.com/1024x768/?girl",
+        "https://source.unsplash.com/1024x768/?tree", // Network image
+        require('./assets/images/girl.jpg'),          // Local image
+      ]
+    }
+
+    this.goToProject = this.goToProject.bind(this)
+  }
+
+  componentDidMount() {
+
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+
+        .then(response => response.json())
+        .then((responseJson) => {
+
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson.Data,
+          })
+
+        })
+
+        .catch((error) => {
+          console.log(error)
+          console.log(error)
+        });
+
+  }
+
+
+  render(){
+
+    return (
+
+        <View style={styles.container}>
+          <SliderBox
+              images={this.state.images}
+              onCurrentImagePressed={index =>
+                  console.warn(`image ${index} pressed`)
+              }
+          />
+          <View style={styles.rect1}>
+            <Image
+                source={require("../assets/images/logosLuTecAppIcon.png")}
+                resizeMode="contain"
+                style={styles.image}
+            />
+          </View>
+          <View style={styles.rect2}>
+            <Text style={styles.text}>PROJECT DETAIL</Text>
+          </View>
+          <View style={styles.loremIpsumRow}>
+            <Text style={styles.loremIpsum}></Text>
+            <Text style={styles.girasol1}>{val.projectName}</Text>
+          </View>
+          <View style={styles.createdByRow}>
+            <Text style={styles.createdBy}>CREATED BY:</Text>
+            <Text style={styles.christopher}>{val.projectName}</Text>
+          </View>
+          <View style={styles.materialButtonSuccess9Stack}>
+            <MaterialButtonSuccess8
+                style={styles.materialButtonSuccess9}
+            ></MaterialButtonSuccess8>
+            <MaterialButtonSuccess8
+                style={styles.materialButtonSuccess10}
+            ></MaterialButtonSuccess8>
+          </View>
+          <Text style={styles.loremIpsum1}>
+            {this.state.projectDescription}
+          </Text>
+          <View style={styles.dateCreatedRow}>
+            <Text style={styles.dateCreated}>DATE CREATED:</Text>
+            <Text style={styles.christopher1}>{this.state.Date}</Text>
+          </View>
+          <View style={styles.rect3}></View>
+        </View>
+    );
+  }
+
 }
 
 const styles = StyleSheet.create({

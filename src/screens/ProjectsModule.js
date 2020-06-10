@@ -1,47 +1,113 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+import TextInput from "react-native-web/dist/exports/TextInput";
 
-function ProjectsModule(props) {
-  return (
-      <View style={styles.container}>
+export default class ProjectsModule extends Component {
 
-        <View style={styles.header}>
-          <Image
-              source={require("../assets/images/logosLuTecAppIcon.png")}
-              resizeMode="contain"
-              style={styles.image}
-          ></Image>
-        </View>
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: [],
+      projectId: "",
+      projectName: "",
+      projectDescription: "",
+      Image: "",
+      Date: new Date(),
+      selectedMaterial: []
+    }
 
-        <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+    this.goToProject = this.goToProject.bind(this)
+  }
 
-        <View style={styles.projectContainer}>
-          <View style={styles.projectImageContainer}>
+  goToProject(text){
+
+    //insert go to project detail and send ID (contained in var text) to fetch project info from DB
+
+
+  }
+
+  componentDidMount() {
+
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+
+        .then(response => response.json())
+        .then((responseJson) => {
+
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson.Data,
+          })
+
+        })
+
+        .catch((error) => {
+          console.log(error)
+          console.log(error)
+        });
+
+  }
+
+  render(){
+
+    let data = [];
+
+    const array = Object.values( this.state.dataSource);
+
+    let materials = array.map((val, key) => {
+
+      return(
+
+      <View style={styles.projectContainer}>
+        <View style={styles.projectImageContainer}>
           <Image
               source={require("../assets/images/project_img.jpg")}
               resizeMode="contain"
               style={styles.projectImage}
-          ></Image>
-          </View>
-          <View style={styles.projectInfoContainer}>
-            <Text style={styles.projectTitle}>Girasol</Text>
-            <Text style={styles.projectDescription}>
-              Este proyecto consiste en una flor de girasol que reacciona con la
-              exposición a la luz como la planta.
-            </Text>
-          </View>
+          />
+        </View>
+        <View style={styles.projectInfoContainer}>
 
-          <TouchableOpacity
-              onPress={() => props.navigation.navigate("ProjectDetail")}
-              style={styles.btnWide2}
-          >
-            <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
-          </TouchableOpacity>
+          <Text style={styles.projectTitle}>{val.projectName}</Text>
+          <Text style={styles.projectDescription}>
+            {val.projectDescription}
+          </Text>
         </View>
 
+        <TouchableOpacity
+            onPress={() => this.goToProject(val.Id_project)}
+            style={styles.btnWide2}
+        >
+          <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
+        </TouchableOpacity>
       </View>
-  );
+      )
+    });
+
+    return (
+        <View style={styles.container}>
+
+          <View style={styles.header}>
+            <Image
+                source={require("../assets/images/logosLuTecAppIcon.png")}
+                resizeMode="contain"
+                style={styles.image}
+            />
+          </View>
+
+          <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+
+        {/*  insert scroll to page and render all the projects*/}
+
+          {projects}
+
+        </View>
+    );
+
+  }
+
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -186,5 +252,3 @@ const styles = StyleSheet.create({
     marginLeft: 62
   }
 });
-
-export default ProjectsModule;
