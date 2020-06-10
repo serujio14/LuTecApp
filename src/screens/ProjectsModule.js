@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
 import TextInput from "react-native-web/dist/exports/TextInput";
 
 export default class ProjectsModule extends Component {
@@ -23,6 +23,7 @@ export default class ProjectsModule extends Component {
   goToProject(text){
 
     //insert go to project detail and send ID (contained in var text) to fetch project info from DB
+    console.log('gotoproject')
 
 
   }
@@ -50,60 +51,73 @@ export default class ProjectsModule extends Component {
 
   render(){
 
-    let data = [];
+    if (this.state.isLoading) {
 
-    const array = Object.values( this.state.dataSource);
+      console.log('CARGANDO--------------------------------------------------------------------')
 
-    let materials = array.map((val, key) => {
+      return <View style={styles.containerLoader}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator size="large" color="#009688" />
 
-      return(
-
-      <View style={styles.projectContainer}>
-        <View style={styles.projectImageContainer}>
-          <Image
-              source={require("../assets/images/project_img.jpg")}
-              resizeMode="contain"
-              style={styles.projectImage}
-          />
         </View>
-        <View style={styles.projectInfoContainer}>
-
-          <Text style={styles.projectTitle}>{val.projectName}</Text>
-          <Text style={styles.projectDescription}>
-            {val.projectDescription}
-          </Text>
-        </View>
-
-        <TouchableOpacity
-            onPress={() => this.goToProject(val.Id_project)}
-            style={styles.btnWide2}
-        >
-          <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
-        </TouchableOpacity>
       </View>
-      )
-    });
 
-    return (
-        <View style={styles.container}>
+    } else {
 
-          <View style={styles.header}>
-            <Image
-                source={require("../assets/images/logosLuTecAppIcon.png")}
-                resizeMode="contain"
-                style={styles.image}
-            />
+      let data = [];
+
+      const array = Object.values(this.state.dataSource);
+
+      let projects = array.map((val, key) => {
+
+        return (
+
+            <View key={val.Id_project} style={styles.projectContainer}>
+              <View style={styles.projectImageContainer}>
+                <Image
+                    source={{uri:"https://source.unsplash.com/1024x768/?nature"}}
+                    resizeMode="contain"
+                    style={styles.projectImage}
+                />
+              </View>
+              <View style={styles.projectInfoContainer}>
+
+                <Text style={styles.projectTitle}>{val.Name}</Text>
+                <Text style={styles.projectDescription}>
+                  {val.Description}
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                  onPress={() => this.goToProject(val.Id_project)}
+                  style={styles.btnWide2}
+              >
+                <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
+              </TouchableOpacity>
+            </View>
+        )
+      });
+
+      return (
+          <View style={styles.container}>
+
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+
+            <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+
+            {/*  insert scroll to page and render all the projects*/}
+
+            {projects}
+
           </View>
-
-          <Text style={styles.title}>DEVELOPED PROJECTS</Text>
-
-        {/*  insert scroll to page and render all the projects*/}
-
-          {projects}
-
-        </View>
-    );
-
+      );
+    }
   }
 
 }
