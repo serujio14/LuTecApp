@@ -50,7 +50,7 @@ export default class CreateAccount extends Component {
                 return false
             }
         }else{
-            return true;
+            return false;
         }
     };
 
@@ -62,7 +62,7 @@ export default class CreateAccount extends Component {
 
             this.setState({isLoading: true});
 
-            fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name=" +
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name="
                 +state.Name + "&TecID=" + state.TecID + "&Email=" + state.Email + "&Password=" + state.Password, {
                     headers: {
                         'Accept': 'application/json',
@@ -97,7 +97,6 @@ export default class CreateAccount extends Component {
                     console.log('error')
                     console.error(error)
                 });
-            alert('Account created', 'Account created successfully! Logging in.');
         } else {
             Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
         }
@@ -151,6 +150,22 @@ export default class CreateAccount extends Component {
                     >
 
                 <View style={styles.container}>
+                    <Dialog.Container visible={this.state.dialogVisible}>
+                        <Dialog.Title>Account Created</Dialog.Title>
+                        <Dialog.Description>
+                            The new account has been created
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+
+                    <Dialog.Container visible={this.state.dialogFailVisible}>
+                        <Dialog.Title>Account Not Created</Dialog.Title>
+                        <Dialog.Description>
+                            There has been an error creating the account. Please try again
+                        </Dialog.Description>
+                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                    </Dialog.Container>
+
                     <View style={styles.header}>
                         <Image
                             source={require("../assets/images/logosLuTecAppIcon.png")}

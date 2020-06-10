@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput} from "react-native";
+import { RNCamera } from 'react-native-camera';
 import MaterialFixedLabelTextbox9 from "../components/MaterialFixedLabelTextbox9";
 import MaterialFixedLabelTextbox10 from "../components/MaterialFixedLabelTextbox10";
 import MaterialFixedLabelTextbox11 from "../components/MaterialFixedLabelTextbox11";
@@ -47,7 +48,8 @@ export default class ProjectCreate extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName=" +
+
+      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
           + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.projectDate , { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -66,6 +68,8 @@ export default class ProjectCreate extends Component {
                 projectName : "",
                 projectDetail : "",
                 projectDate: "",
+                dialogFailVisible: false,
+
               });
             }else{
               this.setState({
@@ -127,13 +131,14 @@ export default class ProjectCreate extends Component {
             </Dialog.Container>
             <View style={styles.btnCreateProjectStack}>
               <TouchableOpacity
-                  onPress={() => props.navigation.navigate("ProjectsModule")}
+                  onPress={() => this.createProject(this.state)}
                   style={styles.btnCreateProject}
               >
                 <Text style={styles.createProject2}>CREATE PROJECT</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                  onPress={() => this.createProject(this.state)}
+                  //insert camera logic
+
                   style={styles.btnUploadImg}
               >
                 <Text style={styles.uploadImage}>UPLOAD IMAGE</Text>
@@ -182,8 +187,15 @@ export default class ProjectCreate extends Component {
                   }
                   // ... You can check the source to find the other keys.
                 }}
-                onDateChange={(date) => {this.handleChangeTextProjectDetail(date)}}
+                onDateChange={(date) => {this.handleChangeTextProjectDate(date)}}
             />
+
+            <TextInput
+                value= {this.state.projectDate}
+                onChangeText={this.handleChangeTextProjectDetail}
+                style={styles.textbox}
+            />
+
             <Text style={styles.projectDescription}>PROJECT DESCRIPTION</Text>
 
             <TextInput

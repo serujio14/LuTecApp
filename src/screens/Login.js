@@ -25,6 +25,7 @@ export default class Login extends Component {
 
   CheckTextInput = () => {
 
+
     if (this.state.TecID != '' && this.state.Password != '') {
       return true;
     } else {
@@ -48,19 +49,10 @@ export default class Login extends Component {
       )
           .then(response => response.json())
           .then((responseJson) => {
-
-            console.log('worked')
             console.log(responseJson)
-
             if (responseJson.Response == 1) {
-              this.setState({
-                isLoading: false,
-                dialogVisible: true,
-                TecID: "",
-                Email: "",
-                Password: "",
-                PasswordConfirm: "",
-              });
+              //NAVIGATE TO LUTECAPP SCREENexpo
+              console.log('navigateLutecApp')
             } else {
               this.setState({
                 isLoading: false,
@@ -147,6 +139,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     textAlign: 'center'
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
+  horizontal: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   header: {
     height: 141,

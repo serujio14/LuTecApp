@@ -59,7 +59,7 @@ export default class AdminEditMaterial extends Component {
 
             this.setState({ isLoading: true });
 
-            fetch("http://192.168.0.4/lutecapp.com/service.php?who=edit_material&api_key=5183723902398237640&materialName=" +
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=edit_material&api_key=5183723902398237640&materialName="
                 + state.materialName +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
                 + "&traceSpeed=" + state.traceSpeed , { headers: {
                     'Accept': 'application/json',
@@ -179,7 +179,6 @@ export default class AdminEditMaterial extends Component {
 
         } else {
 
-            let data = [];
 
             const array = Object.values( this.state.dataSource);
 
