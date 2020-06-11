@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  ImageBackground
-} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ImageBackground, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 
+const { height } = Dimensions.get('window');
 function LuTecApp(props) {
   return (
       <View style={styles.container}>

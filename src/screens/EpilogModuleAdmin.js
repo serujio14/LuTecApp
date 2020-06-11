@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 import { Dropdown } from 'react-native-material-dropdown';
 
+const { height } = Dimensions.get('window');
+
 export default class EpilogModuleAdmin extends Component {
+
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight });
+  };
 
   constructor(props) {
     super(props);
@@ -39,9 +49,7 @@ export default class EpilogModuleAdmin extends Component {
               traceSpeed: val.TraceSpeed,
             })
       }
-
     });
-
   }
 
   componentDidMount() {
@@ -67,6 +75,8 @@ export default class EpilogModuleAdmin extends Component {
 
   render(){
 
+    const scrollEnabled = this.state.screenHeight > height;
+
     if (this.state.isLoading) {
 
       return <View style={styles.containerLoader}>
@@ -88,6 +98,15 @@ export default class EpilogModuleAdmin extends Component {
         data.push(obj)
       });
       return (
+
+          <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
 
           <View style={styles.container}>
             <View style={styles.header}>
@@ -168,6 +187,8 @@ export default class EpilogModuleAdmin extends Component {
               </View>
             </View>
           </View>
+            </ScrollView>
+          </SafeAreaView>
       );
 
     }

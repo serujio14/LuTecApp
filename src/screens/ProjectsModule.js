@@ -1,8 +1,17 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
-import TextInput from "react-native-web/dist/exports/TextInput";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
+
+const { height } = Dimensions.get('window');
 
 export default class ProjectsModule extends Component {
+
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight });
+  };
 
   constructor(props) {
     super(props);
@@ -50,6 +59,8 @@ export default class ProjectsModule extends Component {
   }
 
   render(){
+
+    const scrollEnabled = this.state.screenHeight > height;
 
     if (this.state.isLoading) {
 

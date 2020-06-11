@@ -1,22 +1,36 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, Alert, TextInput, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 import { RNCamera } from 'react-native-camera';
-import MaterialFixedLabelTextbox9 from "../components/MaterialFixedLabelTextbox9";
-import MaterialFixedLabelTextbox10 from "../components/MaterialFixedLabelTextbox10";
-import MaterialFixedLabelTextbox11 from "../components/MaterialFixedLabelTextbox11";
 import Dialog from "react-native-dialog";
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+import Moment from 'moment';
+
+const { height } = Dimensions.get('window');
 
 export default class ProjectCreate extends Component {
 
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight });
+  };
+
   constructor(props) {
     super(props);
+    let dt;
+    Moment.locale('en');
+    dt = new Date();
+    dt = Moment(dt).format('d MMM YYYY')
     this.state = {
       isLoading: false,
       dataSource: null,
       projectName : "",
       projectDetail : "",
       projectDate: new Date(),
+      txtProjectDate: dt,
+      textProjectDate: new Date(),
       visible : false,
       dialogVisible: false,
       dialogFailVisible: false
@@ -40,6 +54,7 @@ export default class ProjectCreate extends Component {
       return false
     }
   };
+
   createProject(state){
 
     if (this.CheckTextInput()){
@@ -84,7 +99,7 @@ export default class ProjectCreate extends Component {
             console.error(error)
           });
     }else{
-      alert('Please Fill All Spaces');
+      Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
     }
   }
   handleCancel = () => {
@@ -94,8 +109,12 @@ export default class ProjectCreate extends Component {
   handleChangeTextProjectName(text){
     this.setState({projectName : text})
   }
+
   handleChangeTextProjectDate(text){
-    this.setState({projectDate : text})
+    this.setState(
+        {projectDate : text,
+          txtProjectDate: text}
+    )
   }
 
   handleChangeTextProjectDetail(text){
@@ -103,6 +122,9 @@ export default class ProjectCreate extends Component {
   }
 
   render() {
+
+    const scrollEnabled = this.state.screenHeight > height;
+
     if (this.state.isLoading) {
 
       return <View style={styles.containerLoader}>
@@ -113,97 +135,102 @@ export default class ProjectCreate extends Component {
 
     } else {
       return (
-          <View style={styles.container}>
-            <Dialog.Container visible={this.state.dialogVisible}>
-              <Dialog.Title>Project Added</Dialog.Title>
-              <Dialog.Description>
-                The new project has been added
-              </Dialog.Description>
-              <Dialog.Button label="Continue" onPress={this.handleCancel} />
-            </Dialog.Container>
+          <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
 
-            <Dialog.Container visible={this.state.dialogFailVisible}>
-              <Dialog.Title>Project Not Added</Dialog.Title>
-              <Dialog.Description>
-                There has been an error adding the project. Please try again
-              </Dialog.Description>
-              <Dialog.Button label="Continue" onPress={this.handleCancel} />
-            </Dialog.Container>
-            <View style={styles.btnCreateProjectStack}>
-              <TouchableOpacity
-                  onPress={() => this.createProject(this.state)}
-                  style={styles.btnCreateProject}
-              >
-                <Text style={styles.createProject2}>CREATE PROJECT</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  //insert camera logic
+              <View style={styles.container}>
+                <View style={styles.header}>
+                  <Image
+                      source={require("../assets/images/logosLuTecAppIcon.png")}
+                      resizeMode="contain"
+                      style={styles.image}
+                  />
+                </View>
+                <Text style={styles.title}>CREATE PROJECT</Text>
 
-                  style={styles.btnUploadImg}
-              >
-                <Text style={styles.uploadImage}>UPLOAD IMAGE</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.rect1}>
-              <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
-                  resizeMode="contain"
-                  style={styles.image}
-              />
-            </View>
-            <View style={styles.rect2}>
-              <Text style={styles.createProject}>CREATE PROJECT</Text>
-            </View>
-            <View style={styles.loremIpsumStack}>
-              <Text style={styles.loremIpsum}></Text>
-              <View style={styles.projectNameStack}>
-                <Text style={styles.projectName}>PROJECT NAME</Text>
+                <Dialog.Container visible={this.state.dialogVisible}>
+                  <Dialog.Title>Project Added</Dialog.Title>
+                  <Dialog.Description>
+                    The new project has been added
+                  </Dialog.Description>
+                  <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                </Dialog.Container>
+
+                <Dialog.Container visible={this.state.dialogFailVisible}>
+                  <Dialog.Title>Project Not Added</Dialog.Title>
+                  <Dialog.Description>
+                    There has been an error adding the project. Please try again
+                  </Dialog.Description>
+                  <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                </Dialog.Container>
+
+                <Text style={styles.label}>PROJECT NAME</Text>
                 <TextInput
                     value={this.state.projectName}
                     onChangeText={this.handleChangeTextProjectName}
                     style={styles.textbox}
                 />
+
+                <TextInput
+                    value= {"PROJECT DATE"}
+                    style={styles.label}
+                />
+                <DatePicker
+                    style={styles.datePickerContainer}
+                    date={this.state.date}
+                    mode="date"
+                    placeholder={this.state.txtProjectDate}
+                    value= {this.state.txtProjectDate}
+                    format="DD MMM YYYY"
+                    minDate="2020-01-01"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                      dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        marginRight: 3,
+                        top: 4
+                      },
+                      dateInput: {
+                        marginLeft: 50
+                      }
+                    }}
+                    onDateChange={(date) => {this.handleChangeTextProjectDate(date)}}
+                />
+
+                <Text style={styles.label}>PROJECT DESCRIPTION</Text>
+                <TextInput
+                    value={this.state.projectDetail}
+                    onChangeText={this.handleChangeTextProjectDetail}
+                    multiline={true}
+                    style={styles.textboxMulti}
+                />
+
               </View>
+            </ScrollView>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                  //insert camera logic
+
+                  style={styles.btnWide2}
+              >
+                <Text style={styles.btnLabel}>UPLOAD IMAGE</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                  onPress={() => this.createProject(this.state)}
+                  style={styles.btnWide}
+              >
+                <Text style={styles.btnLabel}>CREATE PROJECT</Text>
+              </TouchableOpacity>
             </View>
-            <Text style={styles.projectDate}>PROJECT DATE</Text>
-            <DatePicker
-                style={{width: 200}}
-                date={this.state.date}
-                mode="date"
-                placeholder="select date"
-                format="YYYY-MM-DD"
-                minDate="2020-05-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: 'absolute',
-                    left: 0,
-                    top: 4,
-                    marginLeft: 20
-                  },
-                  dateInput: {
-                    marginLeft: 50
-                  }
-                  // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) => {this.handleChangeTextProjectDate(date)}}
-            />
-
-            <TextInput
-                value= {this.state.projectDate}
-                onChangeText={this.handleChangeTextProjectDetail}
-                style={styles.textbox}
-            />
-
-            <Text style={styles.projectDescription}>PROJECT DESCRIPTION</Text>
-
-            <TextInput
-                value={this.state.projectDetail}
-                onChangeText={this.handleChangeTextProjectDetail}
-                style={styles.textbox}
-            />
-          </View>
+          </SafeAreaView>
       );
     }
   }
@@ -217,11 +244,23 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: 'center'
   },
+  datePickerContainer: {
+    width: '80%',
+    marginBottom: 15,
+    alignSelf: 'center'
+  },
   containerLoader: {
     flex: 1,
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
+  },
+  btnContainer: {
+    width: '100%',
+    height: 108,
+    position: 'absolute',
+    backgroundColor: 'gray',
+    bottom: 0
   },
   horizontal: {
     backgroundColor: '#FFFFFF',
@@ -235,6 +274,24 @@ const styles = StyleSheet.create({
   header: {
     height: 141,
     backgroundColor: "rgba(3,85,73,1)"
+  },
+  btnWide: {
+    width: '100%',
+    height: 54,
+    alignSelf: 'center',
+    backgroundColor: "rgba(0,150,136,1)"
+  },
+  btnWide2: {
+    width: '100%',
+    height: 54,
+    alignSelf: 'center',
+    backgroundColor: "rgba(76,76,77,1)"
+  },
+  btnLabel: {
+    fontFamily: "roboto-regular",
+    color: "rgba(255,255,255,1)",
+    textAlign: "center",
+    marginTop: 19
   },
   image: {
     width: 329,
@@ -250,34 +307,35 @@ const styles = StyleSheet.create({
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
+    marginBottom: 15,
     lineHeight: 56
   },
   label: {
     fontFamily: "roboto-regular",
-    color: "#121212",
-    height: 16,
+    color: "#595A5C",
     flexDirection: "row",
-    marginTop: 22,
-    marginLeft: 28
-  },
-  textbox: {
-    marginLeft: 28,
-    marginRight: 28
-  },
-  btnWide: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom:0,
-    alignSelf: 'stretch',
+    marginTop: 15,
     textAlign: 'center'
   },
-  btnLabel: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
+  textbox: {
+    marginLeft: '10%',
+    marginRight: '10%',
+    marginBottom: 25,
+    paddingBottom: 2,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
     textAlign: "center",
-    marginTop: 19
+    color: 'gray'
+  },
+  textboxMulti: {
+    marginLeft: '10%',
+    marginRight: '10%',
+    marginVertical: 25,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    textAlign: "center",
+    color: 'gray'
   },
   btnCreateProject: {
     top: 0,

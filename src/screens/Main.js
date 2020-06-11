@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, StatusBar } from "react-native";
+
+const { height } = Dimensions.get('window');
 
 function Main(props) {
   return (
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     color: "rgba(253,253,253,1)",
     fontSize: 16,
-    padding: 30,
+    padding: '10%',
     textAlign: "justify"
   },
   btnsContainer: {
@@ -136,15 +138,15 @@ const styles = StyleSheet.create({
     top: 0
   },
   image: {
-    height: 260,
+    width: '100%',
+    height: '30%',
     marginTop: 63,
-    marginLeft: 15,
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
   },
   image2: {
-    height: 42,
+    height: 40,
     marginLeft: -10,
     display: "flex",
     justifyContent: "center",
