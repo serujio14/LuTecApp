@@ -149,75 +149,75 @@ export default class CreateAccount extends Component {
                         onContentSizeChange={this.onContentSizeChange}
                     >
 
-                <View style={styles.container}>
-                    <Dialog.Container visible={this.state.dialogVisible}>
-                        <Dialog.Title>Account Created</Dialog.Title>
-                        <Dialog.Description>
-                            The new account has been created
-                        </Dialog.Description>
-                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
-                    </Dialog.Container>
+                        <View style={styles.container}>
+                            <Dialog.Container visible={this.state.dialogVisible}>
+                                <Dialog.Title>Account Created</Dialog.Title>
+                                <Dialog.Description>
+                                    The new account has been created
+                                </Dialog.Description>
+                                <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                            </Dialog.Container>
 
-                    <Dialog.Container visible={this.state.dialogFailVisible}>
-                        <Dialog.Title>Account Not Created</Dialog.Title>
-                        <Dialog.Description>
-                            There has been an error creating the account. Please try again
-                        </Dialog.Description>
-                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
-                    </Dialog.Container>
+                            <Dialog.Container visible={this.state.dialogFailVisible}>
+                                <Dialog.Title>Account Not Created</Dialog.Title>
+                                <Dialog.Description>
+                                    There has been an error creating the account. Please try again
+                                </Dialog.Description>
+                                <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                            </Dialog.Container>
 
-                    <View style={styles.header}>
-                        <Image
-                            source={require("../assets/images/logosLuTecAppIcon.png")}
-                            resizeMode="contain"
-                            style={styles.image}
-                        ></Image>
-                    </View>
+                            <View style={styles.header}>
+                                <Image
+                                    source={require("../assets/images/logosLuTecAppIcon.png")}
+                                    resizeMode="contain"
+                                    style={styles.image}
+                                ></Image>
+                            </View>
 
-                    {/* - - - - - - TITLE - - - - - - -*/}
-                    <Text style={styles.title}>CREATE ACCOUNT</Text>
+                            {/* - - - - - - TITLE - - - - - - -*/}
+                            <Text style={styles.title}>CREATE ACCOUNT</Text>
 
-                    <Text style={styles.label}>NAME</Text>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <TextInput
-                        value={this.state.Name}
-                        onChangeText={this.handleChangeTextName}
-                        style={styles.textbox}
-                    ></TextInput>
+                            <Text style={styles.label}>NAME</Text>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.Name}
+                                onChangeText={this.handleChangeTextName}
+                                style={styles.textbox}
+                            ></TextInput>
 
-                    <Text style={styles.label}>TEC ID</Text>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <TextInput
-                        value={this.state.TecID}
-                        onChangeText={this.handleChangeTextTecID}
-                        style={styles.textbox}
-                    ></TextInput>
+                            <Text style={styles.label}>TEC ID</Text>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.TecID}
+                                onChangeText={this.handleChangeTextTecID}
+                                style={styles.textbox}
+                            ></TextInput>
 
-                    <Text style={styles.label}>EMAIL</Text>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <TextInput
-                        value={this.state.Email}
-                        onChangeText={this.handleChangeTextEmail}
-                        style={styles.textbox}
-                    ></TextInput>
+                            <Text style={styles.label}>EMAIL</Text>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.Email}
+                                onChangeText={this.handleChangeTextEmail}
+                                style={styles.textbox}
+                            ></TextInput>
 
-                    <Text style={styles.label}>PASSWORD</Text>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <TextInput
-                        value={this.state.Password}
-                        onChangeText={this.handleChangeTextPassword}
-                        style={styles.textbox}
-                    ></TextInput>
+                            <Text style={styles.label}>PASSWORD</Text>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.Password}
+                                onChangeText={this.handleChangeTextPassword}
+                                style={styles.textbox}
+                            ></TextInput>
 
-                    <Text style={styles.label}>CONFIRM PASSWORD</Text>
-                    {/* - - - - - - TEXTBOX - - - - - - -*/}
-                    <TextInput
-                        value={this.state.PasswordConfirm}
-                        onChangeText={this.handleChangeTextPasswordConfirm}
-                        style={styles.textbox}
-                    ></TextInput>
+                            <Text style={styles.label}>CONFIRM PASSWORD</Text>
+                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.PasswordConfirm}
+                                onChangeText={this.handleChangeTextPasswordConfirm}
+                                style={styles.textbox}
+                            ></TextInput>
 
-                </View>
+                        </View>
                     </ScrollView>
 
                     {/* - - - - - - BTN - - - - - - -*/}

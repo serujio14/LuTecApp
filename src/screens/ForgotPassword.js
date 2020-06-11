@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ActivityIndicator} from "react-native";
-import LoginTextboxTecID from "../components/LoginTextboxTecID";
-import LoginTextboxPassword from "../components/LoginTextboxPassword";
-import LoginTextboxConfirmPassword from "../components/LoginTextboxConfirmPassword";
+import {StyleSheet, View, TouchableOpacity, Text, Image, TextInput, ActivityIndicator, Alert, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 import Dialog from "react-native-dialog";
 
+const { height } = Dimensions.get('window');
 
 export default class ForgotPassword extends Component {
+
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight });
+  };
 
   constructor(props) {
     super(props);
@@ -112,6 +118,8 @@ export default class ForgotPassword extends Component {
 
   render() {
 
+    const scrollEnabled = this.state.screenHeight > height;
+
     if (this.state.isLoading) {
 
       return <View style={styles.containerLoader}>
@@ -123,8 +131,16 @@ export default class ForgotPassword extends Component {
     } else {
 
       return (
-          <View style={styles.container}>
+          <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
 
+          <View style={styles.container}>
             <Dialog.Container visible={this.state.dialogVisible}>
               <Dialog.Title>Password Updated</Dialog.Title>
               <Dialog.Description>
@@ -170,6 +186,9 @@ export default class ForgotPassword extends Component {
                 style={styles.textbox}
             />
 
+          </View>
+            </ScrollView>
+
             {/* - - - - - - BTN - - - - - - -*/}
             <TouchableOpacity
                 onPress={() => this.resetPassword(this.state)}
@@ -177,7 +196,7 @@ export default class ForgotPassword extends Component {
             >
               <Text style={styles.btnLabel}>RESET PASSWORD</Text>
             </TouchableOpacity>
-          </View>
+          </SafeAreaView>
       );
     }
   }
@@ -224,20 +243,25 @@ const styles = StyleSheet.create({
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
+    marginBottom: 20,
     lineHeight: 56
   },
   label: {
     fontFamily: "roboto-regular",
-    color: "#121212",
-    height: 16,
+    color: "#595A5C",
     flexDirection: "row",
-    marginTop: 22,
-    marginLeft: 28
+    marginTop: 15,
+    textAlign: 'center'
   },
   textbox: {
-    marginLeft: 28,
-    marginBottom: 30,
-    marginRight: 28
+    marginLeft: '20%',
+    marginRight: '20%',
+    marginBottom: 25,
+    paddingBottom: 2,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    textAlign: "center",
+    color: 'gray'
   },
   btnWide: {
     width: '100%',

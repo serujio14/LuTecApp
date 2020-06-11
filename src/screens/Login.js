@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput} from "react-native";
-import LoginTextboxTecID from "../components/LoginTextboxTecID";
-import LoginTextboxPassword from "../components/LoginTextboxPassword";
 
 export default class Login extends Component {
 
@@ -66,7 +64,7 @@ export default class Login extends Component {
             console.error(error)
           });
     } else {
-      alert('Please Fill All Spaces and Passwords must match');
+      alert('Please fill all spaces and passwords must match');
     }
   }
 
@@ -173,19 +171,25 @@ const styles = StyleSheet.create({
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
+    marginBottom: 20,
     lineHeight: 56
   },
   label: {
     fontFamily: "roboto-regular",
-    color: "#121212",
-    height: 16,
+    color: "#595A5C",
     flexDirection: "row",
-    marginTop: 22,
-    marginLeft: 28
+    marginTop: 15,
+    textAlign: 'center'
   },
   textbox: {
-    marginLeft: 28,
-    marginRight: 28
+    marginLeft: '20%',
+    marginRight: '20%',
+    marginBottom: 25,
+    paddingBottom: 2,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    textAlign: "center",
+    color: 'gray'
   },
   btnWide: {
     width: '100%',
@@ -201,6 +205,7 @@ const styles = StyleSheet.create({
     height: 54,
     alignSelf: 'stretch',
     textAlign: 'center',
+    color: "rgba(0,150,136,1)",
     backgroundColor: "rgba(255,255,255,1)",
   },
   btnLabel: {
