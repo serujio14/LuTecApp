@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, Alert} from "react-native";
+import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, Alert, ScrollView, SafeAreaView, StatusBar, Dimensions} from "react-native";
 import Dialog from "react-native-dialog";
 
+const { height } = Dimensions.get('window');
 
 export default class AdminAddMaterial extends Component {
+
+    state = {
+        screenHeight: height,
+    };
+
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        this.setState({ screenHeight: contentHeight + 174});
+    };
 
     constructor(props) {
         super(props);
@@ -119,14 +128,15 @@ export default class AdminAddMaterial extends Component {
 
     render() {
 
+        const scrollEnabled = this.state.screenHeight > height;
+
         if (this.state.isLoading) {
 
-            console.log('CARGANDO--------------------------------------------------------------------')
+            //console.log('CARGANDO')
 
             return <View style={styles.containerLoader}>
                 <View style={styles.horizontal}>
                     <ActivityIndicator size="large" color="#009688" />
-
                 </View>
             </View>
 
@@ -134,101 +144,107 @@ export default class AdminAddMaterial extends Component {
 
             return (
 
-                <View style={styles.container}>
-                    <Dialog.Container visible={this.state.dialogVisible}>
-                        <Dialog.Title>Material Added</Dialog.Title>
-                        <Dialog.Description>
-                            The new material has been added
-                        </Dialog.Description>
-                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
-                    </Dialog.Container>
-
-                    <Dialog.Container visible={this.state.dialogFailVisible}>
-                        <Dialog.Title>Material Not Added</Dialog.Title>
-                        <Dialog.Description>
-                            There has been an error adding the material. Please try again
-                        </Dialog.Description>
-                        <Dialog.Button label="Continue" onPress={this.handleCancel} />
-                    </Dialog.Container>
-
+                <SafeAreaView style={styles.container}>
                     <View style={styles.header}>
                         <Image
                             source={require("../assets/images/logosLuTecAppIcon.png")}
                             resizeMode="contain"
                             style={styles.image}
-                        />
+                        ></Image>
                     </View>
-
                     <Text style={styles.title}>ADD MATERIAL</Text>
-
-                    <Text style={styles.label}>MATERIAL NAME & THICKNESS</Text>
-                    <TextInput
-                        value={this.state.materialName}
-                        onChangeText={this.handleChangeTextMaterialName}
-                        style={styles.textbox}
-                    />
-
-                    <Text style={styles.title2}>CUTTING PARAMETERS</Text>
-                    <View style={styles.itemContainer}>
-                        <View style={styles.powerBox}>
-                            <View style={styles.parameterContainer}>
-                            <TextInput
-                                value={this.state.tracePower}
-                                onChangeText={this.handleChangeTextTracePower}
-                                style={styles.labelParameterNumber}
-                            />
-                            <Text style={styles.labelParameter}>POWER</Text>
-                        </View>
-                        </View>
-                        <View style={styles.speedBox}>
-                            <View style={styles.parameterContainer}>
-                            <TextInput
-                                value={this.state.traceSpeed}
-                                onChangeText={this.handleChangeTextTraceSpeed}
-                                style={styles.labelParameterNumber}
-                            />
-                            <Text style={styles.labelParameter}>SPEED</Text>
-                        </View>
-                        </View>
-                    </View>
-
-                    <Text style={styles.title2}>TRACING PARAMETERS</Text>
-                    <View style={styles.itemContainer}>
-                        <View style={styles.powerBox}>
-                            <View style={styles.parameterContainer}>
-                                <TextInput
-                                    value={this.state.cutPower}
-                                    onChangeText={this.handleChangeTextCutPower}
-                                    style={styles.labelParameterNumber}
-                                />
-                                <Text style={styles.labelParameter}>POWER</Text>
-                            </View>
-                        </View>
-                        <View style={styles.speedBox}>
-                            <View style={styles.parameterContainer}>
-                                <TextInput
-                                    value={this.state.cutSpeed}
-                                    onChangeText={this.handleChangeTextCutSpeed}
-                                    style={styles.labelParameterNumber}
-                                />
-                                <Text style={styles.labelParameter}>SPEED</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <TouchableOpacity
-                        onPress={() => this.addMaterial(this.state)}
-                        style={styles.btnWide}
+                    <StatusBar barStyle="light-content" backgroundColor="#468189" />
+                    <ScrollView
+                        style={{ flex: 1 }}
+                        contentContainerStyle={styles.scrollview}
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
                     >
-                        <Text style={styles.btnLabel}>ADD MATERIAL</Text>
-                    </TouchableOpacity>
-                </View>
+
+                        <View style={styles.container}>
+                            <Dialog.Container visible={this.state.dialogVisible}>
+                                <Dialog.Title>Material Added</Dialog.Title>
+                                <Dialog.Description>
+                                    The new material has been added
+                                </Dialog.Description>
+                                <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                            </Dialog.Container>
+
+                            <Dialog.Container visible={this.state.dialogFailVisible}>
+                                <Dialog.Title>Material Not Added</Dialog.Title>
+                                <Dialog.Description>
+                                    There has been an error adding the material. Please try again
+                                </Dialog.Description>
+                                <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                            </Dialog.Container>
+
+                            <Text style={styles.label}>MATERIAL NAME & THICKNESS</Text>
+                            <TextInput
+                                value={this.state.materialName}
+                                onChangeText={this.handleChangeTextMaterialName}
+                                style={styles.textbox}
+                            />
+
+                            <Text style={styles.title2}>CUTTING PARAMETERS</Text>
+                            <View style={styles.itemContainer}>
+                                <View style={styles.powerBox}>
+                                    <View style={styles.parameterContainer}>
+                                        <TextInput
+                                            value={this.state.tracePower}
+                                            onChangeText={this.handleChangeTextTracePower}
+                                            style={styles.labelParameterNumber}
+                                        />
+                                        <Text style={styles.labelParameter}>POWER</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.speedBox}>
+                                    <View style={styles.parameterContainer}>
+                                        <TextInput
+                                            value={this.state.traceSpeed}
+                                            onChangeText={this.handleChangeTextTraceSpeed}
+                                            style={styles.labelParameterNumber}
+                                        />
+                                        <Text style={styles.labelParameter}>SPEED</Text>
+                                    </View>
+                                </View>
+                            </View>
+
+                            <Text style={styles.title2}>TRACING PARAMETERS</Text>
+                            <View style={styles.itemContainer}>
+                                <View style={styles.powerBox}>
+                                    <View style={styles.parameterContainer}>
+                                        <TextInput
+                                            value={this.state.cutPower}
+                                            onChangeText={this.handleChangeTextCutPower}
+                                            style={styles.labelParameterNumber}
+                                        />
+                                        <Text style={styles.labelParameter}>POWER</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.speedBox}>
+                                    <View style={styles.parameterContainer}>
+                                        <TextInput
+                                            value={this.state.cutSpeed}
+                                            onChangeText={this.handleChangeTextCutSpeed}
+                                            style={styles.labelParameterNumber}
+                                        />
+                                        <Text style={styles.labelParameter}>SPEED</Text>
+                                    </View>
+                                </View>
+                            </View>
+
+                            <TouchableOpacity
+                                onPress={() => this.addMaterial(this.state)}
+                                style={styles.btnWide}
+                            >
+                                <Text style={styles.btnLabel}>ADD MATERIAL</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </SafeAreaView>
             );
-
-
         }
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -252,33 +268,45 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around'
     },
+    btnLabel: {
+        fontFamily: "roboto-regular",
+        color: "rgba(255,255,255,1)",
+        textAlign: "center",
+        marginTop: 19
+    },
+    btnWide: {
+        width: '100%',
+        height: 54,
+        marginTop: 15,
+        backgroundColor: "rgba(0,150,136,1)",
+        alignSelf: 'stretch',
+        textAlign: 'center'
+    },
     header: {
-        height: 141,
+        height: 120,
         backgroundColor: "rgba(3,85,73,1)"
     },
+    image: {
+        width: 329,
+        height: 64,
+        marginTop: 30,
+        alignSelf: 'center'
+    },
     itemContainer: {
-        height: 109,
+        height: 120,
         flexDirection: "row",
         marginRight: -3
     },
-    item :{
-        flex: 0.5,
-        height: 120,
-        padding: 10
-    },
     parameterContainer: {
-        height: 92,
         marginTop: 7,
         alignItems: 'center'
     },
     powerBox: {
         width: '50%',
-        height: 109,
         backgroundColor: "#E6E6E6"
     },
     speedBox: {
         width: '50%',
-        height: 109,
         backgroundColor: "#E6E6E6",
         marginLeft: 2
     },
@@ -303,7 +331,7 @@ const styles = StyleSheet.create({
     },
     title: {
         height: 48,
-        backgroundColor: "rgba(76,76,77,1)",
+        backgroundColor: "rgba(45,45,45,1)",
         fontFamily: "roboto-regular",
         fontWeight: 'bold',
         color: "rgba(251,251,251,1)",
@@ -327,91 +355,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         textAlign: 'center'
     },
-    label2: {
-        top: 10,
-        textAlign: "center",
-        fontFamily: "roboto-regular",
-        color: "#121212",
-    },
     textbox: {
-        marginLeft: 30,
-        marginRight: 30,
+        width: '80%',
+        alignSelf:'center',
         marginBottom: 25,
         paddingBottom: 2,
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
         textAlign: "center",
         color: 'gray'
-    },
-    textbox2: {
-        marginLeft: 28,
-        marginRight: 28
-    },
-    btnWide: {
-        width: '100%',
-        height: 54,
-        backgroundColor: "rgba(0,150,136,1)",
-        position: 'absolute',
-        bottom: 0,
-        alignSelf: 'stretch',
-        textAlign: 'center'
-    },
-    btnLabel: {
-        fontFamily: "roboto-regular",
-        color: "rgba(255,255,255,1)",
-        textAlign: "center",
-        marginTop: 19
-    },
-    btnSelectMaterial: {
-        height: 54,
-        backgroundColor: "rgba(0,150,136,1)",
-    },
-    btnAddMaterial: {
-        width: 376,
-        height: 54,
-        backgroundColor: "rgba(0,150,136,1)",
-        marginTop: 692
-    },
-    addMaterial2: {
-        fontFamily: "roboto-regular",
-        color: "rgba(255,255,255,1)",
-        marginTop: 19,
-        marginLeft: 140
-    },
-    group3: {
-        width: 376,
-        height: 37,
-        marginTop: -207
-    },
-    rect5: {
-        width: 376,
-        height: 37,
-        backgroundColor: "rgba(76,76,77,1)"
-    },
-    tracingParameters: {
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 19,
-        textAlign: "center",
-        marginTop: 7,
-        marginLeft: 86
-    },
-    rect1: {
-        width: 376,
-        height: 141,
-        backgroundColor: "rgba(3,85,73,1)",
-        marginTop: -577
-    },
-    image: {
-        width: 329,
-        height: 65,
-        marginTop: 53,
-        marginLeft: 23
-    },
-    rect2: {
-        width: 376,
-        height: 48,
-        backgroundColor: "rgba(76,76,77,1)"
     },
     addMaterial: {
         fontFamily: "roboto-regular",
@@ -421,147 +373,9 @@ const styles = StyleSheet.create({
         marginTop: 11,
         marginLeft: 106
     },
-    loremIpsum: {
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        marginTop: 4
-    },
     materialName: {
         fontFamily: "roboto-regular",
         color: "#121212",
         marginLeft: 2
     },
-    loremIpsumRow: {
-        height: 17,
-        flexDirection: "row",
-        marginTop: 27,
-        marginLeft: 28
-    },
-    materialFixedLabelTextbox: {
-        height: 43,
-        width: 330,
-        marginLeft: 21
-    },
-    thickness: {
-        top: 0,
-        left: 9,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox1: {
-        height: 43,
-        width: 330,
-        position: "absolute",
-        left: 0,
-        top: 16
-    },
-    thicknessStack: {
-        width: 330,
-        height: 59,
-        marginTop: 31,
-        marginLeft: 21
-    },
-    materialFixedLabelTextbox3: {
-        height: 43,
-        width: 143,
-        position: "absolute",
-        left: 0,
-        top: 15
-    },
-    power1: {
-        top: 0,
-        left: 41,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    powerContainer: {
-        width: 143,
-        height: 58
-    },
-    materialFixedLabelTextbox4: {
-        height: 43,
-        width: 151,
-        position: "absolute",
-        left: 0,
-        top: 15
-    },
-    speed3: {
-        top: 0,
-        left: 49,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    speedContainer: {
-        width: 151,
-        height: 58,
-        marginLeft: 28
-    },
-    powerSpeedContainer: {
-        height: 58,
-        flexDirection: "row",
-        marginTop: 235,
-        marginLeft: 27,
-        marginRight: 26
-    },
-    power2: {
-        fontFamily: "roboto-regular",
-        color: "#121212",
-        marginLeft: 43
-    },
-    materialFixedLabelTextbox2: {
-        height: 43,
-        width: 150,
-        marginTop: 1
-    },
-    power2Column: {
-        width: 150
-    },
-    speed2: {
-        top: 0,
-        left: 49,
-        position: "absolute",
-        fontFamily: "roboto-regular",
-        color: "#121212"
-    },
-    materialFixedLabelTextbox5: {
-        height: 43,
-        width: 150,
-        position: "absolute",
-        left: 0,
-        top: 16
-    },
-    speed2Stack: {
-        width: 150,
-        height: 59,
-        marginLeft: 28,
-        marginTop: 2
-    },
-    power2ColumnRow: {
-        height: 61,
-        flexDirection: "row",
-        marginTop: -209,
-        marginLeft: 24,
-        marginRight: 23
-    },
-    group4: {
-        width: 376,
-        height: 37,
-        marginTop: -119
-    },
-    rect4: {
-        width: 376,
-        height: 37,
-        backgroundColor: "rgba(76,76,77,1)"
-    },
-    cuttingParameters: {
-        fontFamily: "roboto-regular",
-        color: "rgba(251,251,251,1)",
-        fontSize: 19,
-        textAlign: "center",
-        marginTop: 7,
-        marginLeft: 86
-    }
 });

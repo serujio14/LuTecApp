@@ -1,7 +1,17 @@
 import React, {Component} from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput, ScrollView, SafeAreaView, StatusBar, Dimensions} from "react-native";
+
+const { height } = Dimensions.get('window');
 
 export default class Login extends Component {
+
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight + 174});
+  };
 
   constructor(props) {
     super(props);
@@ -81,6 +91,8 @@ export default class Login extends Component {
 
   render() {
 
+    const scrollEnabled = this.state.screenHeight > height;
+
     if (this.state.isLoading) {
 
       return <View style={styles.containerLoader}>
@@ -94,40 +106,51 @@ export default class Login extends Component {
 
       return (
 
-          <View style={styles.container}>
+          <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
                   source={require("../assets/images/logosLuTecAppIcon.png")}
                   resizeMode="contain"
                   style={styles.image}
-              />
+              ></Image>
             </View>
             <Text style={styles.title}>ACCOUNT LOGIN</Text>
-            <Text style={styles.label}>TEC ID</Text>
-            <TextInput
-                value={this.state.TecID}
-                onChangeText={this.handleChangeTextTecID}
-                style={styles.textbox}
-            />
-            <Text style={styles.label}>PASSWORD</Text>
-            <TextInput
-                value={this.state.Password}
-                onChangeText={this.handleChangeTextPassword}
-                style={styles.textbox}
-            />
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("ForgotPassword")}
-                style={styles.button}
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
             >
-              <Text style={styles.btnWhite}>FORGOT PASSWORD?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => this.login(this.state)}
-                style={styles.btnWide}
-            >
-              <Text style={styles.btnLabel}>LOGIN</Text>
-            </TouchableOpacity>
-          </View>
+
+              <View style={styles.container}>
+                <Text style={styles.label}>TEC ID</Text>
+                <TextInput
+                    value={this.state.TecID}
+                    onChangeText={this.handleChangeTextTecID}
+                    style={styles.textbox}
+                />
+                <Text style={styles.label}>PASSWORD</Text>
+                <TextInput
+                    value={this.state.Password}
+                    onChangeText={this.handleChangeTextPassword}
+                    style={styles.textbox}
+                />
+                <TouchableOpacity
+                    onPress={() => props.navigation.navigate("ForgotPassword")}
+                    style={styles.button}
+                >
+                  <Text style={styles.btnWhite}>FORGOT PASSWORD?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => this.login(this.state)}
+                    style={styles.btnWide}
+                >
+                  <Text style={styles.btnLabel}>LOGIN</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </SafeAreaView>
       );
     }
   }
@@ -154,18 +177,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 141,
+    height: 120,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
+    backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
@@ -182,8 +205,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textbox: {
-    marginLeft: '20%',
-    marginRight: '20%',
+    width: '80%',
+    alignSelf:'center',
     marginBottom: 25,
     paddingBottom: 2,
     borderBottomWidth: 1,

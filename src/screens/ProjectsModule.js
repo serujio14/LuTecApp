@@ -30,11 +30,12 @@ export default class ProjectsModule extends Component {
   }
 
   goToProject(text){
+    //const { navigate } = this.props.navigation;
+
+    //navigate("gotoproject")
 
     //insert go to project detail and send ID (contained in var text) to fetch project info from DB
     console.log('gotoproject')
-
-
   }
 
   componentDidMount() {
@@ -64,7 +65,7 @@ export default class ProjectsModule extends Component {
 
     if (this.state.isLoading) {
 
-      console.log('CARGANDO--------------------------------------------------------------------')
+      console.log('CARGANDO')
 
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
@@ -87,14 +88,13 @@ export default class ProjectsModule extends Component {
               <View style={styles.projectImageContainer}>
                 <Image
                     source={{uri:"https://source.unsplash.com/1024x768/?nature"}}
-                    resizeMode="contain"
+                    resizeMode="cover"
                     style={styles.projectImage}
                 />
               </View>
               <View style={styles.projectInfoContainer}>
-
                 <Text style={styles.projectTitle}>{val.Name}</Text>
-                <Text style={styles.projectDescription}>
+                <Text multiline={true} style={styles.projectDescription}>
                   {val.Description}
                 </Text>
               </View>
@@ -106,12 +106,13 @@ export default class ProjectsModule extends Component {
                 <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
               </TouchableOpacity>
             </View>
+
         )
       });
 
       return (
-          <View style={styles.container}>
 
+          <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
                   source={require("../assets/images/logosLuTecAppIcon.png")}
@@ -119,14 +120,21 @@ export default class ProjectsModule extends Component {
                   style={styles.image}
               />
             </View>
-
             <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
 
-            {/*  insert scroll to page and render all the projects*/}
-
-            {projects}
-
-          </View>
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
+              <View style={styles.container}>
+                {/*render all the projects*/}
+                {projects}
+              </View>
+            </ScrollView>
+          </SafeAreaView>
       );
     }
   }
@@ -171,19 +179,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 141,
+    height: 120,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    paddingRight: 0,
-    marginLeft: 23
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(55,55,55,1)",
+    backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",

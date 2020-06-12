@@ -14,7 +14,7 @@ export default class ProjectCreate extends Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
+    this.setState({ screenHeight: contentHeight + 174});
   };
 
   constructor(props) {
@@ -135,7 +135,16 @@ export default class ProjectCreate extends Component {
 
     } else {
       return (
+
           <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              ></Image>
+            </View>
+            <Text style={styles.title}>CREATE PROJECT</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -145,14 +154,6 @@ export default class ProjectCreate extends Component {
             >
 
               <View style={styles.container}>
-                <View style={styles.header}>
-                  <Image
-                      source={require("../assets/images/logosLuTecAppIcon.png")}
-                      resizeMode="contain"
-                      style={styles.image}
-                  />
-                </View>
-                <Text style={styles.title}>CREATE PROJECT</Text>
 
                 <Dialog.Container visible={this.state.dialogVisible}>
                   <Dialog.Title>Project Added</Dialog.Title>
@@ -177,10 +178,7 @@ export default class ProjectCreate extends Component {
                     style={styles.textbox}
                 />
 
-                <TextInput
-                    value= {"PROJECT DATE"}
-                    style={styles.label}
-                />
+                <Text style={styles.label}>PROJECT DATE</Text>
                 <DatePicker
                     style={styles.datePickerContainer}
                     date={this.state.date}
@@ -213,23 +211,23 @@ export default class ProjectCreate extends Component {
                     style={styles.textboxMulti}
                 />
 
+                <View style={styles.btnContainer}>
+                  <TouchableOpacity
+                      //insert camera logic
+
+                      style={styles.btnWide2}
+                  >
+                    <Text style={styles.btnLabel}>UPLOAD IMAGE</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      onPress={() => this.createProject(this.state)}
+                      style={styles.btnWide}
+                  >
+                    <Text style={styles.btnLabel}>CREATE PROJECT</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </ScrollView>
-            <View style={styles.btnContainer}>
-              <TouchableOpacity
-                  //insert camera logic
-
-                  style={styles.btnWide2}
-              >
-                <Text style={styles.btnLabel}>UPLOAD IMAGE</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  onPress={() => this.createProject(this.state)}
-                  style={styles.btnWide}
-              >
-                <Text style={styles.btnLabel}>CREATE PROJECT</Text>
-              </TouchableOpacity>
-            </View>
           </SafeAreaView>
       );
     }
@@ -243,6 +241,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     textAlign: 'center'
+  },
+  scrollview: {
+    flexGrow: 1,
+  },
+  content: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    padding: 10,
   },
   datePickerContainer: {
     width: '80%',
@@ -258,9 +264,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     width: '100%',
     height: 108,
-    position: 'absolute',
-    backgroundColor: 'gray',
-    bottom: 0
+    backgroundColor: 'gray'
   },
   horizontal: {
     backgroundColor: '#FFFFFF',
@@ -272,20 +276,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 141,
+    height: 120,
     backgroundColor: "rgba(3,85,73,1)"
   },
   btnWide: {
     width: '100%',
     height: 54,
-    alignSelf: 'center',
-    backgroundColor: "rgba(0,150,136,1)"
+    backgroundColor: "rgba(0,150,136,1)",
+    alignSelf: 'stretch',
+    textAlign: 'center'
   },
   btnWide2: {
     width: '100%',
     height: 54,
-    alignSelf: 'center',
-    backgroundColor: "rgba(76,76,77,1)"
+    backgroundColor: "rgba(76,76,77,1)",
+    alignSelf: 'stretch',
+    textAlign: 'center'
   },
   btnLabel: {
     fontFamily: "roboto-regular",
@@ -295,19 +301,19 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
+    backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
-    marginBottom: 15,
+    marginBottom: 20,
     lineHeight: 56
   },
   label: {
@@ -318,8 +324,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textbox: {
-    marginLeft: '10%',
-    marginRight: '10%',
+    width: '80%',
+    alignSelf:'center',
     marginBottom: 25,
     paddingBottom: 2,
     borderBottomWidth: 1,
@@ -328,8 +334,8 @@ const styles = StyleSheet.create({
     color: 'gray'
   },
   textboxMulti: {
-    marginLeft: '10%',
-    marginRight: '10%',
+    width: '80%',
+    alignSelf:'center',
     marginVertical: 25,
     padding: 10,
     borderWidth: 1,

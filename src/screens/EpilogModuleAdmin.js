@@ -11,7 +11,7 @@ export default class EpilogModuleAdmin extends Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
+    this.setState({ screenHeight: contentHeight + 300});
   };
 
   constructor(props) {
@@ -78,11 +78,9 @@ export default class EpilogModuleAdmin extends Component {
     const scrollEnabled = this.state.screenHeight > height;
 
     if (this.state.isLoading) {
-
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
           <ActivityIndicator size="large" color="#009688" />
-
         </View>
       </View>
 
@@ -100,15 +98,7 @@ export default class EpilogModuleAdmin extends Component {
       return (
 
           <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#468189" />
-            <ScrollView
-                style={{ flex: 1 }}
-                contentContainerStyle={styles.scrollview}
-                scrollEnabled={scrollEnabled}
-                onContentSizeChange={this.onContentSizeChange}
-            >
 
-          <View style={styles.container}>
             <View style={styles.header}>
               <Image
                   source={require("../assets/images/logosLuTecAppIcon.png")}
@@ -126,7 +116,6 @@ export default class EpilogModuleAdmin extends Component {
 
             <View style={styles.btnsContainer}>
               <View style={styles.btnItemL}>
-                {/* - - - - - - BTN - - - - - - -*/}
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate("AdminAddMaterial")}
                 >
@@ -135,7 +124,6 @@ export default class EpilogModuleAdmin extends Component {
               </View>
 
               <View style={styles.btnItemR}>
-                {/* - - - - - - BTN - - - - - - -*/}
                 <TouchableOpacity
                     onPress={() => props.navigation.navigate("AdminEditMaterial")}
                 >
@@ -143,8 +131,17 @@ export default class EpilogModuleAdmin extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-
             <Text style={styles.title}>SELECT MATERIAL</Text>
+
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
+
+          <View style={styles.container}>
 
             <View style={styles.materialNameContainer}>
               <Dropdown
@@ -221,14 +218,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 141,
+    height: 120,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
   },
   image2: {
     width: 208,
@@ -237,13 +234,13 @@ const styles = StyleSheet.create({
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
+    backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
-    lineHeight: 56
+    lineHeight: 54
   },
   title2: {
     height: 37,
@@ -331,21 +328,24 @@ const styles = StyleSheet.create({
   },
   powerBox: {
     width: '50%',
-    height: 109,
     backgroundColor: "#E6E6E6"
   },
   speedBox: {
     width: '50%',
-    height: 109,
     backgroundColor: "#E6E6E6",
     marginLeft: 2
   },
   labelParameterNumber: {
-    top: 0,
+    top: 10,
     position: "absolute",
+    width: '60%',
     fontFamily: "roboto-regular",
     color: "#121212",
-    fontSize: 62
+    paddingBottom: 2,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    textAlign: "center",
+    fontSize: 40
   },
   labelParameter: {
     top: 72,
@@ -355,9 +355,8 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   itemContainer: {
-    height: 109,
+    height: 120,
     flexDirection: "row",
-    marginBottom: 10,
     marginRight: -3
   },
   materialName: {

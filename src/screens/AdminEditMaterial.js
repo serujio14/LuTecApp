@@ -1,12 +1,7 @@
-import React, {Component} from "react";
+import React,  { Component } from "react";
 import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
 import Dialog from "react-native-dialog";
-import EditMaterialTextboxName from "../components/EditMaterialTextboxName";
-import EditMaterialTextboxCutPower from "../components/EditMaterialTextboxCutPower";
-import EditMaterialTextboxCutSpeed from "../components/EditMaterialTextboxCutSpeed";
-import EditMaterialTextboxTracePower from "../components/EditMaterialTextboxTracePower";
-import EditMaterialTextboxTraceSpeed from "../components/EditMaterialTextboxTraceSpeed";
-import {Dropdown} from "react-native-material-dropdown";
+import { Dropdown } from 'react-native-material-dropdown';
 import TextInput from "react-native-web/src/exports/TextInput";
 
 export default class AdminEditMaterial extends Component {
@@ -35,7 +30,7 @@ export default class AdminEditMaterial extends Component {
         this.handleCancel = this.handleCancel.bind(this)
         this.editMaterial = this.editMaterial.bind(this)
         this.CheckTextInput = this.CheckTextInput.bind(this)
-        this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+        // this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
 
     }
 
@@ -120,28 +115,7 @@ export default class AdminEditMaterial extends Component {
         this.setState({traceSpeed : text})
     }
 
-    handleMaterialDropdown(text){
 
-        const array = Object.values( this.state.dataSource);
-
-        let materials = array.map((val, key) => {
-
-            if (val.Name === text){
-                console.log('eureka')
-                console.log(val)
-
-                this.setState(
-                    {
-                        cutPower : val.CutPower,
-                        cutSpeed: val.CutSpeed,
-                        tracePower : val.TracePower,
-                        traceSpeed: val.TraceSpeed,
-                    })
-            }
-
-        });
-
-    }
 
     componentDidMount() {
 
@@ -150,7 +124,8 @@ export default class AdminEditMaterial extends Component {
 
             .then(response => response.json())
             .then((responseJson) => {
-
+                console.log('responseJson')
+                console.log(responseJson)
                 this.setState({
                     isLoading: false,
                     dataSource: responseJson.Data,
@@ -180,13 +155,6 @@ export default class AdminEditMaterial extends Component {
         } else {
 
 
-            const array = Object.values( this.state.dataSource);
-
-            let materials = array.map((val, key) => {
-
-                const obj = {value:val.Name, data : val};
-                data.push(obj)
-            });
 
             return (
                 <View style={styles.container}>
@@ -228,8 +196,8 @@ export default class AdminEditMaterial extends Component {
                     <Dropdown
                         style={styles.materialName}
                         label='MATERIAL &amp; THICKNESS SELECTED'
-                        data={data}
-                        onChangeText={this.handleMaterialDropdown}
+
+                        //onChangeText={this.handleMaterialDropdown}
                     />
 
                     {/* - - - - - - TITLE2 - - - - - - -*/}
@@ -306,7 +274,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
 
     },
-
     horizontal: {
         backgroundColor: '#FFFFFF',
         height: 100,
@@ -327,23 +294,51 @@ const styles = StyleSheet.create({
         marginLeft: 23
     },
     itemContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
-    item :{
-        flex: 0.5,
         height: 120,
-        padding: 10
+        flexDirection: "row",
+        marginRight: -3
+    },
+    parameterContainer: {
+        marginTop: 7,
+        alignItems: 'center'
+    },
+    powerBox: {
+        width: '50%',
+        backgroundColor: "#E6E6E6"
+    },
+    speedBox: {
+        width: '50%',
+        backgroundColor: "#E6E6E6",
+        marginLeft: 2
+    },
+    labelParameterNumber: {
+        top: 10,
+        position: "absolute",
+        width: '60%',
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        paddingBottom: 2,
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        textAlign: "center",
+        fontSize: 40
+    },
+    labelParameter: {
+        top: 72,
+        position: "absolute",
+        fontFamily: "roboto-regular",
+        color: "#121212",
+        fontSize: 17
     },
     title: {
         height: 48,
-        backgroundColor: "rgba(76,76,77,1)",
+        backgroundColor: "rgba(45,45,45,1)",
         fontFamily: "roboto-regular",
         fontWeight: 'bold',
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",
+        marginBottom: 15,
         lineHeight: 56
     },
     title2: {

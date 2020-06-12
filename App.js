@@ -19,17 +19,17 @@ import AdminEditMaterial from "./src/screens/AdminEditMaterial";
 
 const DrawerNavigation = createDrawerNavigator({
     Main: Main,
-    Login: Login,
     CreateAccount: CreateAccount,
     ForgotPassword: ForgotPassword,
+    Login: Login,
     LuTecApp: LuTecApp,
     ProjectsModule: ProjectsModule,
     ProjectDetail: ProjectDetail,
     ProjectCreate: ProjectCreate,
     EpilogModule: EpilogModule,
     EpilogModuleAdmin: EpilogModuleAdmin,
-    AdminAddMaterial: AdminAddMaterial,
-    AdminEditMaterial: AdminEditMaterial
+    AdminEditMaterial: AdminEditMaterial,
+    AdminAddMaterial: AdminAddMaterial
 });
 
 const StackNavigation = createStackNavigator(
@@ -37,12 +37,12 @@ const StackNavigation = createStackNavigator(
         DrawerNavigation: {
             screen: DrawerNavigation
         },
+        ProjectsModule: ProjectsModule,
         Main: Main,
         Login: Login,
         CreateAccount: CreateAccount,
         ForgotPassword: ForgotPassword,
         LuTecApp: LuTecApp,
-        ProjectsModule: ProjectsModule,
         ProjectCreate: ProjectCreate,
         ProjectDetail: ProjectDetail,
         EpilogModule: EpilogModule,

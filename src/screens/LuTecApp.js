@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {StyleSheet, View, TouchableOpacity, Text, Image, ImageBackground, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 
 const { height } = Dimensions.get('window');
+
 function LuTecApp(props) {
   return (
       <View style={styles.container}>
@@ -29,16 +30,15 @@ function LuTecApp(props) {
               {/* - - - - - - BTN - - - - - - -*/}
               <TouchableOpacity
                   onPress={() => props.navigation.navigate("ProjectsModule")}
-                  style={styles.btnGotoProjectsModule}
+                  style={styles.btn1}
               >
-                <Text style={styles.btnLabel3}>BROWSE</Text>
+                <Text style={styles.btnLabel2}>BROWSE</Text>
               </TouchableOpacity>
-              {/* - - - - - - BTN - - - - - - -*/}
               <TouchableOpacity
                   onPress={() => props.navigation.navigate("ProjectCreate")}
-                  style={styles.btnWide3}
+                  style={styles.btn1}
               >
-                <Text style={styles.btnLabel3}>CREATE</Text>
+                <Text style={styles.btnLabel2}>CREATE</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -56,9 +56,9 @@ function LuTecApp(props) {
             {/* - - - - - - BTN - - - - - - -*/}
             <TouchableOpacity
                 onPress={() => props.navigation.navigate("EpilogModule")}
-                style={styles.btnWide2}
+                style={styles.btnWide}
             >
-              <Text style={styles.btnLabel2}>OPEN</Text>
+              <Text style={styles.btnLabel}>OPEN</Text>
             </TouchableOpacity>
           </ImageBackground>
 
@@ -72,18 +72,11 @@ function LuTecApp(props) {
               <Text style={styles.titleModule}>MakerBot 3D printer</Text>
               <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
             </View>
-            <View style={styles.btnWide2}>
-              <Text style={styles.btnLabel2}>UNDER DEVELOPMENT</Text>
+            <View style={styles.btnWide}>
+              <Text style={styles.btnLabel}>UNDER DEVELOPMENT</Text>
             </View>
           </ImageBackground>
         </View>
-
-        <TouchableOpacity
-            onPress={() => props.navigation.navigate("Main")}
-            style={styles.btnWide}
-        >
-          <Text style={styles.btnLabel}>LOG OUT</Text>
-        </TouchableOpacity>
       </View>
   );
 }
@@ -95,19 +88,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   header: {
-    height: 141,
+    height: 150,
     backgroundColor: "rgba(3,85,73,1)"
   },
   btnWide: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom: 0,
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
-  btnWide2: {
     width: '100%',
     height: 54,
     lineHeight: 64,
@@ -127,13 +111,6 @@ const styles = StyleSheet.create({
     marginTop: 19
   },
   btnLabel2: {
-    fontFamily: "roboto-regular",
-    fontSize: 16,
-    color: "rgba(255,255,255,1)",
-    textAlign: "center",
-    marginTop: 19
-  },
-  btnLabel3: {
     fontFamily: "roboto-regular",
     fontSize: 16,
     color: "rgba(255,255,255,1)",
@@ -172,9 +149,9 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 64,
+    marginTop: 50,
+    alignSelf: 'center'
   },
   open: {
     fontFamily: "roboto-regular",
@@ -182,21 +159,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 170
   },
-  btnGotoProjectsModule: {
+  btn1: {
     width: 188,
     height: 36
-  },
-  browse: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 10,
-    marginLeft: 66
-  },
-  create: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 10,
-    marginLeft: 68
   },
   btnGotoProjectsModuleRow: {
     height: 36,

@@ -11,7 +11,7 @@ export default class EpilogModule extends Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
+    this.setState({ screenHeight: contentHeight + 246});
   };
 
   constructor(props) {
@@ -84,7 +84,6 @@ export default class EpilogModule extends Component {
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
           <ActivityIndicator size="large" color="#009688" />
-
         </View>
       </View>
 
@@ -102,6 +101,21 @@ export default class EpilogModule extends Component {
       return (
 
           <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+            <View style={styles.titleEpilog}>
+              <Image
+                  source={require("../assets/images/EpilogLogo1.png")}
+                  resizeMode="contain"
+                  style={styles.image2}
+              />
+            </View>
+            <Text style={styles.title}>SELECT MATERIAL</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -110,23 +124,6 @@ export default class EpilogModule extends Component {
                 onContentSizeChange={this.onContentSizeChange}
             >
               <View style={styles.container}>
-                <View style={styles.header}>
-                  <Image
-                      source={require("../assets/images/logosLuTecAppIcon.png")}
-                      resizeMode="contain"
-                      style={styles.image}
-                  />
-                </View>
-                <View style={styles.titleEpilog}>
-                  <Image
-                      source={require("../assets/images/EpilogLogo1.png")}
-                      resizeMode="contain"
-                      style={styles.image2}
-                  />
-                </View>
-
-                <Text style={styles.title}>SELECT MATERIAL</Text>
-
                 <View style={styles.materialNameContainer}>
                   <Dropdown
                       style={styles.materialName}
@@ -170,126 +167,131 @@ export default class EpilogModule extends Component {
               </View>
             </ScrollView>
           </SafeAreaView>
-    );
-
+      );
     }
+  }
+}
 
-    }
-
-    }
-
-    const styles = StyleSheet.create({
-      container: {
-      flex: 1,
-      alignSelf: 'stretch',
-      textAlign: 'center'
-    },
-      containerLoader: {
-      flex: 1,
-      alignItems: 'center',
-      flexDirection: 'column',
-      justifyContent: 'space-around'
-    },
-      horizontal: {
-      backgroundColor: '#FFFFFF',
-      height: 100,
-      width: 100,
-      borderRadius: 10,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-around'
-    },
-      header: {
-      height: 141,
-      backgroundColor: "rgba(3,85,73,1)"
-    },
-      image: {
-      width: 329,
-      height: 65,
-      marginTop: 53,
-      marginLeft: 23
-    },
-      image2: {
-      width: 208,
-      height: 72,
-      marginLeft: 84
-    },
-      title: {
-      height: 48,
-      backgroundColor: "rgba(55,55,55,1)",
-      fontFamily: "roboto-regular",
-      fontWeight: 'bold',
-      color: "rgba(251,251,251,1)",
-      fontSize: 24,
-      textAlign: "center",
-      lineHeight: 56
-    },
-      title2: {
-      height: 37,
-      marginTop: 5,
-      backgroundColor: "rgba(76,76,77,1)",
-      fontFamily: "roboto-regular",
-      color: "rgba(251,251,251,1)",
-      fontSize: 19,
-      textAlign: "center",
-      lineHeight: 42
-    },
-      titleEpilog: {
-      height: 72,
-      backgroundColor: "rgba(76,76,77,1)"
-    },
-      powerBox: {
-      width: '50%',
-      height: 109,
-      backgroundColor: "#E6E6E6"
-    },
-      speedBox: {
-      width: '50%',
-      height: 109,
-      backgroundColor: "#E6E6E6",
-      marginLeft: 2
-    },
-      labelParameterNumber: {
-      top: 0,
-      position: "absolute",
-      fontFamily: "roboto-regular",
-      color: "#121212",
-      fontSize: 62
-    },
-      labelParameter: {
-      top: 72,
-      position: "absolute",
-      fontFamily: "roboto-regular",
-      color: "#121212",
-      fontSize: 17
-    },
-      itemContainer: {
-      height: 109,
-      flexDirection: "row",
-      marginBottom: 10,
-      marginRight: -3
-    },
-      materialName: {
-      height: 50,
-      paddingBottom: 25,
-      fontFamily: "roboto-regular",
-      color: "#121212",
-      fontSize: 20
-    },
-      materialNameContainer: {
-      lineHeight: 75,
-      width: '90%',
-      marginLeft: '5%',
-      marginTop: 0,
-      marginBottom: 10,
-      borderColor: 'gray',
-      fontFamily: "roboto-regular",
-      color: "#121212"
-    },
-      parameterContainer: {
-      height: 92,
-      marginTop: 7,
-      alignItems: 'center'
-    },
-    });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  horizontal: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  btnWide: {
+    width: '100%',
+    height: 54,
+    marginTop: 15,
+    backgroundColor: "rgba(0,150,136,1)",
+    alignSelf: 'stretch',
+    textAlign: 'center'
+  },
+  header: {
+    height: 120,
+    backgroundColor: "rgba(3,85,73,1)"
+  },
+  image: {
+    width: 329,
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
+  },
+  image2: {
+    width: 208,
+    height: 72,
+    marginLeft: 84
+  },
+  title: {
+    height: 48,
+    backgroundColor: "rgba(45,45,45,1)",
+    fontFamily: "roboto-regular",
+    fontWeight: 'bold',
+    color: "rgba(251,251,251,1)",
+    fontSize: 24,
+    textAlign: "center",
+    lineHeight: 56
+  },
+  title2: {
+    height: 37,
+    marginTop: 5,
+    backgroundColor: "rgba(76,76,77,1)",
+    fontFamily: "roboto-regular",
+    color: "rgba(251,251,251,1)",
+    fontSize: 19,
+    textAlign: "center",
+    lineHeight: 42
+  },
+  titleEpilog: {
+    height: 72,
+    backgroundColor: "rgba(76,76,77,1)"
+  },
+  powerBox: {
+    width: '50%',
+    height: 109,
+    backgroundColor: "#E6E6E6"
+  },
+  speedBox: {
+    width: '50%',
+    height: 109,
+    backgroundColor: "#E6E6E6",
+    marginLeft: 2
+  },
+  labelParameterNumber: {
+    top: 0,
+    position: "absolute",
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    fontSize: 62
+  },
+  labelParameter: {
+    top: 72,
+    position: "absolute",
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    fontSize: 17
+  },
+  itemContainer: {
+    height: 109,
+    flexDirection: "row",
+    marginBottom: 10,
+    marginRight: -3
+  },
+  materialName: {
+    height: 50,
+    paddingBottom: 25,
+    fontFamily: "roboto-regular",
+    color: "#121212",
+    fontSize: 20
+  },
+  materialNameContainer: {
+    lineHeight: 75,
+    width: '90%',
+    marginLeft: '5%',
+    marginTop: 0,
+    marginBottom: 10,
+    borderColor: 'gray',
+    fontFamily: "roboto-regular",
+    color: "#121212"
+  },
+  parameterContainer: {
+    height: 92,
+    marginTop: 7,
+    alignItems: 'center'
+  },
+});
 

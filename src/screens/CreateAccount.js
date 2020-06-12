@@ -11,7 +11,7 @@ export default class CreateAccount extends Component {
     };
 
     onContentSizeChange = (contentWidth, contentHeight) => {
-        this.setState({ screenHeight: contentHeight });
+        this.setState({ screenHeight: contentHeight + 174});
     };
 
     constructor(props) {
@@ -130,7 +130,6 @@ export default class CreateAccount extends Component {
         const scrollEnabled = this.state.screenHeight > height;
 
         if (this.state.isLoading) {
-
             return <View style={styles.containerLoader}>
                 <View style={styles.horizontal}>
                     <ActivityIndicator size="large" color="#009688" />
@@ -140,8 +139,18 @@ export default class CreateAccount extends Component {
         } else{
 
             return (
+
                 <SafeAreaView style={styles.container}>
+                    <View style={styles.header}>
+                        <Image
+                            source={require("../assets/images/logosLuTecAppIcon.png")}
+                            resizeMode="contain"
+                            style={styles.image}
+                        ></Image>
+                    </View>
+                    <Text style={styles.title}>CREATE ACCOUNT</Text>
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
+
                     <ScrollView
                         style={{ flex: 1 }}
                         contentContainerStyle={styles.scrollview}
@@ -166,19 +175,8 @@ export default class CreateAccount extends Component {
                                 <Dialog.Button label="Continue" onPress={this.handleCancel} />
                             </Dialog.Container>
 
-                            <View style={styles.header}>
-                                <Image
-                                    source={require("../assets/images/logosLuTecAppIcon.png")}
-                                    resizeMode="contain"
-                                    style={styles.image}
-                                ></Image>
-                            </View>
-
-                            {/* - - - - - - TITLE - - - - - - -*/}
-                            <Text style={styles.title}>CREATE ACCOUNT</Text>
 
                             <Text style={styles.label}>NAME</Text>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
                             <TextInput
                                 value={this.state.Name}
                                 onChangeText={this.handleChangeTextName}
@@ -186,7 +184,6 @@ export default class CreateAccount extends Component {
                             ></TextInput>
 
                             <Text style={styles.label}>TEC ID</Text>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
                             <TextInput
                                 value={this.state.TecID}
                                 onChangeText={this.handleChangeTextTecID}
@@ -194,7 +191,6 @@ export default class CreateAccount extends Component {
                             ></TextInput>
 
                             <Text style={styles.label}>EMAIL</Text>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
                             <TextInput
                                 value={this.state.Email}
                                 onChangeText={this.handleChangeTextEmail}
@@ -202,7 +198,6 @@ export default class CreateAccount extends Component {
                             ></TextInput>
 
                             <Text style={styles.label}>PASSWORD</Text>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
                             <TextInput
                                 value={this.state.Password}
                                 onChangeText={this.handleChangeTextPassword}
@@ -210,23 +205,20 @@ export default class CreateAccount extends Component {
                             ></TextInput>
 
                             <Text style={styles.label}>CONFIRM PASSWORD</Text>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
                             <TextInput
                                 value={this.state.PasswordConfirm}
                                 onChangeText={this.handleChangeTextPasswordConfirm}
                                 style={styles.textbox}
                             ></TextInput>
-
                         </View>
-                    </ScrollView>
 
-                    {/* - - - - - - BTN - - - - - - -*/}
-                    <TouchableOpacity
-                        onPress={() => this.createAccount(this.state)}
-                        style={styles.btnWide}
-                    >
-                        <Text style={styles.btnLabel}>CREATE ACCOUNT</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.createAccount(this.state)}
+                            style={styles.btnWide}
+                        >
+                            <Text style={styles.btnLabel}>CREATE ACCOUNT</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
                 </SafeAreaView>
             );
         }
@@ -264,12 +256,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     header: {
-        height: 141,
+        height: 120,
         backgroundColor: "rgba(3,85,73,1)"
+    },
+    image: {
+        width: 329,
+        height: 64,
+        marginTop: 30,
+        alignSelf: 'center'
     },
     title: {
         height: 48,
-        backgroundColor: "rgba(76,76,77,1)",
+        backgroundColor: "rgba(45,45,45,1)",
         fontFamily: "roboto-regular",
         fontWeight: 'bold',
         color: "rgba(251,251,251,1)",
@@ -286,8 +284,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     textbox: {
-        marginLeft: '20%',
-        marginRight: '20%',
+        width: '80%',
+        alignSelf:'center',
         marginBottom: 25,
         paddingBottom: 2,
         borderBottomWidth: 1,
@@ -298,9 +296,8 @@ const styles = StyleSheet.create({
     btnWide: {
         width: '100%',
         height: 54,
+        marginTop: 15,
         backgroundColor: "rgba(0,150,136,1)",
-        position: 'absolute',
-        bottom: 0,
         alignSelf: 'stretch',
         textAlign: 'center'
     },
@@ -309,11 +306,5 @@ const styles = StyleSheet.create({
         color: "rgba(255,255,255,1)",
         textAlign: "center",
         marginTop: 19
-    },
-    image: {
-        width: 329,
-        height: 65,
-        marginTop: 53,
-        marginLeft: 23
     },
 });

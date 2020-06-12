@@ -11,7 +11,7 @@ export default class ForgotPassword extends Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
+    this.setState({ screenHeight: contentHeight  + 174});
   };
 
   constructor(props) {
@@ -131,7 +131,16 @@ export default class ForgotPassword extends Component {
     } else {
 
       return (
+
           <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+            <Text style={styles.title}>PASSWORD RESET</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -140,68 +149,55 @@ export default class ForgotPassword extends Component {
                 onContentSizeChange={this.onContentSizeChange}
             >
 
-          <View style={styles.container}>
-            <Dialog.Container visible={this.state.dialogVisible}>
-              <Dialog.Title>Password Updated</Dialog.Title>
-              <Dialog.Description>
-                The password has been updated
-              </Dialog.Description>
-              <Dialog.Button label="Continue" onPress={this.handleCancel} />
-            </Dialog.Container>
+              <View style={styles.container}>
+                <Dialog.Container visible={this.state.dialogVisible}>
+                  <Dialog.Title>Password Updated</Dialog.Title>
+                  <Dialog.Description>
+                    The password has been updated
+                  </Dialog.Description>
+                  <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                </Dialog.Container>
 
-            <Dialog.Container visible={this.state.dialogFailVisible}>
-              <Dialog.Title>Password not updated</Dialog.Title>
-              <Dialog.Description>
-                There has been an error updating the password. Please try again
-              </Dialog.Description>
-              <Dialog.Button label="Continue" onPress={this.handleCancel} />
-            </Dialog.Container>
+                <Dialog.Container visible={this.state.dialogFailVisible}>
+                  <Dialog.Title>Password not updated</Dialog.Title>
+                  <Dialog.Description>
+                    There has been an error updating the password. Please try again
+                  </Dialog.Description>
+                  <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                </Dialog.Container>
 
-            <View style={styles.header}>
-              <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
-                  resizeMode="contain"
-                  style={styles.image}
-              />
-            </View>
-            {/* - - - - - - TITLE - - - - - - -*/}
-            <Text style={styles.passwordReset}>PASSWORD RESET</Text>
+                <Text style={styles.label}>TEC ID</Text>
+                <TextInput
+                    value={this.state.TecID}
+                    onChangeText={this.handleChangeTextTecID}
+                    style={styles.textbox}
+                />
+                <Text style={styles.label}>NEW PASSWORD</Text>
+                <TextInput
+                    value={this.state.Password}
+                    onChangeText={this.handleChangeTextPassword}
+                    style={styles.textbox}
+                />
+                <Text style={styles.label}>CONFIRM PASSWORD</Text>
+                <TextInput
+                    value={this.state.PasswordConfirm}
+                    onChangeText={this.handleChangeTextPasswordConfirm}
+                    style={styles.textbox}
+                />
 
-            <Text style={styles.label}>TEC ID</Text>
-            <TextInput
-                value={this.state.TecID}
-                onChangeText={this.handleChangeTextTecID}
-                style={styles.textbox}
-            />
-            <Text style={styles.label}>NEW PASSWORD</Text>
-            <TextInput
-                value={this.state.Password}
-                onChangeText={this.handleChangeTextPassword}
-                style={styles.textbox}
-            />
-            <Text style={styles.label}>CONFIRM PASSWORD</Text>
-            <TextInput
-                value={this.state.PasswordConfirm}
-                onChangeText={this.handleChangeTextPasswordConfirm}
-                style={styles.textbox}
-            />
+                <TouchableOpacity
+                    onPress={() => this.resetPassword(this.state)}
+                    style={styles.btnWide}
+                >
+                  <Text style={styles.btnLabel}>RESET PASSWORD</Text>
+                </TouchableOpacity>
 
-          </View>
+              </View>
             </ScrollView>
-
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => this.resetPassword(this.state)}
-                style={styles.btnWide}
-            >
-              <Text style={styles.btnLabel}>RESET PASSWORD</Text>
-            </TouchableOpacity>
           </SafeAreaView>
       );
     }
   }
-
-
 }
 
 const styles = StyleSheet.create({
@@ -226,18 +222,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 141,
+    height: 120,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 64,
+    marginTop: 30,
+    alignSelf: 'center'
   },
   title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)",
+    backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
     fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
@@ -254,8 +250,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textbox: {
-    marginLeft: '20%',
-    marginRight: '20%',
+    width: '80%',
+    alignSelf:'center',
     marginBottom: 25,
     paddingBottom: 2,
     borderBottomWidth: 1,
@@ -266,9 +262,8 @@ const styles = StyleSheet.create({
   btnWide: {
     width: '100%',
     height: 54,
+    marginTop: 15,
     backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom: 0,
     alignSelf: 'stretch',
     textAlign: 'center'
   },
