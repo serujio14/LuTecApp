@@ -43,13 +43,14 @@ export default class CreateAccount extends Component {
     CheckTextInput = () => {
 
         if(this.state.Password === this.state.PasswordConfirm){
-            if (this.state.Name != '' && this.state.TecID != '' && this.state.Email != '' &&
-                this.state.Password != '' && this.state.PasswordConfirm != '') {
+            if (this.state.Name !== '' && this.state.TecID !== '' && this.state.Email !== '' &&
+                this.state.Password !== '' && this.state.PasswordConfirm !== '') {
                 return true;
             } else {
                 return false
             }
         }else{
+            Alert.alert("Check password", "Password and password confirmation must match");
             return false;
         }
     };
@@ -98,7 +99,7 @@ export default class CreateAccount extends Component {
                     console.error(error)
                 });
         } else {
-            Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
+            Alert.alert("Error", "Please Fill All Spaces");
         }
     }
 
@@ -185,6 +186,7 @@ export default class CreateAccount extends Component {
                                 value={this.state.TecID}
                                 keyboardType = 'numeric'
                                 maxLength={9}
+                                secureTextEntry={false}
                                 onChangeText={this.handleChangeTextTecID}
                                 style={styles.textbox}
                             ></TextInput>
