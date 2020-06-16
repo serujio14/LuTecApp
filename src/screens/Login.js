@@ -128,6 +128,10 @@ export default class Login extends Component {
                 <Text style={styles.label}>TEC ID</Text>
                 <TextInput
                     value={this.state.TecID}
+                    keyboardType = 'numeric'
+                    maxLength={9}
+                    secureTextEntry={false}
+                    placeholder={strings.PASSWORD}
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
                 />
