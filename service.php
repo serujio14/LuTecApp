@@ -239,13 +239,17 @@ switch($who){
 
 		$rsts['api_key'] = addslashes($_GET['api_key']);
 		$rsts['materialName'] = addslashes($_GET['materialName']);
+		$rsts['materialThickness'] = addslashes($_GET['materialThickness']);
+		$rsts['materialProvider'] = addslashes($_GET['materialProvider']);
 		$rsts['cutPower'] = addslashes($_GET['cutPower']);
 		$rsts['cutSpeed'] = addslashes($_GET['cutSpeed']);
 		$rsts['tracePower'] = addslashes($_GET['tracePower']);
 		$rsts['traceSpeed'] = addslashes($_GET['traceSpeed']);
+        
+        $rsts['materialName'] = $rsts['materialName'] .  "T: " . $rsts['materialThickness'] . "P: " . $rsts['materialProvider']; 
 
 
-		if(isset($rsts['materialName'])&& isset($rsts['cutPower'])
+		if(isset($rsts['materialName'])&&  isset($rsts['cutPower'])
 			&& isset($rsts['cutSpeed']) && isset($rsts['tracePower']) && isset($rsts['traceSpeed'])&& $rsts['api_key']==$api_key){
 
 			$resp = $dataQuerys->add_material($rsts);
