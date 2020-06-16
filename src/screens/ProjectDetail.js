@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
 import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
+import { SliderBox } from "react-native-image-slider-box";
 
 export default class ProjectDetail extends Component {
 
