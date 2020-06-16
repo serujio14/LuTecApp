@@ -32,6 +32,8 @@ export default class AdminAddMaterial extends Component {
         }
 
         this.handleChangeTextMaterialName = this.handleChangeTextMaterialName.bind(this)
+        this.handleChangeTextMaterialThickness = this.handleChangeTextMaterialThickness.bind(this)
+        this.handleChangeTextMaterialProvider = this.handleChangeTextMaterialProvider.bind(this)
         this.handleChangeTextCutPower = this.handleChangeTextCutPower.bind(this)
         this.handleChangeTextCutSpeed = this.handleChangeTextCutSpeed.bind(this)
         this.handleChangeTextTracePower = this.handleChangeTextTracePower.bind(this)
@@ -116,11 +118,9 @@ export default class AdminAddMaterial extends Component {
     handleChangeTextCutPower(text){
         this.setState({cutPower : text})
     }
-
     handleChangeTextCutSpeed(text){
         this.setState({cutSpeed : text})
     }
-
     handleChangeTextTracePower(text){
         this.setState({tracePower : text})
     }
@@ -212,6 +212,7 @@ export default class AdminAddMaterial extends Component {
                                     <View style={styles.parameterContainer}>
                                         <TextInput
                                             value={this.state.tracePower}
+                                            keyboardType = 'numeric'
                                             onChangeText={this.handleChangeTextTracePower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -222,6 +223,7 @@ export default class AdminAddMaterial extends Component {
                                     <View style={styles.parameterContainer}>
                                         <TextInput
                                             value={this.state.traceSpeed}
+                                            keyboardType = 'numeric'
                                             onChangeText={this.handleChangeTextTraceSpeed}
                                             style={styles.labelParameterNumber}
                                         />
@@ -236,6 +238,7 @@ export default class AdminAddMaterial extends Component {
                                     <View style={styles.parameterContainer}>
                                         <TextInput
                                             value={this.state.cutPower}
+                                            keyboardType = 'numeric'
                                             onChangeText={this.handleChangeTextCutPower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -246,6 +249,7 @@ export default class AdminAddMaterial extends Component {
                                     <View style={styles.parameterContainer}>
                                         <TextInput
                                             value={this.state.cutSpeed}
+                                            keyboardType = 'numeric'
                                             onChangeText={this.handleChangeTextCutSpeed}
                                             style={styles.labelParameterNumber}
                                         />

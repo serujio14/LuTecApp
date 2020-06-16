@@ -105,18 +105,15 @@ export default class CreateAccount extends Component {
     handleCancel = () => {
         this.setState({ dialogVisible: false });
     };
-
     handleChangeTextName(text){
         this.setState({Name : text})
     }
     handleChangeTextTecID(text){
         this.setState({TecID : text})
     }
-
     handleChangeTextEmail(text){
         this.setState({Email : text})
     }
-
     handleChangeTextPassword(text){
         this.setState({Password : text})
     }
@@ -186,6 +183,8 @@ export default class CreateAccount extends Component {
                             <Text style={styles.label}>TEC ID</Text>
                             <TextInput
                                 value={this.state.TecID}
+                                keyboardType = 'numeric'
+                                maxLength={9}
                                 onChangeText={this.handleChangeTextTecID}
                                 style={styles.textbox}
                             ></TextInput>
