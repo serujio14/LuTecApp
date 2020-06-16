@@ -8,7 +8,7 @@ function LuTecApp(props) {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-              source={require("../assets/images/logosLuTecAppIcon.png")}
+              source={require("../assets/images/logosLuTecApp.png")}
               resizeMode="contain"
               style={styles.image}
           ></Image>
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 329,
-    height: 64,
-    marginTop: 50,
+    height: 84,
+    marginTop: 30,
     alignSelf: 'center'
   },
   open: {

@@ -109,12 +109,12 @@ export default class Login extends Component {
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               ></Image>
             </View>
-            <Text style={styles.title}>ACCOUNT LOGIN</Text>
+            <Text style={styles.title}>Account Login</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -190,7 +190,6 @@ const styles = StyleSheet.create({
     height: 48,
     backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
-    fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",

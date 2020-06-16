@@ -135,12 +135,12 @@ export default class ForgotPassword extends Component {
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               />
             </View>
-            <Text style={styles.title}>PASSWORD RESET</Text>
+            <Text style={styles.title}>Password reset</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -172,13 +172,13 @@ export default class ForgotPassword extends Component {
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
                 />
-                <Text style={styles.label}>NEW PASSWORD</Text>
+                <Text style={styles.label}>New password</Text>
                 <TextInput
                     value={this.state.Password}
                     onChangeText={this.handleChangeTextPassword}
                     style={styles.textbox}
                 />
-                <Text style={styles.label}>CONFIRM PASSWORD</Text>
+                <Text style={styles.label}>Confirm password</Text>
                 <TextInput
                     value={this.state.PasswordConfirm}
                     onChangeText={this.handleChangeTextPasswordConfirm}
@@ -189,7 +189,7 @@ export default class ForgotPassword extends Component {
                     onPress={() => this.resetPassword(this.state)}
                     style={styles.btnWide}
                 >
-                  <Text style={styles.btnLabel}>RESET PASSWORD</Text>
+                  <Text style={styles.btnLabel}>Reset password</Text>
                 </TouchableOpacity>
 
               </View>
@@ -235,7 +235,6 @@ const styles = StyleSheet.create({
     height: 48,
     backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
-    fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",

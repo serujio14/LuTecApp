@@ -20,6 +20,8 @@ export default class AdminAddMaterial extends Component {
             isLoading: false,
             dataSource: null,
             materialName : "",
+            materialThickness : "",
+            materialProvider : "",
             cutPower : "",
             cutSpeed: "",
             tracePower : "",
@@ -102,9 +104,14 @@ export default class AdminAddMaterial extends Component {
     handleCancel = () => {
         this.setState({ dialogVisible: false });
     };
-
     handleChangeTextMaterialName(text){
         this.setState({materialName : text})
+    }
+    handleChangeTextMaterialProvider(text){
+        this.setState({materialProvider : text})
+    }
+    handleChangeTextMaterialThickness(text){
+        this.setState({materialThickness : text})
     }
     handleChangeTextCutPower(text){
         this.setState({cutPower : text})
@@ -145,14 +152,16 @@ export default class AdminAddMaterial extends Component {
             return (
 
                 <SafeAreaView style={styles.container}>
+
                     <View style={styles.header}>
                         <Image
-                            source={require("../assets/images/logosLuTecAppIcon.png")}
+                            source={require("../assets/images/logosLuTecApp.png")}
                             resizeMode="contain"
                             style={styles.image}
                         ></Image>
                     </View>
-                    <Text style={styles.title}>ADD MATERIAL</Text>
+
+                    <Text style={styles.title}>Add material</Text>
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
                     <ScrollView
                         style={{ flex: 1 }}
@@ -178,14 +187,26 @@ export default class AdminAddMaterial extends Component {
                                 <Dialog.Button label="Continue" onPress={this.handleCancel} />
                             </Dialog.Container>
 
-                            <Text style={styles.label}>MATERIAL NAME & THICKNESS</Text>
+                            <Text style={styles.label}>Material</Text>
                             <TextInput
                                 value={this.state.materialName}
                                 onChangeText={this.handleChangeTextMaterialName}
                                 style={styles.textbox}
                             />
+                            <Text style={styles.label}>Thickness</Text>
+                            <TextInput
+                                value={this.state.materialThickness}
+                                onChangeText={this.handleChangeTextMaterialThickness}
+                                style={styles.textbox}
+                            />
+                            <Text style={styles.label}>Provider</Text>
+                            <TextInput
+                                value={this.state.materialProvider}
+                                onChangeText={this.handleChangeTextMaterialProvider}
+                                style={styles.textbox}
+                            />
 
-                            <Text style={styles.title2}>CUTTING PARAMETERS</Text>
+                            <Text style={styles.title2}>Cutting configuration</Text>
                             <View style={styles.itemContainer}>
                                 <View style={styles.powerBox}>
                                     <View style={styles.parameterContainer}>
@@ -209,7 +230,7 @@ export default class AdminAddMaterial extends Component {
                                 </View>
                             </View>
 
-                            <Text style={styles.title2}>TRACING PARAMETERS</Text>
+                            <Text style={styles.title2}>Tracing configuration</Text>
                             <View style={styles.itemContainer}>
                                 <View style={styles.powerBox}>
                                     <View style={styles.parameterContainer}>
@@ -239,6 +260,7 @@ export default class AdminAddMaterial extends Component {
                             >
                                 <Text style={styles.btnLabel}>ADD MATERIAL</Text>
                             </TouchableOpacity>
+
                         </View>
                     </ScrollView>
                 </SafeAreaView>
@@ -283,12 +305,12 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     header: {
-        height: 120,
+        height: 150,
         backgroundColor: "rgba(3,85,73,1)"
     },
     image: {
         width: 329,
-        height: 64,
+        height: 84,
         marginTop: 30,
         alignSelf: 'center'
     },
@@ -333,7 +355,6 @@ const styles = StyleSheet.create({
         height: 48,
         backgroundColor: "rgba(45,45,45,1)",
         fontFamily: "roboto-regular",
-        fontWeight: 'bold',
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",

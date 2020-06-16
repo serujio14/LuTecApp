@@ -101,7 +101,7 @@ export default class EpilogModuleAdmin extends Component {
 
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               ></Image>
@@ -131,7 +131,7 @@ export default class EpilogModuleAdmin extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text style={styles.title}>SELECT MATERIAL</Text>
+            <Text style={styles.title}>Select material</Text>
 
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
@@ -152,7 +152,7 @@ export default class EpilogModuleAdmin extends Component {
               />
             </View>
 
-            <Text style={styles.title2}>CUTTING CONFIGURATION</Text>
+            <Text style={styles.title2}>Cutting configuration</Text>
             <View style={styles.itemContainer}>
               <View style={styles.powerBox}>
                 <View style={styles.parameterContainer}>
@@ -168,7 +168,7 @@ export default class EpilogModuleAdmin extends Component {
               </View>
             </View>
 
-            <Text style={styles.title2}>TRACING CONFIGURATION</Text>
+            <Text style={styles.title2}>Tracing configuration</Text>
             <View style={styles.itemContainer}>
               <View style={styles.powerBox}>
                 <View style={styles.parameterContainer}>
@@ -218,12 +218,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 120,
+    height: 150,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 64,
+    height: 84,
     marginTop: 30,
     alignSelf: 'center'
   },
@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
     height: 48,
     backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
-    fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",

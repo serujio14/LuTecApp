@@ -143,12 +143,12 @@ export default class CreateAccount extends Component {
                 <SafeAreaView style={styles.container}>
                     <View style={styles.header}>
                         <Image
-                            source={require("../assets/images/logosLuTecAppIcon.png")}
+                            source={require("../assets/images/logosLuTecApp.png")}
                             resizeMode="contain"
                             style={styles.image}
                         ></Image>
                     </View>
-                    <Text style={styles.title}>CREATE ACCOUNT</Text>
+                    <Text style={styles.title}>Create account</Text>
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
 
                     <ScrollView
@@ -176,7 +176,7 @@ export default class CreateAccount extends Component {
                             </Dialog.Container>
 
 
-                            <Text style={styles.label}>NAME</Text>
+                            <Text style={styles.label}>Name</Text>
                             <TextInput
                                 value={this.state.Name}
                                 onChangeText={this.handleChangeTextName}
@@ -190,21 +190,21 @@ export default class CreateAccount extends Component {
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>EMAIL</Text>
+                            <Text style={styles.label}>Email</Text>
                             <TextInput
                                 value={this.state.Email}
                                 onChangeText={this.handleChangeTextEmail}
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>PASSWORD</Text>
+                            <Text style={styles.label}>Password</Text>
                             <TextInput
                                 value={this.state.Password}
                                 onChangeText={this.handleChangeTextPassword}
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>CONFIRM PASSWORD</Text>
+                            <Text style={styles.label}>Confirm password</Text>
                             <TextInput
                                 value={this.state.PasswordConfirm}
                                 onChangeText={this.handleChangeTextPasswordConfirm}
@@ -256,12 +256,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     header: {
-        height: 120,
+        height: 150,
         backgroundColor: "rgba(3,85,73,1)"
     },
     image: {
         width: 329,
-        height: 64,
+        height: 84,
         marginTop: 30,
         alignSelf: 'center'
     },
@@ -269,7 +269,6 @@ const styles = StyleSheet.create({
         height: 48,
         backgroundColor: "rgba(45,45,45,1)",
         fontFamily: "roboto-regular",
-        fontWeight: 'bold',
         color: "rgba(251,251,251,1)",
         fontSize: 24,
         textAlign: "center",

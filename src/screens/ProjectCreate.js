@@ -116,6 +116,9 @@ export default class ProjectCreate extends Component {
           txtProjectDate: text}
     )
   }
+  handleChangeTextProjectCreator(text){
+    this.setState({projectName : text})
+  }
 
   handleChangeTextProjectDetail(text){
     this.setState({projectDetail : text})
@@ -139,12 +142,12 @@ export default class ProjectCreate extends Component {
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               ></Image>
             </View>
-            <Text style={styles.title}>CREATE PROJECT</Text>
+            <Text style={styles.title}>Create Project</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}
@@ -171,14 +174,7 @@ export default class ProjectCreate extends Component {
                   <Dialog.Button label="Continue" onPress={this.handleCancel} />
                 </Dialog.Container>
 
-                <Text style={styles.label}>PROJECT NAME</Text>
-                <TextInput
-                    value={this.state.projectName}
-                    onChangeText={this.handleChangeTextProjectName}
-                    style={styles.textbox}
-                />
-
-                <Text style={styles.label}>PROJECT DATE</Text>
+                <Text style={styles.label}>Project date</Text>
                 <DatePicker
                     style={styles.datePickerContainer}
                     date={this.state.date}
@@ -186,7 +182,7 @@ export default class ProjectCreate extends Component {
                     placeholder={this.state.txtProjectDate}
                     value= {this.state.txtProjectDate}
                     format="DD MMM YYYY"
-                    minDate="2020-01-01"
+                    minDate="2015-01-01"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -203,7 +199,21 @@ export default class ProjectCreate extends Component {
                     onDateChange={(date) => {this.handleChangeTextProjectDate(date)}}
                 />
 
-                <Text style={styles.label}>PROJECT DESCRIPTION</Text>
+                <Text style={styles.label}>Project name</Text>
+                <TextInput
+                    value={this.state.projectName}
+                    onChangeText={this.handleChangeTextProjectName}
+                    style={styles.textbox}
+                />
+
+                <Text style={styles.label}>Project creator(s)</Text>
+                <TextInput
+                    value={this.state.projectName}
+                    onChangeText={this.handleChangeTextProjectCreator}
+                    style={styles.textbox}
+                />
+
+                <Text style={styles.label}>Project description</Text>
                 <TextInput
                     value={this.state.projectDetail}
                     onChangeText={this.handleChangeTextProjectDetail}
@@ -217,13 +227,13 @@ export default class ProjectCreate extends Component {
 
                       style={styles.btnWide2}
                   >
-                    <Text style={styles.btnLabel}>UPLOAD IMAGE</Text>
+                    <Text style={styles.btnLabel}>Upload image</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                       onPress={() => this.createProject(this.state)}
                       style={styles.btnWide}
                   >
-                    <Text style={styles.btnLabel}>CREATE PROJECT</Text>
+                    <Text style={styles.btnLabel}>CREATE project</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -252,7 +262,7 @@ const styles = StyleSheet.create({
   },
   datePickerContainer: {
     width: '80%',
-    marginBottom: 15,
+    marginVertical: 15,
     alignSelf: 'center'
   },
   containerLoader: {

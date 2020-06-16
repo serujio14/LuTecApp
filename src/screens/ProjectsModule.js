@@ -97,14 +97,14 @@ export default class ProjectsModule extends Component {
                 <Text multiline={true} style={styles.projectDescription}>
                   {val.Description}
                 </Text>
+                <TouchableOpacity
+                    onPress={() => this.goToProject(val.Id_project)}
+                    style={styles.btnWide2}
+                >
+                  <Text style={styles.btnLabel2}>VIEW PROJECT DETAIL</Text>
+                </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                  onPress={() => this.goToProject(val.Id_project)}
-                  style={styles.btnWide2}
-              >
-                <Text style={styles.btnLabel2}>VIEW PROJECT</Text>
-              </TouchableOpacity>
             </View>
 
         )
@@ -115,12 +115,12 @@ export default class ProjectsModule extends Component {
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               />
             </View>
-            <Text style={styles.title}>DEVELOPED PROJECTS</Text>
+            <Text style={styles.title}>Developed Projects</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
 
             <ScrollView
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
   },
   btnWide2: {
     width: '100%',
-    height: 50,
+    height: 40,
+    backgroundColor: "rgba(74,74,74,1)",
     position: 'absolute',
     bottom: 0,
     alignSelf: 'stretch',
@@ -165,9 +166,9 @@ const styles = StyleSheet.create({
   btnLabel2: {
     fontFamily: "roboto-regular",
     fontSize: 16,
-    color: "rgba(74,74,74,1)",
-    textAlign: "center",
-    marginTop: 19
+    marginTop: 10,
+    color: "rgba(255,255,255,1)",
+    textAlign: "center"
   },
   horizontal: {
     backgroundColor: '#FFFFFF',
@@ -179,12 +180,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
-    height: 120,
+    height: 150,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 64,
+    height: 84,
     marginTop: 30,
     alignSelf: 'center'
   },
@@ -192,7 +193,6 @@ const styles = StyleSheet.create({
     height: 48,
     backgroundColor: "rgba(45,45,45,1)",
     fontFamily: "roboto-regular",
-    fontWeight: 'bold',
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
