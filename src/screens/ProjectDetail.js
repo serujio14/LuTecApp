@@ -1,15 +1,39 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Image, Text, TouchableOpacity, ActivityIndicator} from "react-native";
+
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  TextInput
+} from "react-native";
 import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
 import { SliderBox } from "react-native-image-slider-box";
 
+const { height } = Dimensions.get('window');
+
 export default class ProjectDetail extends Component {
+
+  state = {
+    screenHeight: height,
+  };
+
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight });
+  };
 
   constructor(props) {
     super(props);
     console.log(this.props.navigation.state.params.Id_project);
     this.state = {
       isLoading: true,
+      isRendering: true,
       dataSource: [],
       projectId: "",
       projectName: "",
@@ -27,11 +51,12 @@ export default class ProjectDetail extends Component {
 
   componentDidMount() {
 
-     //call api to get details from project from id
+    //call api to get details from project from id
     return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
 
         .then(response => response.json())
         .then((responseJson) => {
+
           if (responseJson.Response == 1){
             this.setState({
               isLoading : false,
@@ -63,13 +88,59 @@ export default class ProjectDetail extends Component {
         .catch((error) => {
           console.log("fallo la promesa")
           console.log(error)
-          console.log(error)
         });
+
+  }
+
+  componentDidUpdate() {
+
+      //call api to get details from project from id
+      return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
+
+          .then(response => response.json())
+          .then((responseJson) => {
+
+            if (responseJson.Response == 1){
+              this.setState({
+                isLoading : false,
+                isRendering: false,
+                dialogVisible: true,
+                dataSource: responseJson.Data,
+                projectId: responseJson.Data.Id_project,
+                projectName: responseJson.Data.Name,
+                projectDescription: responseJson.Data.Description,
+                Creator: responseJson.Data.Creator,
+                Image: responseJson.Data.Image,
+                Date: responseJson.Data.Date,
+                images: [
+                  responseJson.Data.Image,
+                  responseJson.Data.Image2,
+                  responseJson.Data.Image3,
+                  responseJson.Data.Image4
+                ],
+              });
+            }else{
+              console.log("fallo conexion")
+              this.setState({
+                isLoading : false,
+                dialogFailVisible: true,
+              });
+            }
+
+          })
+
+          .catch((error) => {
+            console.log("fallo la promesa")
+            console.log(error)
+          });
+
 
   }
 
 
   render(){
+
+    const scrollEnabled = this.state.screenHeight > height;
 
     if (this.state.isLoading) {
 
@@ -85,50 +156,53 @@ export default class ProjectDetail extends Component {
     } else {
 
       let image = this.state.Image;
+      let date = this.state.Date;
+      date.substring(0,11);
 
       return (
 
-          <View style={styles.container}>
-            <SliderBox
-                images={this.state.images}
-                onCurrentImagePressed={index =>
-                    console.warn(`image ${index} pressed`)
-                }
-            />
-            <View style={styles.rect1}>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               />
             </View>
-            <View style={styles.rect2}>
-              <Text style={styles.text}>PROJECT DETAIL</Text>
-            </View>
-            <View style={styles.loremIpsumRow}>
-              <Text style={styles.loremIpsum}>{this.state.Name}</Text>
-            </View>
-            <View style={styles.createdByRow}>
-              <Text style={styles.createdBy}>CREATED BY:</Text>
-              <Text style={styles.christopher}>{this.state.Creator} </Text>
-            </View>
-            <View style={styles.materialButtonSuccess9Stack}>
-              <MaterialButtonSuccess8
-                  style={styles.materialButtonSuccess9}
-              />
-              <MaterialButtonSuccess8
-                  style={styles.materialButtonSuccess10}
-              />
-            </View>
-            <Text style={styles.loremIpsum1}>
-              {this.state.Description}
-            </Text>
-            <View style={styles.dateCreatedRow}>
-              <Text style={styles.dateCreated}>DATE CREATED:</Text>
-              <Text style={styles.christopher1}></Text>
-            </View>
-            <View style={styles.rect3}/>
-          </View>
+            <Text style={styles.title}>Project detail</Text>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
+
+
+              <View style={styles.container}>
+                <SliderBox
+                    images={this.state.images}
+                    onCurrentImagePressed={index =>
+                        console.warn(`image ${index} pressed`)
+                    }
+                />
+
+                <Text style={styles.nameLabel}>{this.state.projectName}</Text>
+
+                <Text style={styles.label}>Created by: </Text>
+                <Text style={styles.label2}>{this.state.Creator}</Text>
+
+                <Text style={styles.label}>Created on</Text>
+                <Text style={styles.label2} >{date}</Text>
+
+                <Text style={styles.descriptionProject} >
+                  {this.state.projectDescription}
+                </Text>
+
+              </View>
+            </ScrollView>
+          </SafeAreaView>
       );
     }
   }
@@ -137,7 +211,9 @@ export default class ProjectDetail extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'stretch',
+    textAlign: 'center'
   },
   containerLoader: {
     flex: 1,
@@ -145,21 +221,55 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
-  rect1: {
-    width: 376,
-    height: 141,
+  scrollview: {
+    flexGrow: 1,
+  },
+  content: {
+    flexGrow: 1,
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  header: {
+    height: 150,
     backgroundColor: "rgba(3,85,73,1)"
   },
   image: {
     width: 329,
-    height: 65,
-    marginTop: 53,
-    marginLeft: 23
+    height: 84,
+    marginTop: 30,
+    alignSelf: 'center'
   },
-  rect2: {
-    width: 376,
+  title: {
     height: 48,
-    backgroundColor: "rgba(76,76,77,1)"
+    backgroundColor: "rgba(45,45,45,1)",
+    fontFamily: "roboto-regular",
+    color: "rgba(251,251,251,1)",
+    fontSize: 24,
+    textAlign: "center",
+    lineHeight: 56
+  },
+  label: {
+    fontFamily: "roboto-regular",
+    color: "#595A5C",
+    flexDirection: "row",
+    marginTop: 15,
+    marginLeft: '10%'
+  },
+  label2: {
+    fontFamily: "roboto-regular",
+    color: "rgba(15,90,78,1)",
+    flexDirection: "row",
+    marginLeft: '10%'
+  },
+  nameLabel: {
+    fontFamily: "roboto-regular",
+    color: "#595A5C",
+    fontSize: 26,
+    fontWeight: 'bold',
+    flexDirection: "row",
+    marginTop: 15,
+    width: '80%',
+    marginLeft: '10%'
   },
   text: {
     fontFamily: "roboto-regular",
@@ -169,94 +279,15 @@ const styles = StyleSheet.create({
     marginTop: 11,
     marginLeft: 96
   },
-  loremIpsum: {
+  descriptionProject: {
     fontFamily: "roboto-regular",
-    color: "#121212",
-    marginTop: 8
-  },
-  girasol1: {
-    fontFamily: "roboto-regular",
-    color: "rgba(74,74,74,1)",
-    fontSize: 35,
-    marginLeft: 2
-  },
-  loremIpsumRow: {
-    height: 42,
-    flexDirection: "row",
-    marginTop: 23,
-    marginLeft: 28,
-    marginRight: 234
-  },
-  createdBy: {
-    fontFamily: "roboto-regular",
-    color: "#121212"
-  },
-  christopher: {
-    fontFamily: "roboto-regular",
-    color: "rgba(0,150,136,1)",
-    textAlign: "left",
-    marginLeft: 6
-  },
-  createdByRow: {
-    height: 16,
-    flexDirection: "row",
-    marginTop: 211,
-    marginLeft: 27,
-    marginRight: 97
-  },
-  materialButtonSuccess9: {
-    height: 54,
-    width: 188,
-    position: "absolute",
-    left: 0,
-    top: 0
-  },
-  materialButtonSuccess10: {
-    height: 54,
-    width: 188,
-    position: "absolute",
-    left: 0,
-    top: 0
-  },
-  materialButtonSuccess9Stack: {
-    width: 188,
-    height: 54,
-    marginTop: 163,
-    marginLeft: -1519
-  },
-  loremIpsum1: {
-    fontFamily: "roboto-regular",
-    color: "rgba(51,45,45,1)",
+    color: "#595A5C",
     height: 124,
     width: 314,
     fontSize: 16,
+    marginTop: 15,
     textAlign: "justify",
-    marginTop: -193,
-    marginLeft: 31
+    alignSelf: 'center'
   },
-  dateCreated: {
-    fontFamily: "roboto-regular",
-    color: "#121212"
-  },
-  christopher1: {
-    fontFamily: "roboto-regular",
-    color: "rgba(0,150,136,1)",
-    textAlign: "left",
-    marginLeft: 5
-  },
-  dateCreatedRow: {
-    height: 16,
-    flexDirection: "row",
-    marginTop: -145,
-    marginLeft: 27,
-    marginRight: 184
-  },
-  rect3: {
-    width: 324,
-    height: 187,
-    backgroundColor: "#E6E6E6",
-    marginTop: -240,
-    marginLeft: 28
-  }
 });
 

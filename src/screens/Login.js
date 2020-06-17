@@ -57,13 +57,22 @@ export default class Login extends Component {
       )
           .then(response => response.json())
           .then((responseJson) => {
-            if (responseJson.Response == 1) {
+
+
+            console.log(responseJson);
+            if (responseJson.Response === 1 && responseJson.Data.ERROR !== "ERROR") {
               //NAVIGATE TO LUTECAPP SCREENexpo
               let userData = responseJson.Data;
               let { navigate } = this.props.navigation;
               navigate("LuTecApp", {userData});
 
-            } else {
+            } else if (responseJson.Data.ERROR === "ERROR") {
+              this.setState({
+                isLoading: false,
+                dialogFailVisible: true,
+              });
+              alert('TEC ID or Password Incorrect. Please try again');
+            }else{
               this.setState({
                 isLoading: false,
                 dialogFailVisible: true,
@@ -93,6 +102,11 @@ export default class Login extends Component {
   }
   handleChangeTextTecID(text){
     this.setState({TecID : text})
+  }
+  goToProjectCreate(text){
+    let { navigate } = this.props.navigation;
+    navigate("ForgotPassword");
+
   }
 
   render() {
@@ -145,18 +159,24 @@ export default class Login extends Component {
                     onChangeText={this.handleChangeTextPassword}
                     style={styles.textbox}
                 />
+
+                <View style={styles.btnContainer}>
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate("ForgotPassword")}
-                    style={styles.button}
+                    //onPress={() => props.navigation.navigate("ForgotPassword")}
+                    onPress={() => this.goToProjectCreate(this.state)}
+                    style={styles.btnWhite}
                 >
-                  <Text style={styles.btnWhite}>FORGOT PASSWORD?</Text>
+                  <Text style={styles.btnLabelW}>FORGOT PASSWORD?</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
                     onPress={() => this.login(this.state)}
                     style={styles.btnWide}
                 >
                   <Text style={styles.btnLabel}>LOGIN</Text>
                 </TouchableOpacity>
+                </View>
+
               </View>
             </ScrollView>
           </SafeAreaView>
@@ -222,27 +242,38 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: 'gray'
   },
+  btnContainer: {
+    width: '100%',
+    height: 108,
+    backgroundColor: "rgba(0,150,136,1)"
+  },
   btnWide: {
     width: '100%',
     height: 54,
     backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom: 0,
     alignSelf: 'stretch',
+    flexDirection: "row",
     textAlign: 'center'
   },
   btnWhite: {
-    marginTop: 15,
+    width: '100%',
     height: 54,
-    alignSelf: 'stretch',
-    textAlign: 'center',
+    flexDirection: "row",
     color: "rgba(0,150,136,1)",
     backgroundColor: "rgba(255,255,255,1)",
   },
   btnLabel: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
+    width: '100%',
     textAlign: "center",
-    marginTop: 19
+    alignSelf: 'center',
+    fontFamily: "roboto-regular",
+    color: "rgba(255,255,255,1)"
+  },
+  btnLabelW: {
+    width: '100%',
+    textAlign: "center",
+    alignSelf: 'center',
+    fontFamily: "roboto-regular",
+    color: "rgba(0,150,136,1)"
   }
 });

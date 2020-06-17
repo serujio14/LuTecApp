@@ -96,6 +96,9 @@ export default class ProjectCreate extends Component {
                 dialogFailVisible: false,
 
               });
+
+              let { navigate } = this.props.navigation;
+              navigate("LuTecApp");
             }else{
               this.setState({
                 isLoading : false,

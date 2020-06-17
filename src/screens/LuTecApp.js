@@ -19,27 +19,54 @@ export default class LuTecApp extends Component {
   constructor(props) {
     super(props);
     console.log(this.props.navigation.state.params.userData);
-    this.state = {
-      isLoading: false,
-      dataSource: [],
-      Email: this.props.navigation.state.params.userData.Email,
-      Id_campus: this.props.navigation.state.params.userData.Id_campus,
-      Id_rol: this.props.navigation.state.params.userData.Id_rol,
-      Id_user: this.props.navigation.state.params.userData.Id_user,
-      Name: this.props.navigation.state.params.userData.Name,
-      Password : this.props.navigation.state.params.userData.Password,
-      Tec_id: this.props.navigation.state.params.userData.Tec_id,
-    }
 
+    if (this.props.navigation.state.params.userData.Id_user != ''){
+      this.state = {
+        isLoading: false,
+        dataSource: [],
+        Email: '',
+        Id_campus: '',
+        Id_rol: '1',
+        Id_user: '',
+        Name: '',
+        Password : '',
+        Tec_id: '',
+      }
+    }else{
+      this.state = {
+        isLoading: false,
+        dataSource: [],
+        Email: this.props.navigation.state.params.userData.Email,
+        Id_campus: this.props.navigation.state.params.userData.Id_campus,
+        Id_rol: this.props.navigation.state.params.userData.Id_rol,
+        Id_user: this.props.navigation.state.params.userData.Id_user,
+        Name: this.props.navigation.state.params.userData.Name,
+        Password : this.props.navigation.state.params.userData.Password,
+        Tec_id: this.props.navigation.state.params.userData.Tec_id,
+      }
+    }
   }
 
   goToEpilogModule(text){
+
+    console.log(this.state.Id_rol)
     let { navigate } = this.props.navigation;
-    if (this.state.Id_rol !== "1") {
+    if (this.state.Id_rol !== "2") {
       navigate("EpilogModule");
     }else {
       navigate("EpilogModuleAdmin");
     }
+
+  }
+  goToProjectCreate(text){
+    let { navigate } = this.props.navigation;
+      navigate("ProjectCreate");
+
+  }
+
+  goToProjectsModule(text){
+    let { navigate } = this.props.navigation;
+    navigate("ProjectsModule");
 
   }
 
@@ -80,13 +107,13 @@ export default class LuTecApp extends Component {
                 <View style={styles.btnGotoProjectsModuleRow}>
                   {/* - - - - - - BTN - - - - - - -*/}
                   <TouchableOpacity
-                      onPress={() => props.navigation.navigate("ProjectsModule")}
+                      onPress={() => this.goToProjectsModule(this.state)}
                       style={styles.btn1}
                   >
                     <Text style={styles.btnLabel2}>BROWSE</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                      onPress={() => props.navigation.navigate("ProjectCreate")}
+                      onPress={() => this.goToProjectCreate(this.state)}
                       style={styles.btn1}
                   >
                     <Text style={styles.btnLabel2}>CREATE</Text>
@@ -104,7 +131,6 @@ export default class LuTecApp extends Component {
                   <Text style={styles.titleModule}>Epilog laser cutter</Text>
                   <Text style={styles.labelModule}>Epilog machine configuration parameters</Text>
                 </View>
-                {/* - - - - - - BTN - - - - - - -*/}
                 <TouchableOpacity
                     onPress={() => this.goToEpilogModule(this.state)}
                     style={styles.btnWide}

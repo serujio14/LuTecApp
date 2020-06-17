@@ -10,7 +10,7 @@ export default class ProjectsModule extends Component {
   };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({ screenHeight: contentHeight });
+    this.setState({ screenHeight: contentHeight + 174});
   };
 
   constructor(props) {
@@ -33,13 +33,38 @@ export default class ProjectsModule extends Component {
   goToProject(text){
 
     console.log('gotoproject: ' + text);
-    let Id_project = text;
+
+    this.state = {
+      projectId: text
+    }
+    let Id_project = this.state.projectId;
     let { navigate } = this.props.navigation;
     navigate("ProjectDetail", {Id_project});
 
   }
 
   componentDidMount() {
+
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+
+        .then(response => response.json())
+        .then((responseJson) => {
+
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson.Data,
+          })
+
+        })
+
+        .catch((error) => {
+          console.log(error)
+          console.log(error)
+        });
+
+  }
+
+  componentDidUpdate() {
 
     return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
 
@@ -86,26 +111,27 @@ export default class ProjectsModule extends Component {
         return (
 
             <View key={val.Id_project} style={styles.projectContainer}>
-              <View style={styles.projectImageContainer}>
-                <Image
-                    source={{uri:"https://source.unsplash.com/1024x768/?nature"}}
-                    resizeMode="cover"
-                    style={styles.projectImage}
-                />
+              <View style={styles.projectDataContainer}>
+                <View style={styles.projectImageContainer}>
+                  <Image
+                      source={{uri:"https://source.unsplash.com/1024x768/?nature"}}
+                      resizeMode="cover"
+                      style={styles.projectImage}
+                  />
+                </View>
+                <View style={styles.projectInfoContainer}>
+                  <Text style={styles.projectTitle}>{val.Name}</Text>
+                  <Text multiline={true} style={styles.projectDescription}>
+                    {val.Description}
+                  </Text>
+                  <TouchableOpacity
+                      onPress={() => this.goToProject(val.Id_project)}
+                      style={styles.btnWide2}
+                  >
+                    <Text style={styles.btnLabel2}>VIEW PROJECT DETAIL</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.projectInfoContainer}>
-                <Text style={styles.projectTitle}>{val.Name}</Text>
-                <Text multiline={true} style={styles.projectDescription}>
-                  {val.Description}
-                </Text>
-                <TouchableOpacity
-                    onPress={() => this.goToProject(val.Id_project)}
-                    style={styles.btnWide2}
-                >
-                  <Text style={styles.btnLabel2}>VIEW PROJECT DETAIL</Text>
-                </TouchableOpacity>
-              </View>
-
             </View>
 
         )
@@ -158,17 +184,15 @@ const styles = StyleSheet.create({
   btnWide2: {
     width: '100%',
     height: 40,
-    backgroundColor: "rgba(74,74,74,1)",
     position: 'absolute',
-    bottom: 0,
-    alignSelf: 'stretch',
-    textAlign: 'center'
+    bottom: 0
   },
   btnLabel2: {
     fontFamily: "roboto-regular",
     fontSize: 16,
+    color: "rgba(3,85,73,1)",
+    fontWeight: 'bold',
     marginTop: 10,
-    color: "rgba(255,255,255,1)",
     textAlign: "center"
   },
   horizontal: {
@@ -217,20 +241,20 @@ const styles = StyleSheet.create({
   },
   viewProject: {
     fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
     marginTop: 10,
     marginLeft: 140
   },
-  loremIpsum: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    marginTop: 1
-  },
   projectContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    height: 160,
+    marginVertical: 10
+  },
+  projectDataContainer: {
+    width: '90%',
+    backgroundColor: "rgba(255,255,255,1)",
     height: 140,
-    marginBottom: 10,
-    backgroundColor: 'lightgray',
-    top: 10
+    alignSelf: 'center'
   },
   projectImageContainer: {
     width: '30%',

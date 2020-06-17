@@ -127,7 +127,7 @@ export default class EpilogModule extends Component {
                 <View style={styles.materialNameContainer}>
                   <Dropdown
                       style={styles.materialName}
-                      label='MATERIAL &amp; THICKNESS SELECTED'
+                      label='MATERIAL SELECTED'
                       data={data}
                       onChangeText={this.handleMaterialDropdown}
                   />

@@ -87,6 +87,9 @@ export default class CreateAccount extends Component {
                             Password: "",
                             PasswordConfirm: "",
                         });
+                        let userData = responseJson.Data;
+                        let { navigate } = this.props.navigation;
+                        navigate("LuTecApp", {userData});
                     } else {
                         this.setState({
                             isLoading: false,

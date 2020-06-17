@@ -78,7 +78,6 @@ export default class EpilogModuleAdmin extends Component {
 
         .catch((error) => {
           console.log(error)
-          console.log(error)
         });
 
   }
@@ -158,7 +157,7 @@ export default class EpilogModuleAdmin extends Component {
             <View style={styles.materialNameContainer}>
               <Dropdown
                   style={styles.materialName}
-                  label='MATERIAL &amp; THICKNESS SELECTED'
+                  label='Select a material'
                   data={data}
                   onChangeText={this.handleMaterialDropdown}
               />
@@ -218,7 +217,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
-
   },
   horizontal: {
     backgroundColor: '#FFFFFF',
