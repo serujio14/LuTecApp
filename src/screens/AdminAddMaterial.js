@@ -62,10 +62,8 @@ export default class AdminAddMaterial extends Component {
             console.log('agregando')
 
             this.setState({ isLoading: true });
-            
-            
 
-            fetch("http://192.168.0.11/lutecapp.com/service.php?who=add_material&api_key=5183723902398237640&materialName="
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=add_material&api_key=5183723902398237640&materialName="
                 + state.materialName+"&materialThickness=" + state.materialThickness +"&materialProvider=" + state.materialProvider  +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
                 + "&traceSpeed=" + state.traceSpeed , { headers: {
                     'Accept': 'application/json',
@@ -163,7 +161,7 @@ export default class AdminAddMaterial extends Component {
                             source={require("../assets/images/logosLuTecApp.png")}
                             resizeMode="contain"
                             style={styles.image}
-                        ></Image>
+                        />
                     </View>
 
                     <Text style={styles.title}>Add material</Text>

@@ -18,12 +18,12 @@ import ForgotPassword from "./src/screens/ForgotPassword";
 import AdminEditMaterial from "./src/screens/AdminEditMaterial";
 
 const DrawerNavigation = createDrawerNavigator({
+    ProjectsModule: ProjectsModule,
     Main: Main,
     CreateAccount: CreateAccount,
     ForgotPassword: ForgotPassword,
     Login: Login,
     LuTecApp: LuTecApp,
-    ProjectsModule: ProjectsModule,
     ProjectDetail: ProjectDetail,
     ProjectCreate: ProjectCreate,
     EpilogModule: EpilogModule,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Image, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, View, Image, Text, TouchableOpacity, ActivityIndicator} from "react-native";
 import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
 import { SliderBox } from "react-native-image-slider-box";
 
@@ -7,6 +7,7 @@ export default class ProjectDetail extends Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props.navigation.state.params.Id_project);
     this.state = {
       isLoading: true,
       dataSource: [],
@@ -15,33 +16,52 @@ export default class ProjectDetail extends Component {
       projectDescription: "",
       Image: "",
       Date: new Date(),
+      Creator : "",
       selectedMaterial: [],
       images: [
-        "https://source.unsplash.com/1024x768/?nature",
-        "https://source.unsplash.com/1024x768/?water",
-        "https://source.unsplash.com/1024x768/?girl",
-        "https://source.unsplash.com/1024x768/?tree"
+        "https://source.unsplash.com/1024x768/?nature"
       ]
     }
 
-    this.goToProject = this.goToProject.bind(this)
   }
 
   componentDidMount() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+     //call api to get details from project from id
+    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
 
         .then(response => response.json())
         .then((responseJson) => {
-
-          this.setState({
-            isLoading: false,
-            dataSource: responseJson.Data,
-          })
+          if (responseJson.Response == 1){
+            this.setState({
+              isLoading : false,
+              dialogVisible: true,
+              dataSource: responseJson.Data,
+              projectId: responseJson.Data.Id_project,
+              projectName: responseJson.Data.Name,
+              projectDescription: responseJson.Data.Description,
+              Creator: responseJson.Data.Creator,
+              Image: responseJson.Data.Image,
+              Date: responseJson.Data.Date,
+              images: [
+                responseJson.Data.Image,
+                responseJson.Data.Image2,
+                responseJson.Data.Image3,
+                responseJson.Data.Image4
+              ],
+            });
+          }else{
+            console.log("fallo conexion")
+            this.setState({
+              isLoading : false,
+              dialogFailVisible: true,
+            });
+          }
 
         })
 
         .catch((error) => {
+          console.log("fallo la promesa")
           console.log(error)
           console.log(error)
         });
@@ -51,51 +71,66 @@ export default class ProjectDetail extends Component {
 
   render(){
 
-    return (
+    if (this.state.isLoading) {
 
-        <View style={styles.container}>
-          <SliderBox
-              images={this.state.images}
-              onCurrentImagePressed={index =>
-                  console.warn(`image ${index} pressed`)
-              }
-          />
-          <View style={styles.rect1}>
-            <Image
-                source={require("../assets/images/logosLuTecAppIcon.png")}
-                resizeMode="contain"
-                style={styles.image}
-            />
-          </View>
-          <View style={styles.rect2}>
-            <Text style={styles.text}>PROJECT DETAIL</Text>
-          </View>
-          <View style={styles.loremIpsumRow}>
-            <Text style={styles.loremIpsum}></Text>
-            <Text style={styles.girasol1}>{val.projectName}</Text>
-          </View>
-          <View style={styles.createdByRow}>
-            <Text style={styles.createdBy}>CREATED BY:</Text>
-            <Text style={styles.christopher}>{val.projectName}</Text>
-          </View>
-          <View style={styles.materialButtonSuccess9Stack}>
-            <MaterialButtonSuccess8
-                style={styles.materialButtonSuccess9}
-            ></MaterialButtonSuccess8>
-            <MaterialButtonSuccess8
-                style={styles.materialButtonSuccess10}
-            ></MaterialButtonSuccess8>
-          </View>
-          <Text style={styles.loremIpsum1}>
-            {this.state.projectDescription}
-          </Text>
-          <View style={styles.dateCreatedRow}>
-            <Text style={styles.dateCreated}>DATE CREATED:</Text>
-            <Text style={styles.christopher1}>{this.state.Date}</Text>
-          </View>
-          <View style={styles.rect3}></View>
+      console.log('CARGANDO')
+
+      return <View style={styles.containerLoader}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator size="large" color="#009688" />
+
         </View>
-    );
+      </View>
+
+    } else {
+
+      let image = this.state.Image;
+
+      return (
+
+          <View style={styles.container}>
+            <SliderBox
+                images={this.state.images}
+                onCurrentImagePressed={index =>
+                    console.warn(`image ${index} pressed`)
+                }
+            />
+            <View style={styles.rect1}>
+              <Image
+                  source={require("../assets/images/logosLuTecAppIcon.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+            <View style={styles.rect2}>
+              <Text style={styles.text}>PROJECT DETAIL</Text>
+            </View>
+            <View style={styles.loremIpsumRow}>
+              <Text style={styles.loremIpsum}>{this.state.Name}</Text>
+            </View>
+            <View style={styles.createdByRow}>
+              <Text style={styles.createdBy}>CREATED BY:</Text>
+              <Text style={styles.christopher}>{this.state.Creator} </Text>
+            </View>
+            <View style={styles.materialButtonSuccess9Stack}>
+              <MaterialButtonSuccess8
+                  style={styles.materialButtonSuccess9}
+              />
+              <MaterialButtonSuccess8
+                  style={styles.materialButtonSuccess10}
+              />
+            </View>
+            <Text style={styles.loremIpsum1}>
+              {this.state.Description}
+            </Text>
+            <View style={styles.dateCreatedRow}>
+              <Text style={styles.dateCreated}>DATE CREATED:</Text>
+              <Text style={styles.christopher1}></Text>
+            </View>
+            <View style={styles.rect3}/>
+          </View>
+      );
+    }
   }
 
 }
@@ -103,6 +138,12 @@ export default class ProjectDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  containerLoader: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around'
   },
   rect1: {
     width: 376,

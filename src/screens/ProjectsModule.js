@@ -15,6 +15,7 @@ export default class ProjectsModule extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       isLoading: true,
       dataSource: [],
@@ -30,12 +31,12 @@ export default class ProjectsModule extends Component {
   }
 
   goToProject(text){
-    //const { navigate } = this.props.navigation;
 
-    //navigate("gotoproject")
+    console.log('gotoproject: ' + text);
+    let Id_project = text;
+    let { navigate } = this.props.navigation;
+    navigate("ProjectDetail", {Id_project});
 
-    //insert go to project detail and send ID (contained in var text) to fetch project info from DB
-    console.log('gotoproject')
   }
 
   componentDidMount() {

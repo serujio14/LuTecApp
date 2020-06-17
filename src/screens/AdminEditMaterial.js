@@ -1,8 +1,7 @@
 import React,  { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, TextInput, Image, ActivityIndicator} from "react-native";
 import Dialog from "react-native-dialog";
 import { Dropdown } from 'react-native-material-dropdown';
-import TextInput from "react-native-web/src/exports/TextInput";
 
 export default class AdminEditMaterial extends Component {
 
@@ -204,7 +203,13 @@ export default class AdminEditMaterial extends Component {
                     <Text style={styles.title2}>CUTTING PARAMETERS</Text>
                     <View style={styles.itemContainer}>
                         <View style={styles.item}>
-                            {/* - - - - - - TEXTBOX - - - - - - -*/}
+                            <TextInput
+                                value={this.state.tracePower}
+                                keyboardType = 'numeric'
+                                onChangeText={this.handleChangeTextTracePower}
+                                style={styles.labelParameterNumber}
+                            />
+
                             <TextInput
                                 value = {this.state.cutPower}
                                 onChangeText={this.handleChangeTextCutPower}

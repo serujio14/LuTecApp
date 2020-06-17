@@ -22,23 +22,32 @@ export default class ProjectCreate extends Component {
     let dt;
     Moment.locale('en');
     dt = new Date();
-    dt = Moment(dt).format('d MMM YYYY')
+    dt = Moment(dt).format('d MMM YYYY');
+
+    let years = new Date();
+    years = Moment(years).subtract(5, 'year').format('YYYY-MM-DD'); // for specific format
+
+    console.log(years);
+
     this.state = {
       isLoading: false,
       dataSource: null,
       projectName : "",
       projectDetail : "",
+      projectCreator : "",
       projectDate: new Date(),
       txtProjectDate: dt,
       textProjectDate: new Date(),
       visible : false,
       dialogVisible: false,
-      dialogFailVisible: false
+      dialogFailVisible: false,
+      minDate5years : years
     }
 
     this.handleChangeTextProjectName = this.handleChangeTextProjectName.bind(this)
     this.handleChangeTextProjectDate = this.handleChangeTextProjectDate.bind(this)
     this.handleChangeTextProjectDetail = this.handleChangeTextProjectDetail.bind(this)
+    this.handleChangeTextProjectCreator = this.handleChangeTextProjectCreator.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.createProject = this.createProject.bind(this)
     this.CheckTextInput = this.CheckTextInput.bind(this)
@@ -46,7 +55,7 @@ export default class ProjectCreate extends Component {
 
   CheckTextInput = () => {
 
-    if (this.state.projectName != '' && this.state.projectDetail != '' && this.state.projectDate != '') {
+    if (this.state.projectName != '' && this.state.projectDetail != '' && this.state.projectDate != ''&& this.state.projectCreator != '') {
 
       return true;
 
@@ -59,13 +68,10 @@ export default class ProjectCreate extends Component {
 
     if (this.CheckTextInput()){
 
-      console.log('agregando')
-
       this.setState({ isLoading: true });
 
-
       fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
-          + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.projectDate , { headers: {
+          + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.txtProjectDate + "&projectCreator=" +  state.projectCreator, { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },}
@@ -73,16 +79,20 @@ export default class ProjectCreate extends Component {
           .then(response => response.json())
           .then((responseJson) => {
 
-            console.log('funciono')
-            console.log(responseJson)
-
             if (responseJson.Response == 1){
+              let dt;
+              Moment.locale('en');
+              dt = new Date();
+              dt = Moment(dt).format('d MMM YYYY');
               this.setState({
                 isLoading : false,
                 dialogVisible: true,
                 projectName : "",
+                projectCreator : "",
                 projectDetail : "",
-                projectDate: "",
+                projectDate: new Date(),
+                txtProjectDate: dt,
+                textProjectDate: new Date(),
                 dialogFailVisible: false,
 
               });
@@ -117,7 +127,7 @@ export default class ProjectCreate extends Component {
     )
   }
   handleChangeTextProjectCreator(text){
-    this.setState({projectName : text})
+    this.setState({projectCreator : text})
   }
 
   handleChangeTextProjectDetail(text){
@@ -145,7 +155,7 @@ export default class ProjectCreate extends Component {
                   source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
-              ></Image>
+              />
             </View>
             <Text style={styles.title}>Create Project</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
@@ -182,7 +192,7 @@ export default class ProjectCreate extends Component {
                     placeholder={this.state.txtProjectDate}
                     value= {this.state.txtProjectDate}
                     format="DD MMM YYYY"
-                    minDate="2015-01-01"
+                    minDate = {this.state.minDate5years}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -208,7 +218,7 @@ export default class ProjectCreate extends Component {
 
                 <Text style={styles.label}>Project creator(s)</Text>
                 <TextInput
-                    value={this.state.projectName}
+                    value={this.state.projectCreator}
                     onChangeText={this.handleChangeTextProjectCreator}
                     style={styles.textbox}
                 />
