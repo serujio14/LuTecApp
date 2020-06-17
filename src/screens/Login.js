@@ -16,7 +16,6 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
       isLoading: false,
       dataSource: null,
       TecID: "",
@@ -48,7 +47,7 @@ export default class Login extends Component {
     if (this.CheckTextInput()) {
 
       this.setState({isLoading: true});
-
+      console.log("http://192.168.0.4/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password);
       fetch("http://192.168.0.4/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password, {
             headers: {
               'Accept': 'application/json',
@@ -58,10 +57,12 @@ export default class Login extends Component {
       )
           .then(response => response.json())
           .then((responseJson) => {
-            console.log(responseJson)
             if (responseJson.Response == 1) {
               //NAVIGATE TO LUTECAPP SCREENexpo
-              console.log('navigateLutecApp')
+              let userData = responseJson.Data;
+              let { navigate } = this.props.navigation;
+              navigate("LuTecApp", {userData});
+
             } else {
               this.setState({
                 isLoading: false,
@@ -73,6 +74,10 @@ export default class Login extends Component {
           .catch((error) => {
             console.log('error')
             console.error(error)
+            this.setState({
+              isLoading: false,
+              dialogFailVisible: true,
+            });
           });
     } else {
       alert('Please fill all spaces and passwords must match');
@@ -113,7 +118,7 @@ export default class Login extends Component {
                   source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
-              ></Image>
+              />
             </View>
             <Text style={styles.title}>Account Login</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
@@ -131,7 +136,6 @@ export default class Login extends Component {
                     keyboardType = 'numeric'
                     maxLength={9}
                     secureTextEntry={false}
-                    placeholder={strings.PASSWORD}
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
                 />

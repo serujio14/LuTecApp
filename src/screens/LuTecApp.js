@@ -1,84 +1,138 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ImageBackground, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
-
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  ActivityIndicator
+} from "react-native";
 const { height } = Dimensions.get('window');
 
-function LuTecApp(props) {
-  return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Image
-              source={require("../assets/images/logosLuTecApp.png")}
-              resizeMode="contain"
-              style={styles.image}
-          ></Image>
-        </View>
+export default class LuTecApp extends Component {
 
-        <View style={styles.moduleContainer}>
+  constructor(props) {
+    super(props);
+    console.log(this.props.navigation.state.params.userData);
+    this.state = {
+      isLoading: false,
+      dataSource: [],
+      Email: this.props.navigation.state.params.userData.Email,
+      Id_campus: this.props.navigation.state.params.userData.Id_campus,
+      Id_rol: this.props.navigation.state.params.userData.Id_rol,
+      Id_user: this.props.navigation.state.params.userData.Id_user,
+      Name: this.props.navigation.state.params.userData.Name,
+      Password : this.props.navigation.state.params.userData.Password,
+      Tec_id: this.props.navigation.state.params.userData.Tec_id,
+    }
 
-          {/* - - - - - - PROJECTS MODULE - - - - - - -*/}
-          <ImageBackground
-              source={require("../assets/images/imgProjects.jpg")}
-              resizeMode="contain"
-              style={styles.imgModule}
-          >
-            <View style={styles.titlesModuleContainer}>
-              <Text style={styles.titleModule}>Projects</Text>
-              <Text style={styles.labelModule}>Developed LuTec projects</Text>
-            </View>
-            <View style={styles.btnGotoProjectsModuleRow}>
-              {/* - - - - - - BTN - - - - - - -*/}
-              <TouchableOpacity
-                  onPress={() => props.navigation.navigate("ProjectsModule")}
-                  style={styles.btn1}
-              >
-                <Text style={styles.btnLabel2}>BROWSE</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  onPress={() => props.navigation.navigate("ProjectCreate")}
-                  style={styles.btn1}
-              >
-                <Text style={styles.btnLabel2}>CREATE</Text>
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
+  }
 
-          {/* - - - - - - EPILOG MODULE - - - - - - -*/}
-          <ImageBackground
-              source={require("../assets/images/imgEpilog.jpg")}
-              resizeMode="contain"
-              style={styles.imgModule}
-          >
-            <View style={styles.titlesModuleContainer}>
-              <Text style={styles.titleModule}>Epilog laser cutter</Text>
-              <Text style={styles.labelModule}>Epilog machine configuration parameters</Text>
-            </View>
-            {/* - - - - - - BTN - - - - - - -*/}
-            <TouchableOpacity
-                onPress={() => props.navigation.navigate("EpilogModule")}
-                style={styles.btnWide}
-            >
-              <Text style={styles.btnLabel}>OPEN</Text>
-            </TouchableOpacity>
-          </ImageBackground>
+  goToEpilogModule(text){
+    let { navigate } = this.props.navigation;
+    if (this.state.Id_rol !== "1") {
+      navigate("EpilogModule");
+    }else {
+      navigate("EpilogModuleAdmin");
+    }
 
-          {/* - - - - - - 3D PRINTER MODULE - - - - - - -*/}
-          <ImageBackground
-              source={require("../assets/images/img3D.jpg")}
-              resizeMode="contain"
-              style={styles.imgModule}
-          >
-            <View style={styles.titlesModuleContainer}>
-              <Text style={styles.titleModule}>MakerBot 3D printer</Text>
-              <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
-            </View>
-            <View style={styles.btnWide}>
-              <Text style={styles.btnLabel}>UNDER DEVELOPMENT</Text>
-            </View>
-          </ImageBackground>
+  }
+
+  render() {
+    if (this.state.isLoading) {
+
+      return <View style={styles.containerLoader}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator size="large" color="#009688"/>
+
         </View>
       </View>
-  );
+
+    } else {
+
+      return (
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <Image
+                  source={require("../assets/images/logosLuTecApp.png")}
+                  resizeMode="contain"
+                  style={styles.image}
+              />
+            </View>
+
+            <View style={styles.moduleContainer}>
+
+              {/* - - - - - - PROJECTS MODULE - - - - - - -*/}
+              <ImageBackground
+                  source={require("../assets/images/imgProjects.jpg")}
+                  resizeMode="contain"
+                  style={styles.imgModule}
+              >
+                <View style={styles.titlesModuleContainer}>
+                  <Text style={styles.titleModule}>Projects</Text>
+                  <Text style={styles.labelModule}>Developed LuTec projects</Text>
+                </View>
+                <View style={styles.btnGotoProjectsModuleRow}>
+                  {/* - - - - - - BTN - - - - - - -*/}
+                  <TouchableOpacity
+                      onPress={() => props.navigation.navigate("ProjectsModule")}
+                      style={styles.btn1}
+                  >
+                    <Text style={styles.btnLabel2}>BROWSE</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      onPress={() => props.navigation.navigate("ProjectCreate")}
+                      style={styles.btn1}
+                  >
+                    <Text style={styles.btnLabel2}>CREATE</Text>
+                  </TouchableOpacity>
+                </View>
+              </ImageBackground>
+
+              {/* - - - - - - EPILOG MODULE - - - - - - -*/}
+              <ImageBackground
+                  source={require("../assets/images/imgEpilog.jpg")}
+                  resizeMode="contain"
+                  style={styles.imgModule}
+              >
+                <View style={styles.titlesModuleContainer}>
+                  <Text style={styles.titleModule}>Epilog laser cutter</Text>
+                  <Text style={styles.labelModule}>Epilog machine configuration parameters</Text>
+                </View>
+                {/* - - - - - - BTN - - - - - - -*/}
+                <TouchableOpacity
+                    onPress={() => this.goToEpilogModule(this.state)}
+                    style={styles.btnWide}
+                >
+                  <Text style={styles.btnLabel}>OPEN</Text>
+                </TouchableOpacity>
+              </ImageBackground>
+
+              {/* - - - - - - 3D PRINTER MODULE - - - - - - -*/}
+              <ImageBackground
+                  source={require("../assets/images/img3D.jpg")}
+                  resizeMode="contain"
+                  style={styles.imgModule}
+              >
+                <View style={styles.titlesModuleContainer}>
+                  <Text style={styles.titleModule}>MakerBot 3D printer</Text>
+                  <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
+                </View>
+                <View style={styles.btnWide}>
+                  <Text style={styles.btnLabel}>UNDER DEVELOPMENT</Text>
+                </View>
+              </ImageBackground>
+            </View>
+          </View>
+      );
+    }
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -170,4 +224,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LuTecApp;

@@ -28,7 +28,17 @@ export default class EpilogModuleAdmin extends Component {
 
 
     this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+    this.addMaterial = this.addMaterial.bind(this)
+    this.editMaterial = this.editMaterial.bind(this)
 
+  }
+  addMaterial(state){
+    let { navigate } = this.props.navigation;
+    navigate("AdminAddMaterial");
+  }
+  editMaterial(state){
+    let { navigate } = this.props.navigation;
+    navigate("AdminEditMaterial");
   }
 
   handleMaterialDropdown(text){
@@ -117,7 +127,8 @@ export default class EpilogModuleAdmin extends Component {
             <View style={styles.btnsContainer}>
               <View style={styles.btnItemL}>
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate("AdminAddMaterial")}
+                    onPress={() => this.addMaterial(this.state)}
+                    //onPress={() => props.navigation.navigate("AdminAddMaterial")}
                 >
                   <Text style={styles.btnLabel}>ADD NEW MATERIAL</Text>
                 </TouchableOpacity>
@@ -125,7 +136,8 @@ export default class EpilogModuleAdmin extends Component {
 
               <View style={styles.btnItemR}>
                 <TouchableOpacity
-                    onPress={() => props.navigation.navigate("AdminEditMaterial")}
+                    onPress={() => this.editMaterial(this.state)}
+                    //onPress={() => props.navigation.navigate("AdminEditMaterial")}
                 >
                   <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
                 </TouchableOpacity>
