@@ -149,7 +149,7 @@ export default class CreateAccount extends Component {
                             style={styles.image}
                         ></Image>
                     </View>
-                    <Text style={styles.title}>Create account</Text>
+                    <Text style={styles.title}>Create Account</Text>
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
 
                     <ScrollView
@@ -184,7 +184,7 @@ export default class CreateAccount extends Component {
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>TEC ID</Text>
+                            <Text style={styles.label}>Tec id</Text>
                             <TextInput
                                 value={this.state.TecID}
                                 keyboardType = 'numeric'

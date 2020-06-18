@@ -4,6 +4,7 @@ import { RNCamera } from 'react-native-camera';
 import Dialog from "react-native-dialog";
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
+import ImagePicker from 'react-native-customized-image-picker';
 
 const { height } = Dimensions.get('window');
 
@@ -27,8 +28,6 @@ export default class ProjectCreate extends Component {
     let years = new Date();
     years = Moment(years).subtract(5, 'year').format('YYYY-MM-DD'); // for specific format
 
-    console.log(years);
-
     this.state = {
       isLoading: false,
       dataSource: null,
@@ -50,6 +49,7 @@ export default class ProjectCreate extends Component {
     this.handleChangeTextProjectCreator = this.handleChangeTextProjectCreator.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.createProject = this.createProject.bind(this)
+    this.openCamera = this.openCamera.bind(this)
     this.CheckTextInput = this.CheckTextInput.bind(this)
   }
 
@@ -63,6 +63,12 @@ export default class ProjectCreate extends Component {
       return false
     }
   };
+  openCamera(state) {
+
+    console.log("1");
+
+  }
+
 
   createProject(state){
 
@@ -237,7 +243,7 @@ export default class ProjectCreate extends Component {
                 <View style={styles.btnContainer}>
                   <TouchableOpacity
                       //insert camera logic
-
+                      onPress={() => this.openCamera(this.state)}
                       style={styles.btnWide2}
                   >
                     <Text style={styles.btnLabel}>Upload image</Text>

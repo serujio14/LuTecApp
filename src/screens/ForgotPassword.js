@@ -140,7 +140,7 @@ export default class ForgotPassword extends Component {
                   style={styles.image}
               />
             </View>
-            <Text style={styles.title}>Password reset</Text>
+            <Text style={styles.title}>Password Reset</Text>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
                 style={{ flex: 1 }}

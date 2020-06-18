@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import AdminAddMaterial from "./src/screens/AdminAddMaterial";
+import Camera from "./src/screens/Camera";
 import CreateAccount from "./src/screens/CreateAccount";
 import EpilogModule from "./src/screens/EpilogModule";
 import EpilogModuleAdmin from "./src/screens/EpilogModuleAdmin";
@@ -19,6 +20,7 @@ import AdminEditMaterial from "./src/screens/AdminEditMaterial";
 
 const DrawerNavigation = createDrawerNavigator({
     Main: Main,
+    Camera: Camera,
     ProjectsModule: ProjectsModule,
     CreateAccount: CreateAccount,
     ForgotPassword: ForgotPassword,
@@ -39,6 +41,7 @@ const StackNavigation = createStackNavigator(
         },
         ProjectsModule: ProjectsModule,
         Main: Main,
+        Camera: Camera,
         Login: Login,
         CreateAccount: CreateAccount,
         ForgotPassword: ForgotPassword,

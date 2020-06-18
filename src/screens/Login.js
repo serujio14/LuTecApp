@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     height: 54,
     flexDirection: "row",
     color: "rgba(0,150,136,1)",
-    backgroundColor: "rgba(255,255,255,1)",
+    backgroundColor: "rgba(215,215,215,1)",
   },
   btnLabel: {
     width: '100%',
