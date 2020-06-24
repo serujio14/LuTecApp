@@ -182,7 +182,7 @@ export default class ProjectCreate extends Component {
     });
   }
 
-  createProjectByFormData = async () => {
+  createProjectByFormData = () => {
     const {
       projectName,
       projectDetail,
@@ -217,22 +217,22 @@ export default class ProjectCreate extends Component {
       };
 
       const urlParam = this.encodeQueryData(params);
-      const url = `http://192.168.0.2/lutecapp.com/service.php${urlParam}`;
-      // const url = `https://postman-echo.com/post?${urlParam}`;
+      const url = `http://192.168.0.2/lutecapp.com/service.php?${urlParam}`;
+      // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
 
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-
-        console.log('createProjectByFormData', response);
-      } catch (error) {
-        console.log('error at createProjectByFormData', error);
-      }
+      fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => response.json())
+      .then(data => {
+        console.log('createProjectByFormData:', data);
+      })
+      .catch((error) => {
+        console.error('error at createProjectByFormData:', error);
+      });
     }
 
   }
