@@ -18,6 +18,13 @@ import Login from "./src/screens/Login";
 import ForgotPassword from "./src/screens/ForgotPassword";
 import AdminEditMaterial from "./src/screens/AdminEditMaterial";
 import AdminEditUser from "./src/screens/AdminEditUser";
+import ExpoCamera from "./src/screens/ExpoCamera";
+
+const mainColor = 'rgba(3,85,73,1)';
+const navigationOptions = {
+    headerTintColor: 'white',
+    headerTransparent: true,
+};
 
 const DrawerNavigation = createDrawerNavigator({
     Main: Main,
@@ -42,22 +49,58 @@ const StackNavigation = createStackNavigator(
             screen: DrawerNavigation
         },
         ProjectsModule: ProjectsModule,
-        Main: Main,
+        Main: {
+            screen: Main,
+            navigationOptions: {
+                header: null
+            }
+        },
         Camera: Camera,
-        Login: Login,
-        CreateAccount: CreateAccount,
-        ForgotPassword: ForgotPassword,
+        Login: {
+            screen: Login,
+            navigationOptions
+        },
+        CreateAccount: {
+            screen: Login,
+            navigationOptions
+        },
+        ForgotPassword: {
+            screen: ForgotPassword,
+            navigationOptions
+        },
         LuTecApp: LuTecApp,
-        ProjectCreate: ProjectCreate,
-        ProjectDetail: ProjectDetail,
-        EpilogModule: EpilogModule,
-        EpilogModuleAdmin: EpilogModuleAdmin,
-        AdminAddMaterial: AdminAddMaterial,
-        AdminEditMaterial: AdminEditMaterial,
-        AdminEditUser: AdminEditUser
-    },
-    {
-        headerMode: "none"
+        ProjectCreate: {
+            screen: ProjectCreate,
+            navigationOptions
+        },
+        ExpoCamera: {
+            screen: ExpoCamera,
+            navigationOptions
+        },
+        ProjectDetail: {
+            screen: ProjectDetail,
+            navigationOptions
+        },
+        EpilogModule: {
+            screen: EpilogModule,
+            navigationOptions
+        },
+        EpilogModuleAdmin: {
+            screen: EpilogModuleAdmin,
+            navigationOptions
+        },
+        AdminAddMaterial: {
+            screen: AdminAddMaterial,
+            navigationOptions
+        },
+        AdminEditMaterial: {
+            screen: AdminEditMaterial,
+            navigationOptions
+        },
+        AdminEditUser: {
+            screen: AdminEditUser,
+            navigationOptions
+        }
     }
 );
 

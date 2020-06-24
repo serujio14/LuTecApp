@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, Alert, TextInput, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
-import { RNCamera } from 'react-native-camera';
+import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, Alert, TextInput, ScrollView, Dimensions, SafeAreaView, StatusBar, Platform} from "react-native";
 import Dialog from "react-native-dialog";
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
-import ImagePicker from 'react-native-customized-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const { height } = Dimensions.get('window');
 
@@ -40,7 +39,9 @@ export default class ProjectCreate extends Component {
       visible : false,
       dialogVisible: false,
       dialogFailVisible: false,
-      minDate5years : years
+      dialogImageUpload: false,
+      minDate5years : years,
+      image: '',
     }
 
     this.handleChangeTextProjectName = this.handleChangeTextProjectName.bind(this)
@@ -49,8 +50,20 @@ export default class ProjectCreate extends Component {
     this.handleChangeTextProjectCreator = this.handleChangeTextProjectCreator.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.createProject = this.createProject.bind(this)
-    this.openCamera = this.openCamera.bind(this)
     this.CheckTextInput = this.CheckTextInput.bind(this)
+  }
+
+  async componentDidMount() {
+    await this.iosImagePickerPermission();
+  }
+
+  iosImagePickerPermission = async () => {
+    if (Platform.OS === 'ios') {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
   }
 
   CheckTextInput = () => {
@@ -63,12 +76,6 @@ export default class ProjectCreate extends Component {
       return false
     }
   };
-  openCamera(state) {
-
-    console.log("1");
-
-  }
-
 
   createProject(state){
 
@@ -121,6 +128,7 @@ export default class ProjectCreate extends Component {
       Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
     }
   }
+
   handleCancel = () => {
     this.setState({ dialogVisible: false });
   };
@@ -135,12 +143,36 @@ export default class ProjectCreate extends Component {
           txtProjectDate: text}
     )
   }
+
   handleChangeTextProjectCreator(text){
     this.setState({projectCreator : text})
   }
 
   handleChangeTextProjectDetail(text){
     this.setState({projectDetail : text})
+  }
+
+  pickImage = async () => {
+    this.setState({ dialogImageUpload: false });
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const { uri } = result;
+      this.setState({ image: uri });
+    }
+  };
+
+  openCamera = () => {
+    this.setState({ dialogImageUpload: false });
+    this.props.navigation.navigate('ExpoCamera', {
+      setImage: (uri) => {
+        this.setState({ image: uri });
+        console.log('camera uri: ', uri);
+      }
+    });
   }
 
   render() {
@@ -161,9 +193,9 @@ export default class ProjectCreate extends Component {
           <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
-                  source={require("../assets/images/logosLuTecApp.png")}
-                  resizeMode="contain"
-                  style={styles.image}
+                source={require("../assets/images/logosLuTecApp.png")}
+                resizeMode="contain"
+                style={styles.image}
               />
             </View>
             <Text style={styles.title}>Create Project</Text>
@@ -174,9 +206,7 @@ export default class ProjectCreate extends Component {
                 scrollEnabled={scrollEnabled}
                 onContentSizeChange={this.onContentSizeChange}
             >
-
               <View style={styles.container}>
-
                 <Dialog.Container visible={this.state.dialogVisible}>
                   <Dialog.Title>Project Added</Dialog.Title>
                   <Dialog.Description>
@@ -191,6 +221,14 @@ export default class ProjectCreate extends Component {
                     There has been an error adding the project. Please try again
                   </Dialog.Description>
                   <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                </Dialog.Container>
+
+                <Dialog.Container
+                  visible={this.state.dialogImageUpload}
+                  onBackdropPress={() => this.setState({ dialogImageUpload: false })}
+                >
+                  <Dialog.Button label="From Camera" onPress={this.openCamera} />
+                  <Dialog.Button label="From File" onPress={this.pickImage} />
                 </Dialog.Container>
 
                 <Text style={styles.label}>Project date</Text>
@@ -242,8 +280,7 @@ export default class ProjectCreate extends Component {
 
                 <View style={styles.btnContainer}>
                   <TouchableOpacity
-                      //insert camera logic
-                      onPress={() => this.openCamera(this.state)}
+                      onPress={() => this.setState({ dialogImageUpload: true })}
                       style={styles.btnWide2}
                   >
                     <Text style={styles.btnLabel}>Upload image</Text>
@@ -261,7 +298,6 @@ export default class ProjectCreate extends Component {
       );
     }
   }
-
 
 }
 
