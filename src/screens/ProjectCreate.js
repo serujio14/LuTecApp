@@ -42,6 +42,7 @@ export default class ProjectCreate extends Component {
       dialogImageUpload: false,
       minDate5years : years,
       image: '',
+      imageBase64: '',
     }
 
     this.handleChangeTextProjectName = this.handleChangeTextProjectName.bind(this)
@@ -157,21 +158,20 @@ export default class ProjectCreate extends Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
+      base64: true,
     });
 
     if (!result.cancelled) {
-      const { uri } = result;
-      this.setState({ image: uri });
+      const { uri, base64 } = result;
+      this.setState({ image: uri, imageBase64: base64 });
+      console.log('pickImage', result);
     }
   };
 
   openCamera = () => {
     this.setState({ dialogImageUpload: false });
     this.props.navigation.navigate('ExpoCamera', {
-      setImage: (uri) => {
-        this.setState({ image: uri });
-        console.log('camera uri: ', uri);
-      }
+      setImage: ({ uri, base64 }) => this.setState({ image: uri, imageBase64: base64 })
     });
   }
 
