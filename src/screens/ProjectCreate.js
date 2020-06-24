@@ -153,6 +153,13 @@ export default class ProjectCreate extends Component {
     this.setState({projectDetail : text})
   }
 
+  encodeQueryData = (data) => {
+    const ret = [];
+    for (let d in data)
+      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    return ret.join('&');
+ }
+
   pickImage = async () => {
     this.setState({ dialogImageUpload: false });
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -173,6 +180,61 @@ export default class ProjectCreate extends Component {
     this.props.navigation.navigate('ExpoCamera', {
       setImage: ({ uri, base64 }) => this.setState({ image: uri, imageBase64: base64 })
     });
+  }
+
+  createProjectByFormData = async () => {
+    const {
+      projectName,
+      projectDetail,
+      textProjectDate,
+      projectCreator,
+      image
+    } = this.state;
+
+    if (image.length) {
+      const uriPathArr = image.split('/');
+      filename = uriPathArr[uriPathArr.length - 1];
+      extension = filename.split('.');
+      extension = extension[1];
+      type = `image/${extension}`;
+
+      const imageData = {
+        name: filename,
+        uri: image,
+        type,
+      };
+
+      const formData = new FormData;
+      formData.append('file', imageData);
+
+      const params = {
+        who: 'create_project',
+        api_key: '5183723902398237640',
+        projectDate: textProjectDate,
+        projectName,
+        projectDetail,
+        projectCreator
+      };
+
+      const urlParam = this.encodeQueryData(params);
+      const url = `http://192.168.0.2/lutecapp.com/service.php${urlParam}`;
+      // const url = `https://postman-echo.com/post?${urlParam}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        console.log('createProjectByFormData', response);
+      } catch (error) {
+        console.log('error at createProjectByFormData', error);
+      }
+    }
+
   }
 
   render() {
