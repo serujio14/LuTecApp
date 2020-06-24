@@ -35,7 +35,7 @@ function Main(props) {
           <TouchableOpacity
               onPress={() => props.navigation.navigate("CreateAccount")}
           >
-            <Text style={styles.btnLabel}>CREATE ACCOUNT</Text>
+            <Text style={styles.btnLabel}>Create account</Text>
           </TouchableOpacity>
         </View>
 
@@ -44,7 +44,7 @@ function Main(props) {
           <TouchableOpacity
               onPress={() => props.navigation.navigate("Login")}
           >
-            <Text style={styles.btnLabel}>LOGIN</Text>
+            <Text style={styles.btnLabel}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>

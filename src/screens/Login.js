@@ -47,8 +47,8 @@ export default class Login extends Component {
     if (this.CheckTextInput()) {
 
       this.setState({isLoading: true});
-      console.log("http://192.168.0.4/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password);
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password, {
+      //console.log("http://192.168.0.2/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password);
+      fetch("http://192.168.0.2/lutecapp.com/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password, {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export default class Login extends Component {
 
             console.log(responseJson);
             if (responseJson.Response === 1 && responseJson.Data.ERROR !== "ERROR") {
-              //NAVIGATE TO LUTECAPP SCREENexpo
+              //NAVIGATE TO LUTECAPP SCREEN
               let userData = responseJson.Data;
               let { navigate } = this.props.navigation;
               navigate("LuTecApp", {userData});
@@ -144,7 +144,7 @@ export default class Login extends Component {
             >
 
               <View style={styles.container}>
-                <Text style={styles.label}>TEC ID</Text>
+                <Text style={styles.label}>Tec id</Text>
                 <TextInput
                     value={this.state.TecID}
                     keyboardType = 'numeric'
@@ -153,7 +153,7 @@ export default class Login extends Component {
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
                 />
-                <Text style={styles.label}>PASSWORD</Text>
+                <Text style={styles.label}>Password</Text>
                 <TextInput
                     value={this.state.Password}
                     onChangeText={this.handleChangeTextPassword}
@@ -166,14 +166,14 @@ export default class Login extends Component {
                     onPress={() => this.goToProjectCreate(this.state)}
                     style={styles.btnWhite}
                 >
-                  <Text style={styles.btnLabelW}>FORGOT PASSWORD?</Text>
+                  <Text style={styles.btnLabelW}>Forgot password?</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => this.login(this.state)}
                     style={styles.btnWide}
                 >
-                  <Text style={styles.btnLabel}>LOGIN</Text>
+                  <Text style={styles.btnLabel}>Login</Text>
                 </TouchableOpacity>
                 </View>
 

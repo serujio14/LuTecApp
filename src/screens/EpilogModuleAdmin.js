@@ -64,7 +64,7 @@ export default class EpilogModuleAdmin extends Component {
 
   componentDidMount() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+    return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {
@@ -79,7 +79,25 @@ export default class EpilogModuleAdmin extends Component {
         .catch((error) => {
           console.log(error)
         });
+  }
 
+  componentDidUpdate() {
+
+    return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+
+        .then(response => response.json())
+        .then((responseJson) => {
+
+          this.setState({
+            isLoading: false,
+            dataSource: responseJson.Data,
+          })
+
+        })
+
+        .catch((error) => {
+          console.log(error)
+        });
   }
 
   render(){
@@ -129,7 +147,7 @@ export default class EpilogModuleAdmin extends Component {
                     onPress={() => this.addMaterial(this.state)}
                     //onPress={() => props.navigation.navigate("AdminAddMaterial")}
                 >
-                  <Text style={styles.btnLabel}>ADD NEW MATERIAL</Text>
+                  <Text style={styles.btnLabel}>Add new material</Text>
                 </TouchableOpacity>
               </View>
 
@@ -138,7 +156,7 @@ export default class EpilogModuleAdmin extends Component {
                     onPress={() => this.editMaterial(this.state)}
                     //onPress={() => props.navigation.navigate("AdminEditMaterial")}
                 >
-                  <Text style={styles.btnLabel}>EDIT MATERIAL</Text>
+                  <Text style={styles.btnLabel}>Edit material</Text>
                 </TouchableOpacity>
               </View>
             </View>

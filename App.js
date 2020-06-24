@@ -17,6 +17,7 @@ import ProjectsModule from "./src/screens/ProjectsModule";
 import Login from "./src/screens/Login";
 import ForgotPassword from "./src/screens/ForgotPassword";
 import AdminEditMaterial from "./src/screens/AdminEditMaterial";
+import AdminEditUser from "./src/screens/AdminEditUser";
 
 const DrawerNavigation = createDrawerNavigator({
     Main: Main,
@@ -31,7 +32,8 @@ const DrawerNavigation = createDrawerNavigator({
     EpilogModule: EpilogModule,
     EpilogModuleAdmin: EpilogModuleAdmin,
     AdminEditMaterial: AdminEditMaterial,
-    AdminAddMaterial: AdminAddMaterial
+    AdminAddMaterial: AdminAddMaterial,
+    AdminEditUser: AdminEditUser
 });
 
 const StackNavigation = createStackNavigator(
@@ -51,7 +53,8 @@ const StackNavigation = createStackNavigator(
         EpilogModule: EpilogModule,
         EpilogModuleAdmin: EpilogModuleAdmin,
         AdminAddMaterial: AdminAddMaterial,
-        AdminEditMaterial: AdminEditMaterial
+        AdminEditMaterial: AdminEditMaterial,
+        AdminEditUser: AdminEditUser
     },
     {
         headerMode: "none"

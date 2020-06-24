@@ -52,19 +52,20 @@ export default class LuTecApp extends Component {
         navigate("EpilogModuleAdmin");
       }
     }
-
-
   }
   goToProjectCreate(text){
     let { navigate } = this.props.navigation;
       navigate("ProjectCreate");
-
   }
 
   goToProjectsModule(text){
     let { navigate } = this.props.navigation;
     navigate("ProjectsModule");
+  }
 
+  goToMain(text){
+    let { navigate } = this.props.navigation;
+    navigate("Main");
   }
 
   render() {
@@ -87,6 +88,16 @@ export default class LuTecApp extends Component {
                   resizeMode="contain"
                   style={styles.image}
               />
+              <View style={styles.loginContainer}>
+              <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
+
+              <TouchableOpacity
+                  onPress={() => this.goToMain(this.state)}
+                  style={styles.btnLogOut}
+              >
+                <Text style={styles.btnLabel}>Log Out</Text>
+              </TouchableOpacity>
+              </View>
             </View>
 
             <View style={styles.moduleContainer}>
@@ -107,13 +118,13 @@ export default class LuTecApp extends Component {
                       onPress={() => this.goToProjectsModule(this.state)}
                       style={styles.btn1}
                   >
-                    <Text style={styles.btnLabel2}>BROWSE</Text>
+                    <Text style={styles.btnLabel2}>Browse</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                       onPress={() => this.goToProjectCreate(this.state)}
                       style={styles.btn1}
                   >
-                    <Text style={styles.btnLabel2}>CREATE</Text>
+                    <Text style={styles.btnLabel2}>Create</Text>
                   </TouchableOpacity>
                 </View>
               </ImageBackground>
@@ -132,7 +143,7 @@ export default class LuTecApp extends Component {
                     onPress={() => this.goToEpilogModule(this.state)}
                     style={styles.btnWide}
                 >
-                  <Text style={styles.btnLabel}>OPEN</Text>
+                  <Text style={styles.btnLabel}>Open</Text>
                 </TouchableOpacity>
               </ImageBackground>
 
@@ -147,7 +158,7 @@ export default class LuTecApp extends Component {
                   <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
                 </View>
                 <View style={styles.btnWide}>
-                  <Text style={styles.btnLabel}>UNDER DEVELOPMENT</Text>
+                  <Text style={styles.btnLabel}>Under development</Text>
                 </View>
               </ImageBackground>
             </View>
@@ -167,6 +178,21 @@ const styles = StyleSheet.create({
   header: {
     height: 150,
     backgroundColor: "rgba(3,85,73,1)"
+  },
+  userNameStyle: {
+    width: '100%',
+    height: 54,
+    textAlign: 'right',
+    color: 'white',
+    flexDirection: "row"
+  },
+  btnLogOut: {
+    width: '100%',
+    height: 54,
+    lineHeight: 64,
+    color: "rgba(3,85,73,1)",
+    textAlign: 'right',
+    flexDirection: "row"
   },
   btnWide: {
     width: '100%',

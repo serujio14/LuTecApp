@@ -63,7 +63,7 @@ export default class CreateAccount extends Component {
 
             this.setState({isLoading: true});
 
-            fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name="
+            fetch("http://192.168.0.2/lutecapp.com/service.php?who=create_user&api_key=5183723902398237640&Name="
                 +state.Name + "&TecID=" + state.TecID + "&Email=" + state.Email + "&Password=" + state.Password, {
                     headers: {
                         'Accept': 'application/json',
@@ -220,7 +220,7 @@ export default class CreateAccount extends Component {
                             onPress={() => this.createAccount(this.state)}
                             style={styles.btnWide}
                         >
-                            <Text style={styles.btnLabel}>CREATE ACCOUNT</Text>
+                            <Text style={styles.btnLabel}>Create account</Text>
                         </TouchableOpacity>
                     </ScrollView>
                 </SafeAreaView>

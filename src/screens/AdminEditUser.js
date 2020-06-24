@@ -5,7 +5,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 
 const { height } = Dimensions.get('window');
 
-export default class AdminEditMaterial extends Component {
+export default class AdminEditUser extends Component {
 
     state = {
         screenHeight: height,
@@ -38,9 +38,9 @@ export default class AdminEditMaterial extends Component {
         this.handleChangeTextTracePower = this.handleChangeTextTracePower.bind(this)
         this.handleChangeTextTraceSpeed = this.handleChangeTextTraceSpeed.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
-        this.editMaterial = this.editMaterial.bind(this)
+        this.editUser = this.editUser.bind(this)
         this.CheckTextInput = this.CheckTextInput.bind(this)
-        this.handleMaterialDropdown = this.handleMaterialDropdown.bind(this)
+        this.handleUserDropdown = this.handleUserDropdown.bind(this)
 
     }
 
@@ -56,7 +56,7 @@ export default class AdminEditMaterial extends Component {
         }
     };
 
-    handleMaterialDropdown(text){
+    handleUserDropdown(text){
 
         const array = Object.values( this.state.dataSource);
 
@@ -79,7 +79,7 @@ export default class AdminEditMaterial extends Component {
 
     }
 
-    editMaterial(state){
+    editUser(state){
 
         if (this.CheckTextInput()){
 
@@ -110,7 +110,7 @@ export default class AdminEditMaterial extends Component {
                             isLoading : false,
                             dialogFailVisible: true,
                         });
-                        alert('Error editing material');
+                        alert('Error editing role');
                     }
 
                 })
@@ -162,26 +162,7 @@ export default class AdminEditMaterial extends Component {
                 console.log(error)
                 console.log(error)
             });
-    }
 
-    componentDidUpdate() {
-
-        return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
-
-            .then(response => response.json())
-            .then((responseJson) => {
-
-                this.setState({
-                    isLoading: false,
-                    dataSource: responseJson.Data,
-                })
-
-            })
-
-            .catch((error) => {
-                console.log(error)
-                console.log(error)
-            });
     }
 
     render() {
@@ -219,7 +200,7 @@ export default class AdminEditMaterial extends Component {
                             style={styles.image}
                         />
                     </View>
-                    <Text style={styles.title}>Edit material</Text>
+                    <Text style={styles.title}>Edit user role</Text>
 
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
                     <ScrollView
@@ -231,87 +212,42 @@ export default class AdminEditMaterial extends Component {
 
                         <View style={styles.container}>
                             <Dialog.Container visible={this.state.dialogVisible}>
-                                <Dialog.Title>Material Added</Dialog.Title>
+                                <Dialog.Title>User role modified</Dialog.Title>
                                 <Dialog.Description>
-                                    The material has been edited
+                                    The user role has been modified
                                 </Dialog.Description>
                                 <Dialog.Button label="Continue" onPress={this.handleCancel} />
                             </Dialog.Container>
 
                             <Dialog.Container visible={this.state.dialogFailVisible}>
-                                <Dialog.Title>Material Not Added</Dialog.Title>
+                                <Dialog.Title>User Role Not Modified</Dialog.Title>
                                 <Dialog.Description>
-                                    There has been an error editing the material. Please try again
+                                    There has been an error editing the user's role. Please try again
                                 </Dialog.Description>
                                 <Dialog.Button label="Continue" onPress={this.handleCancel} />
                             </Dialog.Container>
 
-                            <View style={styles.materialNameContainer}>
+                            <View style={styles.userNameContainer}>
                                 <Dropdown
                                     style={styles.materialName}
-                                    label='MATERIAL SELECTED'
+                                    label='SELECTED USER'
                                     data={data}
-                                    onChangeText={this.handleMaterialDropdown}
+                                    onChangeText={this.handleUserDropdown}
                                 />
                             </View>
 
-                            <Text style={styles.title2}>Cutting configuration</Text>
-                            <View style={styles.itemContainer}>
-                                <View style={styles.powerBox}>
-                                    <View style={styles.parameterContainer}>
-                                        <TextInput
-                                            value={this.state.cutPower}
-                                            keyboardType = 'numeric'
-                                            onChangeText={this.handleChangeTextCutPower}
-                                            style={styles.labelParameterNumber}
-                                        />
-                                        <Text style={styles.labelParameter}>POWER</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.speedBox}>
-                                    <View style={styles.parameterContainer}>
-                                        <TextInput
-                                            value={this.state.cutSpeed}
-                                            keyboardType = 'numeric'
-                                            onChangeText={this.handleChangeTextCutSpeed}
-                                            style={styles.labelParameterNumber}
-                                        />
-                                        <Text style={styles.labelParameter}>SPEED</Text>
-                                    </View>
-                                </View>
-                            </View>
-
-                            <Text style={styles.title2}>Tracing configuration</Text>
-                            <View style={styles.itemContainer}>
-                                <View style={styles.powerBox}>
-                                    <View style={styles.parameterContainer}>
-                                        <TextInput
-                                            value={this.state.tracePower}
-                                            keyboardType = 'numeric'
-                                            onChangeText={this.handleChangeTextTracePower}
-                                            style={styles.labelParameterNumber}
-                                        />
-                                        <Text style={styles.labelParameter}>POWER</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.speedBox}>
-                                    <View style={styles.parameterContainer}>
-                                        <TextInput
-                                            value={this.state.traceSpeed}
-                                            keyboardType = 'numeric'
-                                            onChangeText={this.handleChangeTextTraceSpeed}
-                                            style={styles.labelParameterNumber}
-                                        />
-                                        <Text style={styles.labelParameter}>SPEED</Text>
-                                    </View>
-                                </View>
-                            </View>
+                            <Text style={styles.label}>User's role</Text>
+                            <TextInput
+                                //value={this.state.Email}
+                                //onChangeText={this.handleChangeTextEmail}
+                                style={styles.textbox}
+                            ></TextInput>
 
                             <TouchableOpacity
-                                onPress={() => this.editMaterial(this.state)}
+                                onPress={() => this.editUser(this.state)}
                                 style={styles.btnWide}
                             >
-                                <Text style={styles.btnLabel}>Edit selected material</Text>
+                                <Text style={styles.btnLabel}>Edit User role</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
@@ -367,7 +303,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         alignSelf: 'center'
     },
-    materialNameContainer: {
+    userNameContainer: {
         lineHeight: 75,
         width: '90%',
         marginLeft: '5%',
@@ -448,7 +384,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: 'gray'
     },
-    editMaterial: {
+    editUserStyle: {
         fontFamily: "roboto-regular",
         color: "rgba(251,251,251,1)",
         fontSize: 24,

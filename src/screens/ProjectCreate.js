@@ -76,7 +76,7 @@ export default class ProjectCreate extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
+      fetch("http://192.168.0.2/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
           + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.txtProjectDate + "&projectCreator=" +  state.projectCreator, { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -252,7 +252,7 @@ export default class ProjectCreate extends Component {
                       onPress={() => this.createProject(this.state)}
                       style={styles.btnWide}
                   >
-                    <Text style={styles.btnLabel}>CREATE project</Text>
+                    <Text style={styles.btnLabel}>Create project</Text>
                   </TouchableOpacity>
                 </View>
               </View>

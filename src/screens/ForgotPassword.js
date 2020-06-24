@@ -62,7 +62,7 @@ export default class ForgotPassword extends Component {
 
       this.setState({isLoading: true});
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=forgot_password&api_key=5183723902398237640&TecID="
+      fetch("http://192.168.0.2/lutecapp.com/service.php?who=forgot_password&api_key=5183723902398237640&TecID="
           +state.TecID + "&Password=" + state.Password, {
             headers: {
               'Accept': 'application/json',
@@ -166,7 +166,7 @@ export default class ForgotPassword extends Component {
                   <Dialog.Button label="Continue" onPress={this.handleCancel} />
                 </Dialog.Container>
 
-                <Text style={styles.label}>TEC ID</Text>
+                <Text style={styles.label}>Tec id</Text>
                 <TextInput
                     value={this.state.TecID}
                     onChangeText={this.handleChangeTextTecID}

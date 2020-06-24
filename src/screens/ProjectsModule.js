@@ -45,7 +45,7 @@ export default class ProjectsModule extends Component {
 
   componentDidMount() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+    return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {
@@ -66,7 +66,7 @@ export default class ProjectsModule extends Component {
 
   componentDidUpdate() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+    return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {
@@ -128,7 +128,7 @@ export default class ProjectsModule extends Component {
                       onPress={() => this.goToProject(val.Id_project)}
                       style={styles.btnWide2}
                   >
-                    <Text style={styles.btnLabel2}>VIEW PROJECT DETAIL</Text>
+                    <Text style={styles.btnLabel2}>View project detail</Text>
                   </TouchableOpacity>
                 </View>
               </View>
