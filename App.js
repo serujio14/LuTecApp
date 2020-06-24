@@ -45,17 +45,24 @@ const DrawerNavigation = createDrawerNavigator({
 
 const StackNavigation = createStackNavigator(
     {
-        DrawerNavigation: {
-            screen: DrawerNavigation
+        // DrawerNavigation: {
+        //     screen: DrawerNavigation,
+        //     navigationOptions
+        // },
+        ProjectsModule: {
+            screen: ProjectsModule,
+            navigationOptions
         },
-        ProjectsModule: ProjectsModule,
         Main: {
             screen: Main,
             navigationOptions: {
                 header: null
             }
         },
-        Camera: Camera,
+        Camera: {
+            screen: Camera,
+            navigationOptions
+        },
         Login: {
             screen: Login,
             navigationOptions
@@ -68,7 +75,10 @@ const StackNavigation = createStackNavigator(
             screen: ForgotPassword,
             navigationOptions
         },
-        LuTecApp: LuTecApp,
+        LuTecApp: {
+            screen: LuTecApp,
+            navigationOptions
+        },
         ProjectCreate: {
             screen: ProjectCreate,
             navigationOptions
@@ -101,6 +111,9 @@ const StackNavigation = createStackNavigator(
             screen: AdminEditUser,
             navigationOptions
         }
+    },
+    {
+        initialRouteName: 'Main'
     }
 );
 
