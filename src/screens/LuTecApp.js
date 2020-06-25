@@ -12,6 +12,7 @@ import {
   StatusBar,
   ActivityIndicator
 } from "react-native";
+
 const { height } = Dimensions.get('window');
 
 export default class LuTecApp extends Component {
@@ -63,11 +64,6 @@ export default class LuTecApp extends Component {
     navigate("ProjectsModule");
   }
 
-  goToMain(text){
-    let { navigate } = this.props.navigation;
-    navigate("Main");
-  }
-
   render() {
     if (this.state.isLoading) {
 
@@ -90,13 +86,6 @@ export default class LuTecApp extends Component {
               />
               <View style={styles.loginContainer}>
               <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
-
-              <TouchableOpacity
-                  onPress={() => this.goToMain(this.state)}
-                  style={styles.btnLogOut}
-              >
-                <Text style={styles.btnLabel}>Log Out</Text>
-              </TouchableOpacity>
               </View>
             </View>
 
@@ -180,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(3,85,73,1)"
   },
   userNameStyle: {
-    width: '100%',
+    width: '90%',
     height: 54,
     textAlign: 'right',
     color: 'white',

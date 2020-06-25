@@ -68,7 +68,7 @@ const StackNavigation = createStackNavigator(
             navigationOptions
         },
         CreateAccount: {
-            screen: Login,
+            screen: CreateAccount,
             navigationOptions
         },
         ForgotPassword: {

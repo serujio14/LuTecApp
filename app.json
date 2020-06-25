@@ -15,7 +15,14 @@
       "fallbackToCacheTimeout": 0
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lutecapp.lutecapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.lutecapp.lutecapp",
+      "versionCode": 1
     }
   }
 }
+
