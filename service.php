@@ -106,9 +106,22 @@ switch($who){
 		$rsts['projectDate'] = addslashes($_GET['projectDate']);
 		$rsts['projectCreator'] = addslashes($_GET['projectCreator']);
         
-        
-        
+        if ($_FILES['projectImage']['name'] != '') {
 
+                $image = $_FILES['projectImage'];
+
+                $imagen1 = $dataQuerys->upload_image_param("projects/", $image);
+            
+                $rsts['projectImage'] = $imagen1;
+//                var_dump($_FILES['imagen1']['name']);
+//                exit;
+            } else {
+                /*var_dump($_POST["hidden_image1"]);
+                    exit;*/
+                $rsts['projectImage'] = '';
+
+            }
+                
 
 		if(isset($rsts['projectName']) && isset($rsts['projectDetail']) && isset($rsts['projectDate']) && isset($rsts['projectCreator']) && $rsts['api_key']==$api_key){
 

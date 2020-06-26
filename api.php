@@ -9,6 +9,66 @@ class Api extends Database{
 
 	function Api(){
 	}
+    
+    function upload_image($carpeta){
+
+        $extension = explode(".", $_FILES["imagen"]["name"]);
+        $imagen =  '/images_uploaded/'. $carpeta. round(microtime(true)) . '.' . end($extension);
+
+        $tempPath = $_FILES[ 'imagen' ][ 'tmp_name' ];
+        $uploadPath = 'C:'. DIRECTORY_SEPARATOR .'lutecapp'.  $imagen;
+
+
+        //move_uploaded_file( $tempPath, $uploadPath );
+        $compressed = upload_image_param( $tempPath, $uploadPath, 85);
+
+        return $imagen;
+
+    }
+
+    function upload_image_param($carpeta, $image){
+
+        $extension = explode(".", $image["name"]);
+        $imagen =   $carpeta. $this->generateFileName() . '.' . end($extension);
+
+        $tempPath = $image[ 'tmp_name' ];
+        $uploadPath = 'C:'. DIRECTORY_SEPARATOR .'lutecapp'.  $imagen;
+
+        //move_uploaded_file( $tempPath, $uploadPath );
+        $compressed = $this->compress_image_upload($tempPath, $uploadPath, 50);
+        //move_uploaded_file($compressed, $uploadPath);
+
+        return $imagen;
+
+    }
+
+    function compress_image_upload($source_url, $destination_url, $quality) {
+
+        $info = getimagesize($source_url);
+
+
+        if ($info['mime'] == 'image/jpeg')
+            $image = imagecreatefromjpeg($source_url);
+
+        elseif ($info['mime'] == 'image/gif')
+            $image = imagecreatefromgif($source_url);
+
+        elseif ($info['mime'] == 'image/png')
+            $image = imagecreatefrompng($source_url);
+
+        imagejpeg($image, $destination_url, $quality);
+
+        return $destination_url;
+    }
+
+    function generateFileName()
+    {
+        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789_";
+        $name = "";
+        for($i=0; $i<12; $i++)
+            $name.= $chars[rand(0,strlen($chars))];
+        return $name;
+    }
 
 	/* Quote/escape something to use in a query */
 	function db_quote($str) {
@@ -113,7 +173,7 @@ class Api extends Database{
 		}
 
 		$sqlquery="spCreateProject '".$this->db_quote($params['projectName'])."','".$this->db_quote($params['projectDetail'])
-			."','".$this->db_quote($params['projectDate'])."','".$this->db_quote($params['projectCreator'])."';";
+			."','".$this->db_quote($params['projectDate'])."','".$this->db_quote($params['projectCreator'])."','".$this->db_quote($params['projectImage'])."';";
         
 		$process=@odbc_exec($sqlconnect, $sqlquery);
 

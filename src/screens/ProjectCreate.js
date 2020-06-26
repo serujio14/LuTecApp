@@ -205,7 +205,7 @@ export default class ProjectCreate extends Component {
       };
 
       const formData = new FormData;
-      formData.append('file', imageData);
+      formData.append('projectImage', imageData);
 
       const params = {
         who: 'create_project',
@@ -348,7 +348,7 @@ export default class ProjectCreate extends Component {
                     <Text style={styles.btnLabel}>Upload image</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                      onPress={() => this.createProject(this.state)}
+                      onPress={() => this.createProjectByFormData()}
                       style={styles.btnWide}
                   >
                     <Text style={styles.btnLabel}>Create project</Text>
