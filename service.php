@@ -104,9 +104,13 @@ switch($who){
 		$rsts['projectName'] = addslashes($_GET['projectName']);
 		$rsts['projectDetail'] = addslashes($_GET['projectDetail']);
 		$rsts['projectDate'] = addslashes($_GET['projectDate']);
+		$rsts['projectCreator'] = addslashes($_GET['projectCreator']);
+        
+        
+        
 
 
-		if(isset($rsts['projectName']) && isset($rsts['projectDetail']) && isset($rsts['projectDate']) && $rsts['api_key']==$api_key){
+		if(isset($rsts['projectName']) && isset($rsts['projectDetail']) && isset($rsts['projectDate']) && isset($rsts['projectCreator']) && $rsts['api_key']==$api_key){
 
 			$resp = $dataQuerys->create_project($rsts);
 
@@ -163,6 +167,28 @@ switch($who){
 			else{
 				header('Content-Type: application/json');
 				echo json_encode(array('Error' => 'Cant create user'),JSON_FORCE_OBJECT);
+			}
+
+		}
+		break;
+    
+    case "return_project_by_id":
+
+		$rsts['api_key'] = addslashes($_GET['api_key']);
+		$rsts['Id_project'] = addslashes($_GET['Id_project']);
+
+		if(isset($rsts['Id_project']) && $rsts['api_key']==$api_key){
+
+			$resp = $dataQuerys->return_project_by_id($rsts);
+
+			if($resp!="-1"){
+				header('Content-Type: application/json');
+				echo json_encode(array('Response' => 1,'Data' => $resp),JSON_FORCE_OBJECT);
+
+			}
+			else{
+				header('Content-Type: application/json');
+				echo json_encode(array('Response' => 0,'Data' => array('error' => 'error')),JSON_FORCE_OBJECT);
 			}
 
 		}
@@ -246,7 +272,7 @@ switch($who){
 		$rsts['tracePower'] = addslashes($_GET['tracePower']);
 		$rsts['traceSpeed'] = addslashes($_GET['traceSpeed']);
         
-        $rsts['materialName'] = $rsts['materialName'] .  "T: " . $rsts['materialThickness'] . "P: " . $rsts['materialProvider']; 
+        $rsts['materialName'] = $rsts['materialName'] .  " - T: " . $rsts['materialThickness'] . " - P: " . $rsts['materialProvider']; 
 
 
 		if(isset($rsts['materialName'])&&  isset($rsts['cutPower'])
@@ -293,24 +319,27 @@ switch($who){
 		break;
 
 	case "edit_material":
+        
 
 		$rsts['api_key'] = addslashes($_GET['api_key']);
-		$rsts['Material_name'] = addslashes($_GET['Material_name']);
-		$rsts['Thickness'] = addslashes($_GET['Thickness']);
-		$rsts['Id_cut'] = addslashes($_GET['Id_cut']);
-		$rsts['Id_trace'] = addslashes($_GET['Id_trace']);
+		$rsts['Id_material'] = addslashes($_GET['Id_material']);
+		$rsts['cutPower'] = addslashes($_GET['cutPower']);
+		$rsts['cutSpeed'] = addslashes($_GET['cutSpeed']);
+		$rsts['tracePower'] = addslashes($_GET['tracePower']);
+		$rsts['traceSpeed'] = addslashes($_GET['traceSpeed']);
 
-		if(isset($rsts['Material_name']) && isset($rsts['Thickness']) &&
-			$rsts['api_key']==$api_key){
+		if(isset($rsts['Id_material']) && $rsts['api_key']==$api_key){
 
 			$resp = $dataQuerys->edit_material($rsts);
 
 			if($resp!="-1"){
-				echo json_encode(array('Data' => $resp),JSON_FORCE_OBJECT);
+				header('Content-Type: application/json');
+				echo json_encode(array('Response' => 1,'Data' => $resp),JSON_FORCE_OBJECT);
 
 			}
 			else{
-				echo json_encode(array('Error' => 'Cant create user'),JSON_FORCE_OBJECT);
+				header('Content-Type: application/json');
+				echo json_encode(array('Response' => 0,'Data' => array('error' => 'error')),JSON_FORCE_OBJECT);
 			}
 
 		}
