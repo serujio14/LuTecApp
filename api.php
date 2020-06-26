@@ -113,8 +113,8 @@ class Api extends Database{
 		}
 
 		$sqlquery="spCreateProject '".$this->db_quote($params['projectName'])."','".$this->db_quote($params['projectDetail'])
-			."','".$this->db_quote($params['projectDate'])."';";
-
+			."','".$this->db_quote($params['projectDate'])."','".$this->db_quote($params['projectCreator'])."';";
+        
 		$process=@odbc_exec($sqlconnect, $sqlquery);
 
 		$csv=odbc_fetch_array($process);
@@ -158,6 +158,28 @@ class Api extends Database{
 		}
 
 		$sqlquery="spReturnProject '".$this->db_quote($params['Project_name'])."';";
+
+		$process=@odbc_exec($sqlconnect, $sqlquery);
+
+		$csv=odbc_fetch_array($process);
+
+		if(!$csv){
+			return "-1";
+		}
+		else{
+			return $csv;
+		}
+	}
+    
+    function return_project_by_id($params){
+
+		$sqlconnect=odbc_connect($this->dsn,$this->username,$this->password);
+
+		if (!$sqlconnect){
+			$sqlconnect=odbc_connect($this->dsn,$this->username,$this->password);
+		}
+
+		$sqlquery="spReturnProjectByID '".$this->db_quote($params['Id_project'])."';";
 
 		$process=@odbc_exec($sqlconnect, $sqlquery);
 
@@ -305,6 +327,7 @@ class Api extends Database{
 			return $csv;
 		}
 	}
+    
 	function edit_material($params){
 
 		$sqlconnect=odbc_connect($this->dsn,$this->username,$this->password);
@@ -312,9 +335,9 @@ class Api extends Database{
 		if (!$sqlconnect){
 			$sqlconnect=odbc_connect($this->dsn,$this->username,$this->password);
 		}
-
-		$sqlquery="spEditMaterial '".$this->db_quote($params['Material_name'])."','".$this->db_quote($params['Thickness'])
-			."','".$this->db_quote($params['Id_cut'])."','".$this->db_quote($params['Id_trace'])."';";
+        
+		$sqlquery="spEditMaterial '".$this->db_quote($params['Id_material'])."','".$this->db_quote($params['cutPower'])
+			."','".$this->db_quote($params['cutSpeed'])."','".$this->db_quote($params['tracePower'])."','".$this->db_quote($params['traceSpeed'])."';";
 
 		$process=@odbc_exec($sqlconnect, $sqlquery);
 
