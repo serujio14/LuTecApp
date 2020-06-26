@@ -85,7 +85,7 @@ export default class AdminEditMaterial extends Component {
 
             this.setState({ isLoading: true });
 
-            fetch("http://192.168.0.2/lutecapp.com/service.php?who=edit_material&api_key=5183723902398237640&Id_material="
+            fetch("http://192.168.0.4/lutecapp.com/service.php?who=edit_material&api_key=5183723902398237640&Id_material="
                 + state.idMaterial +"&cutPower=" + state.cutPower + "&cutSpeed=" +  state.cutSpeed + "&tracePower=" + state.tracePower
                 + "&traceSpeed=" + state.traceSpeed , { headers: {
                     'Accept': 'application/json',
@@ -146,7 +146,7 @@ export default class AdminEditMaterial extends Component {
 
     componentDidMount() {
 
-        return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+        return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
 
             .then(response => response.json())
             .then((responseJson) => {
@@ -166,7 +166,7 @@ export default class AdminEditMaterial extends Component {
 
     componentDidUpdate() {
 
-        return fetch('http://192.168.0.2/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
+        return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_material_list&api_key=5183723902398237640')
 
             .then(response => response.json())
             .then((responseJson) => {

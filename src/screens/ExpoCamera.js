@@ -48,7 +48,7 @@ export default class ExpoCamera extends React.Component {
         base64: true
       };
       const data = await this.camera.takePictureAsync(options);
-      console.log('takePicture', data);
+      //console.log('takePicture', data);
       this.setState({ capturing: false });
       this.props.navigation.state.params.setImage(data);
       this.props.navigation.goBack();

@@ -84,7 +84,7 @@ export default class ProjectCreate extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("http://192.168.0.2/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
+      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
           + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.txtProjectDate + "&projectCreator=" +  state.projectCreator, { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export default class ProjectCreate extends Component {
     if (!result.cancelled) {
       const { uri, base64 } = result;
       this.setState({ image: uri, imageBase64: base64 });
-      console.log('pickImage', result);
+      //console.log('pickImage', result);
     }
   };
 
@@ -186,7 +186,7 @@ export default class ProjectCreate extends Component {
     const {
       projectName,
       projectDetail,
-      textProjectDate,
+      txtProjectDate,
       projectCreator,
       image
     } = this.state;
@@ -210,14 +210,15 @@ export default class ProjectCreate extends Component {
       const params = {
         who: 'create_project',
         api_key: '5183723902398237640',
-        projectDate: textProjectDate,
-        projectName,
-        projectDetail,
-        projectCreator
+        projectDate: txtProjectDate,
+        projectName: projectName,
+        projectDetail: projectDetail,
+        projectCreator : projectCreator
       };
 
       const urlParam = this.encodeQueryData(params);
-      const url = `http://192.168.0.2/lutecapp.com/service.php?${urlParam}`;
+      const url = `http://192.168.0.4/lutecapp.com/service.php?${urlParam}`;
+      console.log('URL', url);
       // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
 
       fetch(url, {
@@ -226,9 +227,13 @@ export default class ProjectCreate extends Component {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(response => response.json())
+      }).then(response => response.text())
       .then(data => {
         console.log('createProjectByFormData:', data);
+
+
+
+
       })
       .catch((error) => {
         console.error('error at createProjectByFormData:', error);
