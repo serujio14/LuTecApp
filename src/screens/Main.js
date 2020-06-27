@@ -13,15 +13,8 @@ function Main(props) {
           ></Image>
           <Text style={styles.luTecText}>
             LuTec contempla colaboradores que crean proyectos de distintos
-            grados de dificultad para generar interés en niños de áreas rurales
-            para lo cual se documenta todo el proceso de creación para su
-            posterior comprensión y eventual reproducción.{"\n"}
-            {"\n"}Estos proyectos son desplegados en campo por medio de una
-            modalidad de campamentos, en los cuales el laboratorio realiza
-            actividades en las que se incentiva a los niños a crear algún
-            proyecto de distinta dificultad según la edad y habilidad del niño
-            inspirados por la presentación de distintos proyectos finales de
-            LuTec.
+            grados de dificultad para generar interés tecnológico en niños de áreas rurales,
+            documentando el proceso de creación para su comprensión y eventual reproducción.
           </Text>
           <Image
             source={require("../assets/images/LogoTecW.png")}

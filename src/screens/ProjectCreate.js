@@ -50,6 +50,7 @@ export default class ProjectCreate extends Component {
     this.handleChangeTextProjectDetail = this.handleChangeTextProjectDetail.bind(this)
     this.handleChangeTextProjectCreator = this.handleChangeTextProjectCreator.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
+    this.handleContinue = this.handleContinue.bind(this)
     this.createProject = this.createProject.bind(this)
     this.CheckTextInput = this.CheckTextInput.bind(this)
   }
@@ -69,6 +70,11 @@ export default class ProjectCreate extends Component {
   
   handleCancel = () => {
     this.setState({ dialogVisible: false });
+  };
+  handleContinue = () => {
+    this.setState({ dialogVisible: false });
+    let { navigate } = this.props.navigation;
+    navigate("ProjectsModule")
   };
 
   handleChangeTextProjectName(text){
@@ -100,7 +106,7 @@ export default class ProjectCreate extends Component {
   pickImage = async () => {
     this.setState({ dialogImageUpload: false });
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
       base64: true,
     });
@@ -108,7 +114,7 @@ export default class ProjectCreate extends Component {
     if (!result.cancelled) {
       const { uri, base64 } = result;
       this.setState({ image: uri, imageBase64: base64 });
-      //console.log('pickImage', result);
+      Alert.alert("Image upload", "Project image uploaded succesfully");
     }
   };
 
@@ -255,9 +261,6 @@ export default class ProjectCreate extends Component {
 
               });
 
-              let { navigate } = this.props.navigation;
-              navigate("LuTecApp");
-
 
 
       })
@@ -268,8 +271,7 @@ export default class ProjectCreate extends Component {
                 isLoading : false,
                 dialogFailVisible: true,
               });
-          
-          
+
       });
     }
        }else{
@@ -315,7 +317,7 @@ export default class ProjectCreate extends Component {
                   <Dialog.Description>
                     The new project has been added
                   </Dialog.Description>
-                  <Dialog.Button label="Continue" onPress={this.handleCancel} />
+                  <Dialog.Button label="Continue" onPress={this.handleContinue} />
                 </Dialog.Container>
 
                 <Dialog.Container visible={this.state.dialogFailVisible}>
@@ -331,7 +333,7 @@ export default class ProjectCreate extends Component {
                   onBackdropPress={() => this.setState({ dialogImageUpload: false })}
                 >
                   <Dialog.Button label="From Camera" onPress={this.openCamera} />
-                  <Dialog.Button label="From File" onPress={this.pickImage} />
+                  <Dialog.Button label="From Gallery" onPress={this.pickImage} />
                 </Dialog.Container>
 
                 <Text style={styles.label}>Project date</Text>

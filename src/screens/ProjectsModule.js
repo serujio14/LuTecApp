@@ -107,9 +107,6 @@ export default class ProjectsModule extends Component {
       const array = Object.values(this.state.dataSource);
 
       let projects = array.map((val, key) => {
-          
-          console.log()
-          
 
         return (
 
@@ -117,7 +114,7 @@ export default class ProjectsModule extends Component {
               <View style={styles.projectDataContainer}>
                 <View style={styles.projectImageContainer}>
                   <Image
-                      source={{uri: "http://simplesolutionscr.com/noimage.jpg"}
+                      source={{uri: val.Image}}
                       resizeMode="cover"
                       style={styles.projectImage}
                   />
