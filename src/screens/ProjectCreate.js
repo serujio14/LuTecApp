@@ -217,7 +217,6 @@ export default class ProjectCreate extends Component {
       };
 
       const urlParam = this.encodeQueryData(params);
-        http://simplesolutionscr.com/lutecapp/service.php?who=
       const url = `http://simplesolutionscr.com/lutecapp/service.php?${urlParam}`;
       console.log('URL', url);
       // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
