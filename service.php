@@ -20,6 +20,8 @@ if(isset($_GET['who'])){
 
 $api_key="5183723902398237640";
 
+$project_images_url = "http://simplesolutionscr.com/lutecapp/projects/";
+
 switch($who){
 
 	case "create_user":
@@ -106,22 +108,24 @@ switch($who){
 		$rsts['projectDate'] = addslashes($_GET['projectDate']);
 		$rsts['projectCreator'] = addslashes($_GET['projectCreator']);
         
-        if ($_FILES['projectImage']['name'] != '') {
+        
+        if ($_FILES['projectImage']['name'] != ''){
 
                 $image = $_FILES['projectImage'];
 
-                $imagen1 = $dataQuerys->upload_image_param("projects/", $image);
+                $imagen1 = $dataQuerys->upload_image_param("/projects/", $image);
             
-                $rsts['projectImage'] = $imagen1;
+                $rsts['projectImage'] = $project_images_url . $imagen1;
 //                var_dump($_FILES['imagen1']['name']);
 //                exit;
             } else {
                 /*var_dump($_POST["hidden_image1"]);
                     exit;*/
-                $rsts['projectImage'] = '';
+                $rsts['projectImage'] = 'http://simplesolutionscr.com/noimage.jpg';
 
             }
-                
+        
+        
 
 		if(isset($rsts['projectName']) && isset($rsts['projectDetail']) && isset($rsts['projectDate']) && isset($rsts['projectCreator']) && $rsts['api_key']==$api_key){
 
@@ -138,6 +142,7 @@ switch($who){
 			}
 
 		}
+        
 		break;
 
 	case "edit_project":
@@ -232,7 +237,6 @@ switch($who){
         case "return_material_list":
 
 			$rsts['api_key'] = addslashes($_GET['api_key']);
-
 
 			if( $rsts['api_key']==$api_key){
 
