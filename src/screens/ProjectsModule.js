@@ -45,7 +45,7 @@ export default class ProjectsModule extends Component {
 
   componentDidMount() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+    return fetch('http://simplesolutionscr.com/lutecapp/service.php?who=return_project_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {
@@ -66,7 +66,7 @@ export default class ProjectsModule extends Component {
 
   componentDidUpdate() {
 
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_list&api_key=5183723902398237640')
+    return fetch('http://simplesolutionscr.com/lutecapp/service.php?who=return_project_list&api_key=5183723902398237640')
 
         .then(response => response.json())
         .then((responseJson) => {

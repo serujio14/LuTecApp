@@ -52,7 +52,7 @@ export default class ProjectDetail extends Component {
   componentDidMount() {
 
     //call api to get details from project from id
-    return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
+    return fetch('http://simplesolutionscr.com/lutecapp/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
 
         .then(response => response.json())
         .then((responseJson) => {
@@ -95,7 +95,7 @@ export default class ProjectDetail extends Component {
   componentDidUpdate() {
 
       //call api to get details from project from id
-      return fetch('http://192.168.0.4/lutecapp.com/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
+      return fetch('http://simplesolutionscr.com/lutecapp/service.php?who=return_project_by_id&api_key=5183723902398237640&Id_project=' + this.props.navigation.state.params.Id_project)
 
           .then(response => response.json())
           .then((responseJson) => {

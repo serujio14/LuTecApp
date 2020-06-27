@@ -47,7 +47,7 @@ export default class Login extends Component {
     if (this.CheckTextInput()) {
 
       this.setState({isLoading: true});
-      console.log("http://simplesolutionscr.com/lutecapp/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password);
+  //  console.log("http://simplesolutionscr.com/lutecapp/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password);
       fetch("http://simplesolutionscr.com/lutecapp/service.php?who=login&api_key=5183723902398237640&TecId=" + state.TecID + "&Password=" + state.Password, {
             headers: {
               'Accept': 'application/json',

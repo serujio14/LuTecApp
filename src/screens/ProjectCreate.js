@@ -84,7 +84,7 @@ export default class ProjectCreate extends Component {
 
       this.setState({ isLoading: true });
 
-      fetch("http://192.168.0.4/lutecapp.com/service.php?who=create_project&api_key=5183723902398237640&projectName="
+      fetch("http://simplesolutionscr.com/lutecapp/service.php?who=create_project&api_key=5183723902398237640&projectName="
           + state.projectName +"&projectDetail=" + state.projectDetail + "&projectDate=" +  state.txtProjectDate + "&projectCreator=" +  state.projectCreator, { headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -217,7 +217,8 @@ export default class ProjectCreate extends Component {
       };
 
       const urlParam = this.encodeQueryData(params);
-      const url = `http://192.168.0.4/lutecapp.com/service.php?${urlParam}`;
+        http://simplesolutionscr.com/lutecapp/service.php?who=
+      const url = `http://simplesolutionscr.com/lutecapp/service.php?${urlParam}`;
       console.log('URL', url);
       // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
 
