@@ -66,6 +66,58 @@ export default class ProjectCreate extends Component {
       }
     }
   }
+  
+  handleCancel = () => {
+    this.setState({ dialogVisible: false });
+  };
+
+  handleChangeTextProjectName(text){
+    this.setState({projectName : text})
+  }
+
+  handleChangeTextProjectDate(text){
+    this.setState(
+        {projectDate : text,
+          txtProjectDate: text}
+    )
+  }
+
+  handleChangeTextProjectCreator(text){
+    this.setState({projectCreator : text})
+  }
+
+  handleChangeTextProjectDetail(text){
+    this.setState({projectDetail : text})
+  }
+
+  encodeQueryData = (data) => {
+    const ret = [];
+    for (let d in data)
+      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    return ret.join('&');
+ }
+
+  pickImage = async () => {
+    this.setState({ dialogImageUpload: false });
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.cancelled) {
+      const { uri, base64 } = result;
+      this.setState({ image: uri, imageBase64: base64 });
+      //console.log('pickImage', result);
+    }
+  };
+
+  openCamera = () => {
+    this.setState({ dialogImageUpload: false });
+    this.props.navigation.navigate('ExpoCamera', {
+      setImage: ({ uri, base64 }) => this.setState({ image: uri, imageBase64: base64 })
+    });
+  }
 
   CheckTextInput = () => {
 
@@ -130,59 +182,14 @@ export default class ProjectCreate extends Component {
     }
   }
 
-  handleCancel = () => {
-    this.setState({ dialogVisible: false });
-  };
-
-  handleChangeTextProjectName(text){
-    this.setState({projectName : text})
-  }
-
-  handleChangeTextProjectDate(text){
-    this.setState(
-        {projectDate : text,
-          txtProjectDate: text}
-    )
-  }
-
-  handleChangeTextProjectCreator(text){
-    this.setState({projectCreator : text})
-  }
-
-  handleChangeTextProjectDetail(text){
-    this.setState({projectDetail : text})
-  }
-
-  encodeQueryData = (data) => {
-    const ret = [];
-    for (let d in data)
-      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-    return ret.join('&');
- }
-
-  pickImage = async () => {
-    this.setState({ dialogImageUpload: false });
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 1,
-      base64: true,
-    });
-
-    if (!result.cancelled) {
-      const { uri, base64 } = result;
-      this.setState({ image: uri, imageBase64: base64 });
-      //console.log('pickImage', result);
-    }
-  };
-
-  openCamera = () => {
-    this.setState({ dialogImageUpload: false });
-    this.props.navigation.navigate('ExpoCamera', {
-      setImage: ({ uri, base64 }) => this.setState({ image: uri, imageBase64: base64 })
-    });
-  }
 
   createProjectByFormData = () => {
+      
+      
+       if (this.CheckTextInput()){
+
+      this.setState({ isLoading: true });
+      
     const {
       projectName,
       projectDetail,
@@ -227,17 +234,46 @@ export default class ProjectCreate extends Component {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(response => response.text())
+      }).then(response => response.json())
       .then(data => {
         console.log('createProjectByFormData:', data);
 
+           let dt;
+              Moment.locale('en');
+              dt = new Date();
+              dt = Moment(dt).format('d MMM YYYY');
+              this.setState({
+                isLoading : false,
+                dialogVisible: true,
+                projectName : "",
+                projectCreator : "",
+                projectDetail : "",
+                projectDate: new Date(),
+                txtProjectDate: dt,
+                textProjectDate: new Date(),
+                dialogFailVisible: false,
+
+              });
+
+              let { navigate } = this.props.navigation;
+              navigate("LuTecApp");
 
 
 
       })
       .catch((error) => {
         console.error('error at createProjectByFormData:', error);
+          
+          this.setState({
+                isLoading : false,
+                dialogFailVisible: true,
+              });
+          
+          
       });
+    }
+       }else{
+      Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
     }
 
   }
