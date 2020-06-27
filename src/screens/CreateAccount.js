@@ -188,7 +188,6 @@ export default class CreateAccount extends Component {
                             <TextInput
                                 value={this.state.TecID}
                                 keyboardType = 'numeric'
-                                maxLength={9}
                                 secureTextEntry={false}
                                 onChangeText={this.handleChangeTextTecID}
                                 style={styles.textbox}
