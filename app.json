@@ -17,11 +17,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lutecapp.lutecapp",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.1.0"
     },
     "android": {
       "package": "com.lutecapp.lutecapp",
-      "versionCode": 1
+      "versionCode": 2
     }
   }
 }
