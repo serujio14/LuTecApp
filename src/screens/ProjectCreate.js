@@ -115,7 +115,7 @@ export default class ProjectCreate extends Component {
   }
 
   pickImage = async () => {
-    this.setState({ dialogImageUpload: false });
+    this.setState({ dialogImageUpload: false, isLoading: true });
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -128,6 +128,8 @@ export default class ProjectCreate extends Component {
       this.setImage(uri, base64);
       Alert.alert("Image upload", "Project image uploaded succesfully");
     }
+
+    this.setState({ isLoading: false });
   };
 
   openCamera = () => {
