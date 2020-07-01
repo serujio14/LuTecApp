@@ -5,6 +5,7 @@ import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import * as Permissions from 'expo-permissions';
 import ImageUpload from "../components/ImageUpload";
 
 const { height } = Dimensions.get('window');
@@ -58,15 +59,17 @@ export default class ProjectCreate extends Component {
   }
 
   async componentDidMount() {
-    await this.iosImagePickerPermission();
+    await this.askForPermission();
   }
 
-  iosImagePickerPermission = async () => {
-    if (Platform.OS === 'ios') {
-      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Sorry, we need camera roll permissions to make this work!');
-      }
+  askForPermission = async () => {
+    const { status } = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.CAMERA_ROLL
+    );
+
+    if (status !== 'granted') {
+      Alert.alert('Sorry, we need camera roll permissions to make this work!');
     }
   }
 
@@ -138,7 +141,23 @@ export default class ProjectCreate extends Component {
     this.setState({ isLoading: false });
   };
 
-  openCamera = () => {
+  openCamera = async () => {
+    this.setState({ dialogImageUpload: false });
+    let result = await ImagePicker.launchCameraAsync({
+      quality: 0.8,
+      base64: true
+    });
+
+    if (!result.cancelled) {
+      const { uri, base64 } = result;
+      // this.setState({ image: uri, imageBase64: base64 });
+      this.setImage(uri, base64);
+    }
+
+    this.setState({ isLoading: false });
+  }
+
+  openCameraExpo = async () => {
     this.setState({ dialogImageUpload: false });
     this.props.navigation.navigate('ExpoCamera', {
       setImage: async ({ uri, base64 }) => {
@@ -291,7 +310,9 @@ export default class ProjectCreate extends Component {
             txtProjectDate: dt,
             textProjectDate: new Date(),
             dialogFailVisible: false,
-            loadingText: 'Loading..'
+            loadingText: 'Loading..',
+            images: [],
+            selectedImageIndex: null
           });
         })
         .catch((error) => {
