@@ -120,7 +120,6 @@ export default class Login extends Component {
   goToProjectCreate(text){
     let { navigate } = this.props.navigation;
     navigate("ForgotPassword");
-
   }
 
   render() {
@@ -162,7 +161,6 @@ export default class Login extends Component {
                 <TextInput
                     value={this.state.TecID}
                     keyboardType = 'numeric'
-                    maxLength={9}
                     secureTextEntry={false}
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
@@ -170,6 +168,7 @@ export default class Login extends Component {
                 <Text style={styles.label}>Password</Text>
                 <TextInput
                     value={this.state.Password}
+                    secureTextEntry={true}
                     onChangeText={this.handleChangeTextPassword}
                     style={styles.textbox}
                 />
