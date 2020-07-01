@@ -291,7 +291,9 @@ export default class ProjectCreate extends Component {
             txtProjectDate: dt,
             textProjectDate: new Date(),
             dialogFailVisible: false,
-            loadingText: 'Loading..'
+            loadingText: 'Loading..',
+            images: [],
+            selectedImageIndex: null
           });
         })
         .catch((error) => {
