@@ -274,6 +274,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignSelf: 'center',
     fontFamily: "roboto-regular",
-    color: "rgba(0,150,136,1)"
+    color: "gray"
   }
 });

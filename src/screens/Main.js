@@ -91,36 +91,18 @@ const styles = StyleSheet.create({
   btnItemL :{
     width: '50%',
     height: 54,
-    backgroundColor: "rgba(63,62,62,1)",
+    backgroundColor: "#C4C2C2",
     textAlign: 'center'
   },
   btnItemR :{
     width: '50%',
     height: 54,
-    backgroundColor: "rgba(55,55,55,1)",
-    textAlign: 'center'
-  },
-  btnWide: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(0,150,136,1)",
-    position: 'absolute',
-    bottom:0,
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
-  btnWide1: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "#E6E6E6",
-    position: 'absolute',
-    bottom:0,
-    alignSelf: 'stretch',
+    backgroundColor: "#E6E6E5",
     textAlign: 'center'
   },
   btnLabel: {
     fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
+    color: "gray",
     textAlign: "center",
     marginTop: 19
   },
