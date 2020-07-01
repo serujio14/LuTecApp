@@ -177,7 +177,8 @@ class Api extends Database{
 		}
 
 		$sqlquery="spCreateProject '".$this->db_quote($params['projectName'])."','".$this->db_quote($params['projectDetail'])
-			."','".$this->db_quote($params['projectDate'])."','".$this->db_quote($params['projectCreator'])."','".$this->db_quote($params['projectImage'])."';";
+			."','".$this->db_quote($params['projectDate'])."','".$this->db_quote($params['projectCreator'])."','".$this->db_quote($params['projectImage'])
+            ."','".$this->db_quote($params['projectImage1'])."','".$this->db_quote($params['projectImage2'])."','".$this->db_quote($params['projectImage3'])."';";
         
         
 		$process=@odbc_exec($sqlconnect, $sqlquery);

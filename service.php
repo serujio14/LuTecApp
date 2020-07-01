@@ -116,12 +116,44 @@ switch($who){
                 $imagen1 = $dataQuerys->upload_image_param("/projects/", $image);
             
                 $rsts['projectImage'] = $project_images_url . $imagen1;
-//                var_dump($_FILES['imagen1']['name']);
-//                exit;
             } else {
-                /*var_dump($_POST["hidden_image1"]);
-                    exit;*/
                 $rsts['projectImage'] = 'http://simplesolutionscr.com/noimage.jpg';
+
+            }
+        
+        if ($_FILES['projectImage1']['name'] != ''){
+
+                $image = $_FILES['projectImage1'];
+
+                $imagen1 = $dataQuerys->upload_image_param("/projects/", $image);
+            
+                $rsts['projectImage1'] = $project_images_url . $imagen1;
+            } else {
+                $rsts['projectImage1'] = 'http://simplesolutionscr.com/noimage.jpg';
+
+            }
+        
+        if ($_FILES['projectImage2']['name'] != ''){
+
+                $image = $_FILES['projectImage2'];
+
+                $imagen1 = $dataQuerys->upload_image_param("/projects/", $image);
+            
+                $rsts['projectImage2'] = $project_images_url . $imagen1;
+            } else {
+                $rsts['projectImage2'] = 'http://simplesolutionscr.com/noimage.jpg';
+
+            }
+        
+        if ($_FILES['projectImage3']['name'] != ''){
+
+                $image = $_FILES['projectImage3'];
+
+                $imagen1 = $dataQuerys->upload_image_param("/projects/", $image);
+            
+                $rsts['projectImage3'] = $project_images_url . $imagen1;
+            } else {
+                $rsts['projectImage3'] = 'http://simplesolutionscr.com/noimage.jpg';
 
             }
         
