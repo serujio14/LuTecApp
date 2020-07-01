@@ -2,7 +2,7 @@
   "expo": {
     "name": "LutecApp",
     "slug": "LutecApp",
-    "icon": "./assets/icons/app-icon.png",
+    "icon": "./src/assets/icons/app-icon.png",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [

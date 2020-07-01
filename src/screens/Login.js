@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {StyleSheet, View, TouchableOpacity, Text, Image, ActivityIndicator, TextInput, ScrollView, SafeAreaView, StatusBar, Dimensions} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, Image, Alert, ActivityIndicator, TextInput, ScrollView, SafeAreaView, StatusBar, Dimensions} from "react-native";
 
 const { height } = Dimensions.get('window');
 
@@ -101,6 +101,18 @@ export default class Login extends Component {
     this.setState({Password : text})
   }
   handleChangeTextTecID(text){
+    let newText = '';
+    let numbers = '0123456789';
+
+    for (var i=0; i < text.length; i++) {
+      if(numbers.indexOf(text[i]) > -1 ) {
+        newText = newText + text[i];
+      }
+      else {
+        // your call back function
+        Alert.alert("Error", "Please enter numbers only");
+      }
+    }
     this.setState({TecID : text})
   }
   goToProjectCreate(text){
