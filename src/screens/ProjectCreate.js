@@ -259,6 +259,13 @@ export default class ProjectCreate extends Component {
   createProjectByFormData = async () => {
 
     if (this.CheckTextInput()) {
+
+      if (this.state.images.length < 4) {
+        const remaining = 4 - this.state.images.length;
+        Alert.alert('Ups!', `You need add ${remaining} images`);
+        return;
+      }
+
       this.setState({ isLoading: true, loadingText: 'Creating Project..' });
       const {
         projectName,
