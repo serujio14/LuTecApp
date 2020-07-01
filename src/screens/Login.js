@@ -109,6 +109,8 @@ export default class Login extends Component {
         newText = newText + text[i];
       }
       else {
+        newText = newText + text[i];
+        text = newText.slice(0, -1);
         // your call back function
         Alert.alert("Error", "Please enter numbers only");
       }

@@ -1,5 +1,18 @@
 import React,  { Component } from "react";
-import {StyleSheet, View, TouchableOpacity, Text, TextInput, Image, ActivityIndicator, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
+import {
+    StyleSheet,
+    View,
+    TouchableOpacity,
+    Text,
+    TextInput,
+    Image,
+    ActivityIndicator,
+    ScrollView,
+    Dimensions,
+    SafeAreaView,
+    StatusBar,
+    Alert
+} from "react-native";
 import Dialog from "react-native-dialog";
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -130,17 +143,72 @@ export default class AdminEditMaterial extends Component {
         this.setState({materialName : text})
     }
     handleChangeTextCutPower(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({cutPower : text})
     }
-
     handleChangeTextCutSpeed(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({cutSpeed : text})
     }
 
     handleChangeTextTracePower(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({tracePower : text})
     }
     handleChangeTextTraceSpeed(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({traceSpeed : text})
     }
 

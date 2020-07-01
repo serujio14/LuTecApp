@@ -104,30 +104,98 @@ export default class AdminAddMaterial extends Component {
             alert('Please Fill All Spaces');
         }
     }
-
     handleCancel = () => {
         this.setState({ dialogVisible: false });
     };
     handleChangeTextMaterialName(text){
         this.setState({materialName : text})
     }
-
     handleChangeTextMaterialProvider(text){
         this.setState({materialProvider : text})
     }
     handleChangeTextMaterialThickness(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({materialThickness : text})
     }
     handleChangeTextCutPower(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({cutPower : text})
     }
     handleChangeTextCutSpeed(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({cutSpeed : text})
     }
     handleChangeTextTracePower(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({tracePower : text})
     }
     handleChangeTextTraceSpeed(text){
+        let newText = '';
+        let numbers = '0123456789';
+
+        for (var i=0; i < text.length; i++) {
+            if(numbers.indexOf(text[i]) > -1 ) {
+                newText = newText + text[i];
+            }
+            else {
+                newText = newText + text[i];
+                text = newText.slice(0, -1);
+                // your call back function
+                Alert.alert("Error", "Please enter numbers only");
+            }
+        }
         this.setState({traceSpeed : text})
     }
 
@@ -199,6 +267,7 @@ export default class AdminAddMaterial extends Component {
                             <Text style={styles.label}>Thickness</Text>
                             <TextInput
                                 value={this.state.materialThickness}
+                                keyboardType = 'numeric'
                                 onChangeText={this.handleChangeTextMaterialThickness}
                                 style={styles.textbox}
                             />
