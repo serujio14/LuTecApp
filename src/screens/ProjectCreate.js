@@ -4,14 +4,12 @@ import Dialog from "react-native-dialog";
 import DatePicker from 'react-native-datepicker';
 import Moment from 'moment';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import ImageUpload from "../components/ImageUpload";
 
 const { height } = Dimensions.get('window');
 
 export default class ProjectCreate extends Component {
-
-  state = {
-    screenHeight: height,
-  };
 
   onContentSizeChange = (contentWidth, contentHeight) => {
     this.setState({ screenHeight: contentHeight + 174});
@@ -40,9 +38,13 @@ export default class ProjectCreate extends Component {
       dialogVisible: false,
       dialogFailVisible: false,
       dialogImageUpload: false,
+      screenHeight: height,
       minDate5years : years,
       image: '',
       imageBase64: '',
+      images: [],
+      selectedImageIndex: null,
+      loadingText: 'Loading..'
     }
 
     this.handleChangeTextProjectName = this.handleChangeTextProjectName.bind(this)
@@ -67,10 +69,11 @@ export default class ProjectCreate extends Component {
       }
     }
   }
-  
+
   handleCancel = () => {
     this.setState({ dialogVisible: false });
   };
+
   handleContinue = () => {
     this.setState({ dialogVisible: false });
     let { navigate } = this.props.navigation;
@@ -101,10 +104,24 @@ export default class ProjectCreate extends Component {
     for (let d in data)
       ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
     return ret.join('&');
- }
+  }
+
+  getFileType = (uri) => {
+    const uriPathArr = uri.split('/');
+    filename = uriPathArr[uriPathArr.length - 1];
+    extension = filename.split('.');
+    extension = extension[1];
+    type = `image/${extension}`;
+    return { filename, extension, type };
+  }
 
   pickImage = async () => {
-    this.setState({ dialogImageUpload: false });
+    this.setState({
+      dialogImageUpload: false,
+      isLoading: true,
+      loadingText: 'Preparing Image..'
+    });
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -113,15 +130,47 @@ export default class ProjectCreate extends Component {
 
     if (!result.cancelled) {
       const { uri, base64 } = result;
-      this.setState({ image: uri, imageBase64: base64 });
+      // this.setState({ image: uri, imageBase64: base64 });
+      this.setImage(uri, base64);
       Alert.alert("Image upload", "Project image uploaded succesfully");
     }
+
+    this.setState({ isLoading: false });
   };
 
   openCamera = () => {
     this.setState({ dialogImageUpload: false });
     this.props.navigation.navigate('ExpoCamera', {
-      setImage: ({ uri, base64 }) => this.setState({ image: uri, imageBase64: base64 })
+      setImage: async ({ uri, base64 }) => {
+        const check = await FileSystem.getInfoAsync(uri)
+        console.log('is camera pic exist: ', check)
+        this.setImage(uri, base64)
+      }
+    });
+  }
+
+  setImage = (uri, base64) => {
+    const { selectedImageIndex, images } = this.state;
+    const { filename, type } = this.getFileType(uri);
+    const formData = {
+      name: filename,
+      uri,
+      type,
+    };
+
+    images[selectedImageIndex] = {
+      uri,
+      base64: `data:${type};base64,${base64}`,
+      formData,
+    };
+
+    this.setState({ images });
+  }
+
+  openImageDialog = (index) => {
+    this.setState({
+      selectedImageIndex: index,
+      dialogImageUpload: true
     });
   }
 
@@ -188,100 +237,79 @@ export default class ProjectCreate extends Component {
     }
   }
 
+  createProjectByFormData = async () => {
 
-  createProjectByFormData = () => {
-      
-      
-       if (this.CheckTextInput()){
+    if (this.CheckTextInput()) {
+      this.setState({ isLoading: true, loadingText: 'Creating Project..' });
+      const {
+        projectName,
+        projectDetail,
+        txtProjectDate,
+        projectCreator,
+        images
+      } = this.state;
 
-      this.setState({ isLoading: true });
-      
-    const {
-      projectName,
-      projectDetail,
-      txtProjectDate,
-      projectCreator,
-      image
-    } = this.state;
+      if (images.length) {
 
-    if (image.length) {
-      const uriPathArr = image.split('/');
-      filename = uriPathArr[uriPathArr.length - 1];
-      extension = filename.split('.');
-      extension = extension[1];
-      type = `image/${extension}`;
+        const formData = new FormData;
+        images.forEach((image, index) => {
+          const key = index === 0 ? 'projectImage' : 'projectImage' + index
+          formData.append(key, image.formData);
+        });
 
-      const imageData = {
-        name: filename,
-        uri: image,
-        type,
-      };
+        const params = {
+          who: 'create_project',
+          api_key: '5183723902398237640',
+          projectDate: txtProjectDate,
+          projectName: projectName,
+          projectDetail: projectDetail,
+          projectCreator : projectCreator
+        };
 
-      const formData = new FormData;
-      formData.append('projectImage', imageData);
+        const urlParam = this.encodeQueryData(params);
+        const url = `http://simplesolutionscr.com/lutecapp/service.php?${urlParam}`;
+        console.log('URL', url);
+        // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
 
-      const params = {
-        who: 'create_project',
-        api_key: '5183723902398237640',
-        projectDate: txtProjectDate,
-        projectName: projectName,
-        projectDetail: projectDetail,
-        projectCreator : projectCreator
-      };
-
-      const urlParam = this.encodeQueryData(params);
-      const url = `http://simplesolutionscr.com/lutecapp/service.php?${urlParam}`;
-      console.log('URL', url);
-      // const url = `http://test.shafarizkyf.com/echo_request.php?${urlParam}`;
-
-      fetch(url, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(response => response.json())
-      .then(data => {
-        console.log('createProjectByFormData:', data);
-
-           let dt;
-              Moment.locale('en');
-              dt = new Date();
-              dt = Moment(dt).format('d MMM YYYY');
-              this.setState({
-                isLoading : false,
-                dialogVisible: true,
-                projectName : "",
-                projectCreator : "",
-                projectDetail : "",
-                projectDate: new Date(),
-                txtProjectDate: dt,
-                textProjectDate: new Date(),
-                dialogFailVisible: false,
-
-              });
-
-
-
-      })
-      .catch((error) => {
-        console.error('error at createProjectByFormData:', error);
-          
+        fetch(url, {
+          method: 'POST',
+          body: formData
+        }).then(response => response.json())
+        .then(data => {
+          console.log('createProjectByFormData:', data);
+          let dt;
+          Moment.locale('en');
+          dt = new Date();
+          dt = Moment(dt).format('d MMM YYYY');
           this.setState({
-                isLoading : false,
-                dialogFailVisible: true,
-              });
-
-      });
-    }
-       }else{
+            isLoading : false,
+            dialogVisible: true,
+            projectName : "",
+            projectCreator : "",
+            projectDetail : "",
+            projectDate: new Date(),
+            txtProjectDate: dt,
+            textProjectDate: new Date(),
+            dialogFailVisible: false,
+            loadingText: 'Loading..'
+          });
+        })
+        .catch((error) => {
+          console.error('error at createProjectByFormData:', error);
+          this.setState({
+            isLoading : false,
+            dialogFailVisible: true,
+          });
+        });
+      }
+    }else{
       Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
     }
 
   }
 
   render() {
-
+    const { images, loadingText } = this.state
     const scrollEnabled = this.state.screenHeight > height;
 
     if (this.state.isLoading) {
@@ -289,6 +317,7 @@ export default class ProjectCreate extends Component {
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
           <ActivityIndicator size="large" color="#009688" />
+          <Text>{loadingText}</Text>
         </View>
       </View>
 
@@ -383,13 +412,33 @@ export default class ProjectCreate extends Component {
                     style={styles.textboxMulti}
                 />
 
+                <View style={[styles.flex, styles.row]}>
+                  <ImageUpload
+                    images={images}
+                    setImage={() => this.openImageDialog(0)}
+                    indexImage={0}
+                  />
+
+                  <ImageUpload
+                    images={images}
+                    setImage={() => this.openImageDialog(1)}
+                    indexImage={1}
+                  />
+
+                  <ImageUpload
+                    images={images}
+                    setImage={() => this.openImageDialog(2)}
+                    indexImage={2}
+                  />
+
+                  <ImageUpload
+                    images={images}
+                    setImage={() => this.openImageDialog(3)}
+                    indexImage={3}
+                  />
+                </View>
+
                 <View style={styles.btnContainer}>
-                  <TouchableOpacity
-                      onPress={() => this.setState({ dialogImageUpload: true })}
-                      style={styles.btnWide2}
-                  >
-                    <Text style={styles.btnLabel}>Upload image</Text>
-                  </TouchableOpacity>
                   <TouchableOpacity
                       onPress={() => this.createProjectByFormData()}
                       style={styles.btnWide}
@@ -407,6 +456,15 @@ export default class ProjectCreate extends Component {
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  row: {
+    flexDirection: 'row'
+  },
+  textCenter: {
+    textAlign: 'center'
+  },
   container: {
     flex: 1,
     alignSelf: 'stretch',
@@ -432,9 +490,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   btnContainer: {
-    width: '100%',
-    height: 108,
-    backgroundColor: 'gray'
+    flex:1,
+    justifyContent: 'flex-end',
   },
   horizontal: {
     backgroundColor: '#FFFFFF',
@@ -622,6 +679,17 @@ const styles = StyleSheet.create({
     width: 324,
     marginTop: 50,
     marginLeft: 28
+  },
+  imageButton: {
+    textAlign: 'center',
+    color: 'white',
+    paddingVertical: 10,
+    backgroundColor: 'grey',
+  },
+  imagePlaceholder: {
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
   }
 });
 
