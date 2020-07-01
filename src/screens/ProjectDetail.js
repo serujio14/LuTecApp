@@ -13,7 +13,6 @@ import {
   StatusBar,
   TextInput
 } from "react-native";
-import MaterialButtonSuccess8 from "../components/MaterialButtonSuccess8";
 import { SliderBox } from "react-native-image-slider-box";
 
 const { height } = Dimensions.get('window');
@@ -120,7 +119,7 @@ export default class ProjectDetail extends Component {
                 ],
               });
             }else{
-              console.log("fallo conexion")
+              console.log("fail conection")
               this.setState({
                 isLoading : false,
                 dialogFailVisible: true,
@@ -130,7 +129,7 @@ export default class ProjectDetail extends Component {
           })
 
           .catch((error) => {
-            console.log("fallo la promesa")
+            console.log("fail promess")
             console.log(error)
           });
 
@@ -144,7 +143,7 @@ export default class ProjectDetail extends Component {
 
     if (this.state.isLoading) {
 
-      console.log('CARGANDO')
+      console.log('Loading')
 
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
@@ -180,7 +179,7 @@ export default class ProjectDetail extends Component {
             >
 
 
-              <View style={styles.container}>
+              <View style={styles.sliderContainer}>
                 <SliderBox
                     images={this.state.images}
                     onCurrentImagePressed={index =>
@@ -214,6 +213,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     textAlign: 'center'
+  },
+  sliderContainer: {
+    flex: 1,
+    height: 250,
+    alignSelf: 'stretch',
   },
   containerLoader: {
     flex: 1,

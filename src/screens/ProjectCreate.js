@@ -135,7 +135,6 @@ export default class ProjectCreate extends Component {
       const { uri, base64 } = result;
       // this.setState({ image: uri, imageBase64: base64 });
       this.setImage(uri, base64);
-      Alert.alert("Image upload", "Project image uploaded succesfully");
     }
 
     this.setState({ isLoading: false });
@@ -166,6 +165,7 @@ export default class ProjectCreate extends Component {
         this.setImage(uri, base64)
       }
     });
+    Alert.alert("Image added", "Project image added succesfully");
   }
 
   setImage = (uri, base64) => {
@@ -252,7 +252,7 @@ export default class ProjectCreate extends Component {
             console.error(error)
           });
     }else{
-      Alert.alert("Error", "Please Fill All Spaces and Passwords must match");
+      Alert.alert("Error", "Please fill all the project information");
     }
   }
 

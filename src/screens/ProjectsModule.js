@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignSelf: 'stretch',
+    backgroundColor: "rgba(241,244,247,1)",
     textAlign: 'center'
   },
   containerLoader: {
@@ -182,17 +183,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   btnWide2: {
-    width: '100%',
-    height: 40,
+    width: 140,
+    height: 30,
     position: 'absolute',
-    bottom: 0
+    backgroundColor: "#199F93",
+    borderRadius: 8,
+    right: 6,
+    bottom: 8
   },
   btnLabel2: {
     fontFamily: "roboto-regular",
     fontSize: 16,
-    color: "rgba(3,85,73,1)",
-    fontWeight: 'bold',
-    marginTop: 10,
+    color: 'white',
+    marginTop: 5,
     textAlign: "center"
   },
   horizontal: {
@@ -221,17 +224,8 @@ const styles = StyleSheet.create({
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
+    marginBottom: 10,
     lineHeight: 56
-  },
-  title2: {
-    height: 37,
-    marginTop: 5,
-    backgroundColor: "rgba(76,76,77,1)",
-    fontFamily: "roboto-regular",
-    color: "rgba(251,251,251,1)",
-    fontSize: 19,
-    textAlign: "center",
-    lineHeight: 42
   },
   btnViewProject: {
     width: 376,
@@ -245,20 +239,24 @@ const styles = StyleSheet.create({
     marginLeft: 140
   },
   projectContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
-    height: 160,
-    marginVertical: 10
+    height: 150,
+    marginVertical: 2
   },
   projectDataContainer: {
     width: '90%',
-    backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E3E5E4',
+    backgroundColor: 'white',
     height: 140,
     alignSelf: 'center'
   },
   projectImageContainer: {
     width: '30%',
-    height: 140,
+    height: 137,
+    borderTopLeftRadius: 9,
+    borderBottomLeftRadius: 9,
+    overflow: 'hidden',
     position: 'absolute',
     flexDirection: "row"
   },
