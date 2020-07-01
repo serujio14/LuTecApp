@@ -43,7 +43,8 @@ export default class ProjectCreate extends Component {
       image: '',
       imageBase64: '',
       images: [],
-      selectedImageIndex: null
+      selectedImageIndex: null,
+      loadingText: 'Loading..'
     }
 
     this.handleChangeTextProjectName = this.handleChangeTextProjectName.bind(this)
@@ -115,7 +116,12 @@ export default class ProjectCreate extends Component {
   }
 
   pickImage = async () => {
-    this.setState({ dialogImageUpload: false, isLoading: true });
+    this.setState({
+      dialogImageUpload: false,
+      isLoading: true,
+      loadingText: 'Preparing Image..'
+    });
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -234,7 +240,7 @@ export default class ProjectCreate extends Component {
   createProjectByFormData = async () => {
 
     if (this.CheckTextInput()) {
-      this.setState({ isLoading: true });
+      this.setState({ isLoading: true, loadingText: 'Creating Project..' });
       const {
         projectName,
         projectDetail,
@@ -285,6 +291,7 @@ export default class ProjectCreate extends Component {
             txtProjectDate: dt,
             textProjectDate: new Date(),
             dialogFailVisible: false,
+            loadingText: 'Loading..'
           });
         })
         .catch((error) => {
@@ -302,7 +309,7 @@ export default class ProjectCreate extends Component {
   }
 
   render() {
-    const { images } = this.state
+    const { images, loadingText } = this.state
     const scrollEnabled = this.state.screenHeight > height;
 
     if (this.state.isLoading) {
@@ -310,6 +317,7 @@ export default class ProjectCreate extends Component {
       return <View style={styles.containerLoader}>
         <View style={styles.horizontal}>
           <ActivityIndicator size="large" color="#009688" />
+          <Text>{loadingText}</Text>
         </View>
       </View>
 
