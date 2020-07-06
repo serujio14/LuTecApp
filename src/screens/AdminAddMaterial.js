@@ -115,7 +115,7 @@ export default class AdminAddMaterial extends Component {
     }
     handleChangeTextMaterialThickness(text){
         let newText = '';
-        let numbers = '0123456789';
+        let numbers = '0123456789,.';
 
         for (var i=0; i < text.length; i++) {
             if(numbers.indexOf(text[i]) > -1 ) {
@@ -264,10 +264,11 @@ export default class AdminAddMaterial extends Component {
                                 onChangeText={this.handleChangeTextMaterialName}
                                 style={styles.textbox}
                             />
-                            <Text style={styles.label}>Thickness</Text>
+                            <Text style={styles.label}>Thickness (milimiters)</Text>
                             <TextInput
                                 value={this.state.materialThickness}
                                 keyboardType = 'numeric'
+                                maxLength={10}
                                 onChangeText={this.handleChangeTextMaterialThickness}
                                 style={styles.textbox}
                             />
@@ -335,8 +336,7 @@ export default class AdminAddMaterial extends Component {
                                 style={styles.btnWide}
                             >
                                 <Text style={styles.btnLabel}>Add material</Text>
-                            </TouchableOpacity>
-
+                            </TouchableOpacity>p
                         </View>
                     </ScrollView>
                 </SafeAreaView>

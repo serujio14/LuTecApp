@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.lutecapp.lutecapp",
-      "versionCode": 4
+      "versionCode": 5
     }
   }
 }

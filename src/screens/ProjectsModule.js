@@ -121,7 +121,7 @@ export default class ProjectsModule extends Component {
                 </View>
                 <View style={styles.projectInfoContainer}>
                   <Text style={styles.projectTitle}>{val.Name}</Text>
-                  <Text multiline={true} style={styles.projectDescription}>
+                  <Text multiline numberOfLines={2} style={styles.projectDescription}>
                     {val.Description}
                   </Text>
                   <TouchableOpacity
