@@ -182,6 +182,9 @@ export default class ProjectDetail extends Component {
               <View style={styles.sliderContainer}>
                 <SliderBox
                     images={this.state.images}
+                    sliderBoxHeight={320}
+                    dotColor="#FFFFFF"
+                    inactiveDotColor="#90A4AE"
                     onCurrentImagePressed={index =>
                         console.warn(`image ${index} pressed`)
                     }
@@ -217,8 +220,6 @@ const styles = StyleSheet.create({
   sliderContainer: {
     flex: 1,
     alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   containerLoader: {
     flex: 1,
