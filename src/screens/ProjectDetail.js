@@ -216,8 +216,9 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     flex: 1,
-    height: 250,
     alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   containerLoader: {
     flex: 1,
