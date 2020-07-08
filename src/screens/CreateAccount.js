@@ -143,7 +143,7 @@ export default class CreateAccount extends Component {
         if (reg.test(this.state.Email) === false) {
             console.log("Email is Not Correct");
             Alert.alert("Error", "Please enter a valid email");
-           
+
         }
         else {
             console.log("Email is Correct");
