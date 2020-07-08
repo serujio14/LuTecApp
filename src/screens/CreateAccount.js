@@ -46,7 +46,19 @@ export default class CreateAccount extends Component {
         if(this.state.Password === this.state.PasswordConfirm){
             if (this.state.Name !== '' && this.state.TecID !== '' && this.state.Email !== '' &&
                 this.state.Password !== '' && this.state.PasswordConfirm !== '') {
-                return true;
+
+                console.log(this.state.Email);
+                let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (reg.test(this.state.Email) === false) {
+                    console.log("Email is Not Correct");
+                    Alert.alert("Error", "Please enter a valid email");
+                }
+                else {
+                    console.log("Email is Correct");
+                    return true;
+                }
+
+
             } else {
                 return false
             }
@@ -131,19 +143,7 @@ export default class CreateAccount extends Component {
         this.setState({TecID : text})
     }
     handleChangeTextEmail(text){
-
-        console.log(text);
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (reg.test(text) === false) {
-            console.log("Email is Not Correct");
-
-            this.setState({Email : text})
-            Alert.alert("Error", "Please enter a valid email");
-        }
-        else {
-            this.setState({Email : text})
-            console.log("Email is Correct");
-        }
+        this.setState({Email : text})
 
     }
     handleChangeTextPassword(text){
