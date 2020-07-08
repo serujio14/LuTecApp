@@ -131,7 +131,20 @@ export default class CreateAccount extends Component {
         this.setState({TecID : text})
     }
     handleChangeTextEmail(text){
-        this.setState({Email : text})
+
+        console.log(text);
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(text) === false) {
+            console.log("Email is Not Correct");
+
+            this.setState({Email : text})
+            Alert.alert("Error", "Please enter a valid email");
+        }
+        else {
+            this.setState({Email : text})
+            console.log("Email is Correct");
+        }
+
     }
     handleChangeTextPassword(text){
         this.setState({Password : text})
