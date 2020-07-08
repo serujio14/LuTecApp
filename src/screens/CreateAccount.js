@@ -33,6 +33,7 @@ export default class CreateAccount extends Component {
         this.handleChangeTextName = this.handleChangeTextName.bind(this)
         this.handleChangeTextTecID = this.handleChangeTextTecID.bind(this)
         this.handleChangeTextEmail = this.handleChangeTextEmail.bind(this)
+        this.checkEmail = this.checkEmail.bind(this)
         this.handleChangeTextPassword = this.handleChangeTextPassword.bind(this)
         this.handleChangeTextPasswordConfirm = this.handleChangeTextPasswordConfirm.bind(this)
         this.handleCancel = this.handleCancel.bind(this)
@@ -46,18 +47,7 @@ export default class CreateAccount extends Component {
         if(this.state.Password === this.state.PasswordConfirm){
             if (this.state.Name !== '' && this.state.TecID !== '' && this.state.Email !== '' &&
                 this.state.Password !== '' && this.state.PasswordConfirm !== '') {
-
-                console.log(this.state.Email);
-                let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                if (reg.test(this.state.Email) === false) {
-                    console.log("Email is Not Correct");
-                    Alert.alert("Error", "Please enter a valid email");
-                }
-                else {
-                    console.log("Email is Correct");
-                    return true;
-                }
-
+                return true;
 
             } else {
                 return false
@@ -146,6 +136,21 @@ export default class CreateAccount extends Component {
         this.setState({Email : text})
 
     }
+    checkEmail(text){
+
+        console.log(this.state.Email);
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(this.state.Email) === false) {
+            console.log("Email is Not Correct");
+            Alert.alert("Error", "Please enter a valid email");
+           
+        }
+        else {
+            console.log("Email is Correct");
+
+        }
+
+    }
     handleChangeTextPassword(text){
         this.setState({Password : text})
     }
@@ -225,6 +230,7 @@ export default class CreateAccount extends Component {
                                 placeholder = "Email"
                                 value={this.state.Email}
                                 onChangeText={this.handleChangeTextEmail}
+                                onEndEditing ={this.checkEmail}
                                 style={styles.textbox}
                             ></TextInput>
 
