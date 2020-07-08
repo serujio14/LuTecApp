@@ -17,6 +17,10 @@ const { height } = Dimensions.get('window');
 
 export default class LuTecApp extends Component {
 
+  onContentSizeChange = (contentWidth, contentHeight) => {
+    this.setState({ screenHeight: contentHeight + 150});
+  };
+
   constructor(props) {
     super(props);
 
@@ -56,7 +60,7 @@ export default class LuTecApp extends Component {
   }
   goToProjectCreate(text){
     let { navigate } = this.props.navigation;
-      navigate("ProjectCreate");
+    navigate("ProjectCreate");
   }
 
   goToProjectsModule(text){
@@ -65,6 +69,8 @@ export default class LuTecApp extends Component {
   }
 
   render() {
+    const scrollEnabled = this.state.screenHeight > height;
+
     if (this.state.isLoading) {
 
       return <View style={styles.containerLoader}>
@@ -77,81 +83,90 @@ export default class LuTecApp extends Component {
     } else {
 
       return (
-          <View style={styles.container}>
+
+          <SafeAreaView style={styles.container}>
             <View style={styles.header}>
               <Image
                   source={require("../assets/images/logosLuTecApp.png")}
                   resizeMode="contain"
                   style={styles.image}
               />
+            </View>
+            <StatusBar barStyle="light-content" backgroundColor="#468189" />
+            <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled}
+                onContentSizeChange={this.onContentSizeChange}
+            >
               <View style={styles.loginContainer}>
-              <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
+                <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
               </View>
-            </View>
 
-            <View style={styles.moduleContainer}>
+              <View style={styles.moduleContainer}>
 
-              {/* - - - - - - PROJECTS MODULE - - - - - - -*/}
-              <ImageBackground
-                  source={require("../assets/images/imgProjects.jpg")}
-                  resizeMode="contain"
-                  style={styles.imgModule}
-              >
-                <View style={styles.titlesModuleContainer}>
-                  <Text style={styles.titleModule}>Projects</Text>
-                  <Text style={styles.labelModule}>Developed LuTec projects</Text>
-                </View>
-                <View style={styles.btnGotoProjectsModuleRow}>
-                  {/* - - - - - - BTN - - - - - - -*/}
-                  <TouchableOpacity
-                      onPress={() => this.goToProjectsModule(this.state)}
-                      style={styles.btn1}
-                  >
-                    <Text style={styles.btnLabel2}>Browse</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                      onPress={() => this.goToProjectCreate(this.state)}
-                      style={styles.btn1}
-                  >
-                    <Text style={styles.btnLabel2}>Create</Text>
-                  </TouchableOpacity>
-                </View>
-              </ImageBackground>
-
-              {/* - - - - - - EPILOG MODULE - - - - - - -*/}
-              <ImageBackground
-                  source={require("../assets/images/imgEpilog.jpg")}
-                  resizeMode="contain"
-                  style={styles.imgModule}
-              >
-                <View style={styles.titlesModuleContainer}>
-                  <Text style={styles.titleModule}>Epilog laser cutter</Text>
-                  <Text style={styles.labelModule}>Epilog machine configuration parameters</Text>
-                </View>
-                <TouchableOpacity
-                    onPress={() => this.goToEpilogModule(this.state)}
-                    style={styles.btnWide}
+                {/* - - - - - - PROJECTS MODULE - - - - - - -*/}
+                <ImageBackground
+                    source={require("../assets/images/imgProjects.jpg")}
+                    resizeMode="contain"
+                    style={styles.imgModule}
                 >
-                  <Text style={styles.btnLabel}>Open</Text>
-                </TouchableOpacity>
-              </ImageBackground>
+                  <View style={styles.titlesModuleContainer}>
+                    <Text style={styles.titleModule}>Projects</Text>
+                    <Text style={styles.labelModule}>Developed LuTec projects</Text>
+                  </View>
+                  <View style={styles.btnGotoProjectsModuleRow}>
+                    {/* - - - - - - BTN - - - - - - -*/}
+                    <TouchableOpacity
+                        onPress={() => this.goToProjectsModule(this.state)}
+                        style={styles.btn1}
+                    >
+                      <Text style={styles.btnLabel2}>Browse</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.goToProjectCreate(this.state)}
+                        style={styles.btn1}
+                    >
+                      <Text style={styles.btnLabel2}>Create</Text>
+                    </TouchableOpacity>
+                  </View>
+                </ImageBackground>
 
-              {/* - - - - - - 3D PRINTER MODULE - - - - - - -*/}
-              <ImageBackground
-                  source={require("../assets/images/img3D.jpg")}
-                  resizeMode="contain"
-                  style={styles.imgModule}
-              >
-                <View style={styles.titlesModuleContainer}>
-                  <Text style={styles.titleModule}>MakerBot 3D printer</Text>
-                  <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
-                </View>
-                <View style={styles.btnWide}>
-                  <Text style={styles.btnLabel}>Under development</Text>
-                </View>
-              </ImageBackground>
-            </View>
-          </View>
+                {/* - - - - - - EPILOG MODULE - - - - - - -*/}
+                <ImageBackground
+                    source={require("../assets/images/imgEpilog.jpg")}
+                    resizeMode="contain"
+                    style={styles.imgModule}
+                >
+                  <View style={styles.titlesModuleContainer}>
+                    <Text style={styles.titleModule}>Epilog laser cutter</Text>
+                    <Text style={styles.labelModule}>Epilog machine configuration parameters</Text>
+                  </View>
+                  <TouchableOpacity
+                      onPress={() => this.goToEpilogModule(this.state)}
+                      style={styles.btnWide}
+                  >
+                    <Text style={styles.btnLabel}>Open</Text>
+                  </TouchableOpacity>
+                </ImageBackground>
+
+                {/* - - - - - - 3D PRINTER MODULE - - - - - - -*/}
+                <ImageBackground
+                    source={require("../assets/images/img3D.jpg")}
+                    resizeMode="contain"
+                    style={styles.imgModule}
+                >
+                  <View style={styles.titlesModuleContainer}>
+                    <Text style={styles.titleModule}>MakerBot 3D printer</Text>
+                    <Text style={styles.labelModule}>MakerBot configuration parameters</Text>
+                  </View>
+                  <View style={styles.btnWide}>
+                    <Text style={styles.btnLabel}>Under development</Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            </ScrollView>
+          </SafeAreaView>
       );
     }
   }
@@ -164,8 +179,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: 'center'
   },
+  scrollview: {
+    flexGrow: 1,
+  },
   header: {
     height: 150,
+    marginBottom: 0,
     backgroundColor: "rgba(3,85,73,1)"
   },
   userNameStyle: {
