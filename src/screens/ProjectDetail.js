@@ -156,7 +156,7 @@ export default class ProjectDetail extends Component {
 
       let image = this.state.Image;
       let date = this.state.Date;
-      date.substring(0,11);
+      date = date.substring(0,11);
 
       return (
 
@@ -178,29 +178,17 @@ export default class ProjectDetail extends Component {
                 onContentSizeChange={this.onContentSizeChange}
             >
 
-
               <View style={styles.sliderContainer}>
                 <SliderBox
                     images={this.state.images}
                     sliderBoxHeight={320}
                     dotColor="#FFFFFF"
                     inactiveDotColor="#90A4AE"
-                    onCurrentImagePressed={index =>
-                        console.warn(`image ${index} pressed`)
-                    }
                 />
-
                 <Text style={styles.nameLabel}>{this.state.projectName}</Text>
-
-                <Text style={styles.label}>Created by: </Text>
-                <Text style={styles.label2}>{this.state.Creator}</Text>
-
-                <Text style={styles.label}>Created on</Text>
-                <Text style={styles.label2} >{date}</Text>
-
-                <Text style={styles.descriptionProject} >
-                  {this.state.projectDescription}
-                </Text>
+                <Text style={styles.label}>Created by: {this.state.Creator}</Text>
+                <Text style={styles.label} >On: {date}</Text>
+                <Text style={styles.descriptionProject}>{this.state.projectDescription}</Text>
 
               </View>
             </ScrollView>
@@ -256,15 +244,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: "roboto-regular",
-    color: "#595A5C",
-    flexDirection: "row",
-    marginTop: 15,
-    marginLeft: '10%'
-  },
-  label2: {
-    fontFamily: "roboto-regular",
     color: "rgba(15,90,78,1)",
-    flexDirection: "row",
+    fontSize: 16,
     marginLeft: '10%'
   },
   nameLabel: {
@@ -272,8 +253,8 @@ const styles = StyleSheet.create({
     color: "#595A5C",
     fontSize: 26,
     fontWeight: 'bold',
-    flexDirection: "row",
     marginTop: 15,
+    marginBottom: 10,
     width: '80%',
     marginLeft: '10%'
   },

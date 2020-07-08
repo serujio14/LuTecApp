@@ -24,7 +24,7 @@ export default class ProjectCreate extends Component {
     dt = Moment(dt).format('d MMM YYYY');
 
     let years = new Date();
-    years = Moment(years).subtract(5, 'year').format('YYYY-MM-DD'); // for specific format
+    years = Moment(years).subtract(5, 'year').format('d MMM YYYY'); // for specific format
 
     this.state = {
       isLoading: false,
@@ -262,7 +262,7 @@ export default class ProjectCreate extends Component {
 
       if (this.state.images.length < 4) {
         const remaining = 4 - this.state.images.length;
-        Alert.alert('Ups!', `You need add ${remaining} images`);
+        Alert.alert('Oops!', `You need add ${remaining} images`);
         return;
       }
 
@@ -301,11 +301,11 @@ export default class ProjectCreate extends Component {
           body: formData
         }).then(response => response.json())
         .then(data => {
-          console.log('createProjectByFormData:', data);
+          //console.log('createProjectByFormData:', data);
           let dt;
           Moment.locale('en');
           dt = new Date();
-          dt = Moment(dt).format('d MMM YYYY');
+          dt = Moment(dt).format('dd MMM YYYY');
           this.setState({
             isLoading : false,
             dialogVisible: true,
@@ -397,9 +397,10 @@ export default class ProjectCreate extends Component {
                     style={styles.datePickerContainer}
                     date={this.state.date}
                     mode="date"
-                    placeholder={this.state.txtProjectDate}
                     value= {this.state.txtProjectDate}
                     format="DD MMM YYYY"
+                    maxDate={new Date()}
+                    placeholder={this.state.txtProjectDate}
                     minDate = {this.state.minDate5years}
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"

@@ -7,11 +7,11 @@ const { height } = Dimensions.get('window');
 export default class CreateAccount extends Component {
 
     state = {
-        screenHeight: height,
+        screenHeight: 0,
     };
 
     onContentSizeChange = (contentWidth, contentHeight) => {
-        this.setState({ screenHeight: contentHeight + 174});
+        this.setState({ screenHeight: contentHeight });
     };
 
     constructor(props) {
@@ -156,14 +156,6 @@ export default class CreateAccount extends Component {
             return (
 
                 <SafeAreaView style={styles.container}>
-                    <View style={styles.header}>
-                        <Image
-                            source={require("../assets/images/logosLuTecApp.png")}
-                            resizeMode="contain"
-                            style={styles.image}
-                        ></Image>
-                    </View>
-                    <Text style={styles.title}>Create Account</Text>
                     <StatusBar barStyle="light-content" backgroundColor="#468189" />
 
                     <ScrollView
@@ -172,6 +164,14 @@ export default class CreateAccount extends Component {
                         scrollEnabled={scrollEnabled}
                         onContentSizeChange={this.onContentSizeChange}
                     >
+                    <View style={styles.header}>
+                        <Image
+                            source={require("../assets/images/logosLuTecApp.png")}
+                            resizeMode="contain"
+                            style={styles.image}
+                        ></Image>
+                    </View>
+                    <Text style={styles.title}>Create Account</Text>
 
                         <View style={styles.container}>
                             <Dialog.Container visible={this.state.dialogVisible}>
