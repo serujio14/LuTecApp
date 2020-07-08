@@ -556,8 +556,8 @@ const styles = StyleSheet.create({
     color: "rgba(251,251,251,1)",
     fontSize: 24,
     textAlign: "center",
-    marginBottom: 20,
-    lineHeight: 56
+    lineHeight: 56,
+    marginBottom: 20
   },
   label: {
     fontFamily: "roboto-regular",
@@ -579,7 +579,8 @@ const styles = StyleSheet.create({
   textboxMulti: {
     width: '80%',
     alignSelf:'center',
-    marginVertical: 25,
+    marginTop: 25,
+    marginBottom: 34,
     padding: 10,
     borderWidth: 1,
     borderColor: 'gray',

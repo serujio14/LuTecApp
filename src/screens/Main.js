@@ -22,24 +22,22 @@ function Main(props) {
             style={styles.image2}
           ></Image>
 
-      <View style={styles.btnsContainer}>
-        <View style={styles.btnItemL}>
-          {/* - - - - - - BTN - - - - - - -*/}
-          <TouchableOpacity
-              onPress={() => props.navigation.navigate("CreateAccount")}
-          >
-            <Text style={styles.btnLabel}>Create account</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.btnItemR}>
-          {/* - - - - - - BTN - - - - - - -*/}
+      <View style={styles.btnContainer}>
+        <View style={styles.btnLogin}>
           <TouchableOpacity
               onPress={() => props.navigation.navigate("Login")}
           >
             <Text style={styles.btnLabel}>Login</Text>
           </TouchableOpacity>
-        </View>
+      </View>
+
+      <View style={styles.btnCreateAccount}>
+      <TouchableOpacity
+          onPress={() => props.navigation.navigate("CreateAccount")}
+      >
+        <Text style={styles.btnLabel1}>Create account</Text>
+      </TouchableOpacity>
+    </View>
       </View>
     </View>
   );
@@ -81,36 +79,36 @@ const styles = StyleSheet.create({
     padding: '10%',
     textAlign: "justify"
   },
-  btnsContainer: {
-    height: 54,
-    flexDirection: "row",
-    position: 'absolute',
-    bottom: 0,
-    marginRight: -3
+  btnContainer :{
+    width: '100%',
+    height: 96,
+    bottom: 30,
+    position: 'absolute'
   },
-  btnItemL :{
-    width: '50%',
-    height: 54,
-    backgroundColor: "#C4C2C2",
-    textAlign: 'center'
+  btnLogin :{
+    width: '100%',
+    height: 48,
+    backgroundColor: "rgba(45,45,45,1)",
+    lineHeight: 56
   },
-  btnItemR :{
-    width: '50%',
-    height: 54,
-    backgroundColor: "#E6E6E5",
-    textAlign: 'center'
+  btnCreateAccount :{
+    width: '100%',
+    height: 48,
+    lineHeight: 56
   },
   btnLabel: {
     fontFamily: "roboto-regular",
-    color: "gray",
+    fontSize: 24,
+    color: "rgba(251,251,251,1)",
     textAlign: "center",
-    marginTop: 19
+    marginTop: 8
   },
-  rect: {
-    left: 0,
-    width: '100%',
-    backgroundColor: "rgba(3,85,73,1)",
-    top: 0
+  btnLabel1: {
+    fontFamily: "roboto-regular",
+    fontSize: 16,
+    color: "rgba(251,251,251,1)",
+    textAlign: "center",
+    marginTop: 15
   },
   image: {
     width: '100%',
