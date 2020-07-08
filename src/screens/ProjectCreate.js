@@ -422,7 +422,7 @@ export default class ProjectCreate extends Component {
 
                 <DatePicker
                     style={styles.datePickerContainer}
-                    date={this.state.date}
+                    date={this.state.txtProjectDate}
                     mode="date"
                     value= {this.state.txtProjectDate}
                     format="DD MMM YYYY"
