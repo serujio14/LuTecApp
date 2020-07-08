@@ -91,6 +91,7 @@ export default class LuTecApp extends Component {
                   resizeMode="contain"
                   style={styles.image}
               />
+              <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
             </View>
             <StatusBar barStyle="light-content" backgroundColor="#468189" />
             <ScrollView
@@ -99,9 +100,6 @@ export default class LuTecApp extends Component {
                 scrollEnabled={scrollEnabled}
                 onContentSizeChange={this.onContentSizeChange}
             >
-              <View style={styles.loginContainer}>
-                <Text style={styles.userNameStyle}>{this.props.navigation.state.params.userData.Name}</Text>
-              </View>
 
               <View style={styles.moduleContainer}>
 
@@ -116,7 +114,7 @@ export default class LuTecApp extends Component {
                     <Text style={styles.labelModule}>Developed LuTec projects</Text>
                   </View>
                   <View style={styles.btnGotoProjectsModuleRow}>
-                    {/* - - - - - - BTN - - - - - - -*/}
+
                     <TouchableOpacity
                         onPress={() => this.goToProjectsModule(this.state)}
                         style={styles.btn1}

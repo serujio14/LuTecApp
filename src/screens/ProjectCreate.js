@@ -392,7 +392,6 @@ export default class ProjectCreate extends Component {
                   <Dialog.Button label="From Gallery" onPress={this.pickImage} />
                 </Dialog.Container>
 
-                <Text style={styles.label}>Project date</Text>
                 <DatePicker
                     style={styles.datePickerContainer}
                     date={this.state.date}
@@ -418,29 +417,30 @@ export default class ProjectCreate extends Component {
                     onDateChange={(date) => {this.handleChangeTextProjectDate(date)}}
                 />
 
-                <Text style={styles.label}>Project name</Text>
                 <TextInput
+                    placeholder= "Project name"
                     value={this.state.projectName}
+                    maxLength={15}
                     onChangeText={this.handleChangeTextProjectName}
                     style={styles.textbox}
                 />
 
-                <Text style={styles.label}>Project creator(s)</Text>
                 <TextInput
+                    placeholder= "Project creator(s)"
                     value={this.state.projectCreator}
                     onChangeText={this.handleChangeTextProjectCreator}
                     style={styles.textbox}
                 />
 
-                <Text style={styles.label}>Project description</Text>
                 <TextInput
+                    placeholder= "Project description"
                     value={this.state.projectDetail}
                     onChangeText={this.handleChangeTextProjectDetail}
                     multiline={true}
                     style={styles.textboxMulti}
                 />
 
-                <View style={[styles.flex, styles.row]}>
+                <View style={styles.imagesUpload}>
                   <ImageUpload
                     images={images}
                     setImage={() => this.openImageDialog(0)}
@@ -484,15 +484,6 @@ export default class ProjectCreate extends Component {
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-  },
-  row: {
-    flexDirection: 'row'
-  },
-  textCenter: {
-    textAlign: 'center'
-  },
   container: {
     flex: 1,
     alignSelf: 'stretch',
@@ -500,6 +491,10 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
+  },
+  imagesUpload: {
+    flex: 1,
+    flexDirection: 'row'
   },
   content: {
     flexGrow: 1,
@@ -541,13 +536,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: 'center'
   },
-  btnWide2: {
-    width: '100%',
-    height: 54,
-    backgroundColor: "rgba(76,76,77,1)",
-    alignSelf: 'stretch',
-    textAlign: 'center'
-  },
   btnLabel: {
     fontFamily: "roboto-regular",
     color: "rgba(255,255,255,1)",
@@ -581,7 +569,7 @@ const styles = StyleSheet.create({
   textbox: {
     width: '80%',
     alignSelf:'center',
-    marginBottom: 25,
+    marginVertical: 25,
     paddingBottom: 2,
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
@@ -598,50 +586,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: 'gray'
   },
-  btnCreateProject: {
-    top: 0,
-    left: 187,
-    width: 188,
-    height: 54,
-    position: "absolute",
-    backgroundColor: "rgba(0,150,136,1)"
-  },
-  createProject2: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 19,
-    marginLeft: 37
-  },
-  btnUploadImg: {
-    top: 0,
-    left: 0,
-    width: 188,
-    height: 54,
-    position: "absolute",
-    backgroundColor: "rgba(74,74,74,1)"
-  },
-  uploadImage: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
-    marginTop: 19,
-    marginLeft: 45
-  },
-  btnCreateProjectStack: {
-    width: 375,
-    height: 54,
-    marginTop: 698
-  },
-  rect1: {
-    width: 376,
-    height: 141,
-    backgroundColor: "rgba(3,85,73,1)",
-    marginTop: -752
-  },
-  rect2: {
-    width: 376,
-    height: 48,
-    backgroundColor: "rgba(76,76,77,1)"
-  },
   createProject: {
     fontFamily: "roboto-regular",
     color: "rgba(251,251,251,1)",
@@ -650,13 +594,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 88
   },
-  loremIpsum: {
-    top: 4,
-    left: 0,
-    position: "absolute",
-    fontFamily: "roboto-regular",
-    color: "#121212"
-  },
   projectName: {
     top: 0,
     left: 2,
@@ -664,60 +601,11 @@ const styles = StyleSheet.create({
     fontFamily: "roboto-regular",
     color: "#121212"
   },
-  materialFixedLabelTextbox9: {
-    height: 43,
-    width: 324,
-    position: "absolute",
-    left: 0,
-    top: 15
-  },
-  projectNameStack: {
-    top: 0,
-    left: 0,
-    width: 324,
-    height: 58,
-    position: "absolute"
-  },
-  loremIpsumStack: {
-    width: 324,
-    height: 58,
-    marginTop: 27,
-    marginLeft: 28
-  },
   projectDate: {
     fontFamily: "roboto-regular",
     color: "#121212",
     marginTop: 33,
     marginLeft: 30
   },
-  projectDescription: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    marginTop: 77,
-    marginLeft: 30
-  },
-  materialFixedLabelTextbox10: {
-    height: 43,
-    width: 324,
-    marginTop: -93,
-    marginLeft: 28
-  },
-  materialFixedLabelTextbox11: {
-    height: 43,
-    width: 324,
-    marginTop: 50,
-    marginLeft: 28
-  },
-  imageButton: {
-    textAlign: 'center',
-    color: 'white',
-    paddingVertical: 10,
-    backgroundColor: 'grey',
-  },
-  imagePlaceholder: {
-    width: 100,
-    height: 100,
-    justifyContent: 'center',
-  }
 });
 
