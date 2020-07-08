@@ -258,26 +258,28 @@ export default class AdminAddMaterial extends Component {
                                 <Dialog.Button label="Continue" onPress={this.handleCancel} />
                             </Dialog.Container>
 
-                            <Text style={styles.label}>Material</Text>
                             <TextInput
+                                placeholder = "Material"
                                 value={this.state.materialName}
                                 onChangeText={this.handleChangeTextMaterialName}
                                 style={styles.textbox}
-                            />
-                            <Text style={styles.label}>Thickness (milimiters)</Text>
+                            ></TextInput>
+
                             <TextInput
+                                placeholder = "Thickness (milimiters)"
                                 value={this.state.materialThickness}
                                 keyboardType = 'numeric'
                                 maxLength={10}
                                 onChangeText={this.handleChangeTextMaterialThickness}
                                 style={styles.textbox}
-                            />
-                            <Text style={styles.label}>Provider</Text>
+                            ></TextInput>
+
                             <TextInput
+                                placeholder = "Provider"
                                 value={this.state.materialProvider}
                                 onChangeText={this.handleChangeTextMaterialProvider}
                                 style={styles.textbox}
-                            />
+                            ></TextInput>
 
                             <Text style={styles.title2}>Cutting configuration</Text>
                             <View style={styles.itemContainer}>
@@ -286,6 +288,7 @@ export default class AdminAddMaterial extends Component {
                                         <TextInput
                                             value={this.state.tracePower}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
                                             onChangeText={this.handleChangeTextTracePower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -297,6 +300,7 @@ export default class AdminAddMaterial extends Component {
                                         <TextInput
                                             value={this.state.traceSpeed}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
                                             onChangeText={this.handleChangeTextTraceSpeed}
                                             style={styles.labelParameterNumber}
                                         />
@@ -312,6 +316,7 @@ export default class AdminAddMaterial extends Component {
                                         <TextInput
                                             value={this.state.cutPower}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
                                             onChangeText={this.handleChangeTextCutPower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -323,6 +328,7 @@ export default class AdminAddMaterial extends Component {
                                         <TextInput
                                             value={this.state.cutSpeed}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
                                             onChangeText={this.handleChangeTextCutSpeed}
                                             style={styles.labelParameterNumber}
                                         />
@@ -336,7 +342,7 @@ export default class AdminAddMaterial extends Component {
                                 style={styles.btnWide}
                             >
                                 <Text style={styles.btnLabel}>Add material</Text>
-                            </TouchableOpacity>p
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </SafeAreaView>
@@ -457,6 +463,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginBottom: 25,
         paddingBottom: 2,
+        marginVertical: 25,
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
         textAlign: "center",

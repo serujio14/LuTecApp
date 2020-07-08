@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {StyleSheet, View, Text, Image, TouchableOpacity, TextInput, ActivityIndicator, Alert, ScrollView, Dimensions, SafeAreaView, StatusBar} from "react-native";
 import Dialog from "react-native-dialog";
+import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 
 const { height } = Dimensions.get('window');
 
@@ -139,7 +140,6 @@ export default class CreateAccount extends Component {
         this.setState({PasswordConfirm : text})
     }
 
-
     render() {
 
         const scrollEnabled = this.state.screenHeight > height;
@@ -156,14 +156,7 @@ export default class CreateAccount extends Component {
             return (
 
                 <SafeAreaView style={styles.container}>
-                    <StatusBar barStyle="light-content" backgroundColor="#468189" />
-
-                    <ScrollView
-                        style={{ flex: 1 }}
-                        contentContainerStyle={styles.scrollview}
-                        scrollEnabled={scrollEnabled}
-                        onContentSizeChange={this.onContentSizeChange}
-                    >
+                    <KeyboardAwareView animated={true}>
                     <View style={styles.header}>
                         <Image
                             source={require("../assets/images/logosLuTecApp.png")}
@@ -172,6 +165,13 @@ export default class CreateAccount extends Component {
                         ></Image>
                     </View>
                     <Text style={styles.title}>Create Account</Text>
+                    <StatusBar barStyle="light-content" backgroundColor="#468189" />
+                    <ScrollView
+                        style={{ flex: 1 }}
+                        contentContainerStyle={styles.scrollview}
+                        scrollEnabled={scrollEnabled}
+                        onContentSizeChange={this.onContentSizeChange}
+                    >
 
                         <View style={styles.container}>
                             <Dialog.Container visible={this.state.dialogVisible}>
@@ -191,15 +191,16 @@ export default class CreateAccount extends Component {
                             </Dialog.Container>
 
 
-                            <Text style={styles.label}>Name</Text>
                             <TextInput
+                                placeholder = "Name"
                                 value={this.state.Name}
                                 onChangeText={this.handleChangeTextName}
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>Tec id</Text>
+
                             <TextInput
+                                placeholder = "Tec identification"
                                 value={this.state.TecID}
                                 keyboardType = 'numeric'
                                 secureTextEntry={false}
@@ -207,22 +208,22 @@ export default class CreateAccount extends Component {
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>Email</Text>
                             <TextInput
+                                placeholder = "Email"
                                 value={this.state.Email}
                                 onChangeText={this.handleChangeTextEmail}
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>Password</Text>
                             <TextInput
+                                placeholder = "Password"
                                 value={this.state.Password}
                                 onChangeText={this.handleChangeTextPassword}
                                 style={styles.textbox}
                             ></TextInput>
 
-                            <Text style={styles.label}>Confirm password</Text>
                             <TextInput
+                                placeholder = "Confirm password"
                                 value={this.state.PasswordConfirm}
                                 onChangeText={this.handleChangeTextPasswordConfirm}
                                 style={styles.textbox}
@@ -236,6 +237,7 @@ export default class CreateAccount extends Component {
                             <Text style={styles.btnLabel}>Create account</Text>
                         </TouchableOpacity>
                     </ScrollView>
+                    </KeyboardAwareView>
                 </SafeAreaView>
             );
         }
@@ -300,10 +302,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     textbox: {
-        width: '80%',
+        width: '70%',
         alignSelf:'center',
         marginBottom: 25,
         paddingBottom: 2,
+        marginVertical: 25,
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
         textAlign: "center",

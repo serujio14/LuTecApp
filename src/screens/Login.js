@@ -157,16 +157,18 @@ export default class Login extends Component {
             >
 
               <View style={styles.container}>
-                <Text style={styles.label}>Tec id</Text>
+
                 <TextInput
+                    placeholder = "Tec identification"
                     value={this.state.TecID}
                     keyboardType = 'numeric'
                     secureTextEntry={false}
                     onChangeText={this.handleChangeTextTecID}
                     style={styles.textbox}
                 />
-                <Text style={styles.label}>Password</Text>
+
                 <TextInput
+                    placeholder = "Password"
                     value={this.state.Password}
                     secureTextEntry={true}
                     onChangeText={this.handleChangeTextPassword}
@@ -250,6 +252,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     marginBottom: 25,
     paddingBottom: 2,
+    marginVertical: 25,
     borderBottomWidth: 1,
     borderBottomColor: 'gray',
     textAlign: "center",
@@ -257,6 +260,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     width: '100%',
+    marginTop: 15,
     height: 108,
     backgroundColor: "rgba(0,150,136,1)"
   },

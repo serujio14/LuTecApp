@@ -330,6 +330,8 @@ export default class AdminEditMaterial extends Component {
                                         <TextInput
                                             value={this.state.cutPower}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
+                                            selectTextOnFocus
                                             onChangeText={this.handleChangeTextCutPower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -341,6 +343,8 @@ export default class AdminEditMaterial extends Component {
                                         <TextInput
                                             value={this.state.cutSpeed}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
+                                            selectTextOnFocus
                                             onChangeText={this.handleChangeTextCutSpeed}
                                             style={styles.labelParameterNumber}
                                         />
@@ -356,6 +360,8 @@ export default class AdminEditMaterial extends Component {
                                         <TextInput
                                             value={this.state.tracePower}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
+                                            selectTextOnFocus
                                             onChangeText={this.handleChangeTextTracePower}
                                             style={styles.labelParameterNumber}
                                         />
@@ -367,6 +373,8 @@ export default class AdminEditMaterial extends Component {
                                         <TextInput
                                             value={this.state.traceSpeed}
                                             keyboardType = 'numeric'
+                                            maxLength={2}
+                                            selectTextOnFocus
                                             onChangeText={this.handleChangeTextTraceSpeed}
                                             style={styles.labelParameterNumber}
                                         />
