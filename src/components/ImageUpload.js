@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
-const thumbnail = width / 4 - 4;
+const thumbnail = width / 4 - 5;
 
 const ImageUpload = ({ setImage, images, indexImage }) => (
-  <TouchableOpacity style={{ marginHorizontal: 2 }} onPress={setImage} activeOpacity={0.8}>
+  <TouchableOpacity style={{ marginHorizontal: 3 }} onPress={setImage} activeOpacity={0.8}>
     <View style={[styles.imagePlaceholder, images.length > 0 && images[indexImage] ? {} : {backgroundColor: 'gray'}]}>
       {
         images.length > 0 && images[indexImage]

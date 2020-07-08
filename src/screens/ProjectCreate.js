@@ -392,6 +392,32 @@ export default class ProjectCreate extends Component {
                   <Dialog.Button label="From Gallery" onPress={this.pickImage} />
                 </Dialog.Container>
 
+                <View style={styles.imagesUpload}>
+                  <ImageUpload
+                      images={images}
+                      setImage={() => this.openImageDialog(0)}
+                      indexImage={0}
+                  />
+
+                  <ImageUpload
+                      images={images}
+                      setImage={() => this.openImageDialog(1)}
+                      indexImage={1}
+                  />
+
+                  <ImageUpload
+                      images={images}
+                      setImage={() => this.openImageDialog(2)}
+                      indexImage={2}
+                  />
+
+                  <ImageUpload
+                      images={images}
+                      setImage={() => this.openImageDialog(3)}
+                      indexImage={3}
+                  />
+                </View>
+
                 <DatePicker
                     style={styles.datePickerContainer}
                     date={this.state.date}
@@ -440,32 +466,6 @@ export default class ProjectCreate extends Component {
                     style={styles.textboxMulti}
                 />
 
-                <View style={styles.imagesUpload}>
-                  <ImageUpload
-                    images={images}
-                    setImage={() => this.openImageDialog(0)}
-                    indexImage={0}
-                  />
-
-                  <ImageUpload
-                    images={images}
-                    setImage={() => this.openImageDialog(1)}
-                    indexImage={1}
-                  />
-
-                  <ImageUpload
-                    images={images}
-                    setImage={() => this.openImageDialog(2)}
-                    indexImage={2}
-                  />
-
-                  <ImageUpload
-                    images={images}
-                    setImage={() => this.openImageDialog(3)}
-                    indexImage={3}
-                  />
-                </View>
-
                 <View style={styles.btnContainer}>
                   <TouchableOpacity
                       onPress={() => this.createProjectByFormData()}
@@ -502,8 +502,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   datePickerContainer: {
-    width: '80%',
-    marginVertical: 15,
+    width: '70%',
+    marginBottom: 15,
     alignSelf: 'center'
   },
   containerLoader: {
@@ -557,7 +557,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     lineHeight: 56,
-    marginBottom: 20
+    marginBottom: 5
   },
   label: {
     fontFamily: "roboto-regular",
@@ -567,7 +567,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textbox: {
-    width: '80%',
+    width: '70%',
     alignSelf:'center',
     marginVertical: 25,
     paddingBottom: 2,
@@ -582,7 +582,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 34,
     padding: 10,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: 'gray',
     textAlign: "center",
     color: 'gray'
