@@ -111,7 +111,9 @@ export default class ProjectCreate extends Component {
 
   getFileType = (uri) => {
     const uriPathArr = uri.split('/');
+    let filename;
     filename = uriPathArr[uriPathArr.length - 1];
+    let extension;
     extension = filename.split('.');
     extension = extension[1];
     type = `image/${extension}`;
