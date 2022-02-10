@@ -23,7 +23,7 @@
     "lodash": "~4.17.4",
     "moment": "^2.26.0",
     "native": "^0.3.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
